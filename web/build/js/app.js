@@ -225,6 +225,17 @@ var addE = function addE() {
     document.querySelector('.tab-tw-inspect-btn[data-id="' + id + '"]').classList.add('active-tab-selector');
     document.querySelector('.tab-tw-inspect-content[data-id="' + id + '"]').classList.add('open');
   });
+  addEvent(document, 'click', '.tab-tw-inspect-btn2', function (e) {
+    var id = this.getAttribute('data-id');
+    document.querySelectorAll('.tab-tw-inspect-content2').forEach(function (element) {
+      element.classList.remove('open2');
+    });
+    document.querySelectorAll('.tab-tw-inspect-btn2').forEach(function (element) {
+      element.classList.remove('active-tab-selector2');
+    });
+    document.querySelector('.tab-tw-inspect-btn2[data-id="' + id + '"]').classList.add('active-tab-selector2');
+    document.querySelector('.tab-tw-inspect-content2[data-id="' + id + '"]').classList.add('open2');
+  });
   addEvent(document, 'click', '.delete-row', function (e) {});
   addEvent(document, 'click', '.delete-class-element', function (e) {
     var css = e.target.closest('.delete-row').querySelector('.class-css').innerHTML;
@@ -452,199 +463,6 @@ var hoverElement = function hoverElement(en) {
     'cancelable': true
   });
   element.dispatchEvent(event);
-};
-
-/***/ }),
-
-/***/ "./web/assets/encore/js/vendor/searchClass.js":
-/*!****************************************************!*\
-  !*** ./web/assets/encore/js/vendor/searchClass.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "searchClass": () => (/* binding */ searchClass)
-/* harmony export */ });
-var hardReset = '';
-var indexSelect = 0;
-var searchClass = function searchClass(dataMaster) {
-  var simulateClick = function simulateClick(elem) {
-    // Create our event (with options)
-    var evt = new MouseEvent('click', {
-      bubbles: true,
-      cancelable: true,
-      view: window
-    }); // If cancelled, don't dispatch our event
-
-    var canceled = !elem.dispatchEvent(evt);
-  };
-
-  var attributeTailwind = {
-    'height': 'h',
-    'width': 'w',
-    'min-height': 'min-h',
-    'min-width': 'min-w',
-    'max-height': 'max-h',
-    'max-width': 'max-w',
-    'margin': 'm',
-    'margin-top': 'mt',
-    'margin-right': 'mr',
-    'margin-bottom': 'mb',
-    'margin-left': 'ml',
-    'padding': 'p',
-    'padding-top': 'pt',
-    'padding-right': 'pr',
-    'padding-bottom': 'pb',
-    'padding-left': 'pl',
-    'border': 'b',
-    'border-top': 'bt',
-    'border-right': 'br',
-    'border-bottom': 'bb',
-    'border-left': 'bl',
-    'border-radius': 'rounded',
-    'border-top-left-radius': 'rounded-tl',
-    'border-top-right-radius': 'rounded-tr',
-    'border-bottom-left-radius': 'rounded-bl',
-    'border-bottom-right-radius': 'rounded-br',
-    'border-style': 'border-style',
-    'border-width': 'border-width',
-    'border-color': 'border-color'
-  };
-  document.getElementById('input-tw-search').addEventListener('click', function (e) {
-    e.preventDefault();
-    this.focus();
-  });
-  var suggestions = ["Channel", "CodingLab", "CodingNepal", "YouTube", "YouTuber", "YouTube Channel", "Blogger", "Bollywood", "Vlogger", "Vechiles", "Facebook", "Freelancer", "Facebook Page", "Designer", "Developer", "Web Designer", "Web Developer", "Login Form in HTML & CSS", "How to learn HTML & CSS", "How to learn JavaScript", "How to became Freelancer", "How to became Web Designer", "How to start Gaming Channel", "How to start YouTube Channel", "What does HTML stands for?", "What does CSS stands for?"];
-
-  function addEvent(parent, evt, selector, handler) {
-    parent.addEventListener(evt, function (event) {
-      if (event.target.matches(selector + ', ' + selector + ' *')) {
-        handler.apply(event.target.closest(selector), arguments);
-      }
-    }, false);
-  } // getting all required elements
-
-
-  var searchWrapper = document.querySelector(".search-input");
-  var inputBox = searchWrapper.querySelector(".search-input input");
-  var suggBox = searchWrapper.querySelector(".autocom-box");
-  var icon = searchWrapper.querySelector(".icon");
-  var linkTag = searchWrapper.querySelector("a");
-  var webLink; // if user press any key and release
-
-  inputBox.onkeyup = function (e) {
-    var userData = e.target.value; //user enetered data
-
-    var emptyArray = [];
-
-    if (userData) {
-      emptyArray = dataMaster.filter(function (data) {
-        //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-        return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-      });
-      emptyArray = emptyArray.map(function (data) {
-        // passing return data inside li tag
-        return data = '<li>' + data + '</li>';
-      });
-      searchWrapper.classList.add("active"); //show autocomplete box
-
-      showdataMaster(emptyArray);
-      var allList = suggBox.querySelectorAll("li");
-
-      for (var i = 0; i < allList.length; i++) {
-        //adding onclick attribute in all li tag
-        //allList[i].setAttribute("onclick", "select(this)");
-        allList[i].classList.add("select-item");
-        allList[i].setAttribute("data-value", allList[i].innerHTML);
-
-        if (allList[i].textContent.indexOf('bg-') > -1) {
-          var span = document.createElement('span');
-          var clases = allList[i].textContent;
-          span.classList.add(clases, 'w-3', 'h-3', 'rounded', 'flex', 'ml-auto');
-          allList[i].appendChild(span);
-        }
-      }
-    } else {
-      searchWrapper.classList.remove("active"); //hide autocomplete box
-    }
-  };
-
-  document.getElementById('input-tw-search').addEventListener('keydown', function (e) {
-    if (e.which === 38 || e.which === 40) {
-      e.preventDefault();
-    }
-  });
-  document.onkeydown = checkKey;
-  document.onkeyup = checkKeypress;
-
-  function checkKeypress(e) {
-    document.getElementById('input-tw-search').addEventListener('keydown', function (e) {
-      if (e.which === 38 || e.which === 40) {
-        e.preventDefault();
-      }
-    });
-    e = e || window.event;
-
-    if (e.keyCode == '40') {
-      document.querySelector('.select-item').classList.remove('active');
-      document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
-
-      if (indexSelect <= document.querySelectorAll('.select-item').length) {
-        indexSelect++;
-      } else {}
-    }
-
-    if (e.keyCode == '38') {
-      if (indexSelect == 0) {
-        indexSelect = 0;
-      } else {
-        indexSelect--;
-      }
-
-      document.querySelector('.select-item').classList.remove('active');
-      document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
-    }
-  }
-
-  function checkKey(e) {
-    e = e || window.event;
-
-    if (e.keyCode == '13') {
-      var someLink = document.querySelector('.select-item.active');
-      simulateClick(someLink);
-      indexSelect == 0;
-      document.querySelector('.autocom-box').innerHTML = '';
-      document.querySelector('#input-tw-search').value = '';
-      document.querySelector('.search-input').classList.remove('active');
-    }
-
-    if (e.keyCode == '38') {// up arrow
-    } else if (e.keyCode == '40') {} else if (e.keyCode == '37') {// left arrow
-    } else if (e.keyCode == '39') {// right arrow
-    }
-  }
-
-  function showdataMaster(list) {
-    var listData;
-
-    if (!list.length) {
-      var userValue = inputBox.value;
-      listData = '<li>' + userValue + '</li>';
-    } else {
-      listData = list.join('');
-    }
-
-    suggBox.innerHTML = listData;
-  }
-
-  document.getElementById('input-tw-search').addEventListener('keyup', function (e) {
-    if (e.target.value === '') {
-      indexSelect = 0;
-      document.querySelector('.autocom-box').innerHTML = '';
-    }
-  });
 };
 
 /***/ }),
@@ -4676,6 +4494,232 @@ module.exports = {
 }
 
 
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/regex.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/regex.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/rng.js":
+/*!***************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/rng.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ rng)
+/* harmony export */ });
+// Unique ID creation requires a high quality random # generator. In the browser we therefore
+// require the crypto API and do not support built-in fallback to lower quality random number
+// generators (like Math.random()).
+var getRandomValues;
+var rnds8 = new Uint8Array(16);
+function rng() {
+  // lazy load so that environments that need to polyfill have a chance to do so
+  if (!getRandomValues) {
+    // getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
+    // find the complete implementation of crypto (msCrypto) on IE11.
+    getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
+
+    if (!getRandomValues) {
+      throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
+    }
+  }
+
+  return getRandomValues(rnds8);
+}
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/stringify.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/stringify.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _validate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validate.js */ "./node_modules/uuid/dist/esm-browser/validate.js");
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+
+var byteToHex = [];
+
+for (var i = 0; i < 256; ++i) {
+  byteToHex.push((i + 0x100).toString(16).substr(1));
+}
+
+function stringify(arr) {
+  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  // Note: Be careful editing this code!  It's been tuned for performance
+  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
+  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
+  // of the following:
+  // - One or more input array values don't map to a hex octet (leading to
+  // "undefined" in the uuid)
+  // - Invalid input values for the RFC `version` or `variant` fields
+
+  if (!(0,_validate_js__WEBPACK_IMPORTED_MODULE_0__["default"])(uuid)) {
+    throw TypeError('Stringified UUID is invalid');
+  }
+
+  return uuid;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (stringify);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/v1.js":
+/*!**************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/v1.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _rng_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rng.js */ "./node_modules/uuid/dist/esm-browser/rng.js");
+/* harmony import */ var _stringify_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stringify.js */ "./node_modules/uuid/dist/esm-browser/stringify.js");
+
+ // **`v1()` - Generate time-based UUID**
+//
+// Inspired by https://github.com/LiosK/UUID.js
+// and http://docs.python.org/library/uuid.html
+
+var _nodeId;
+
+var _clockseq; // Previous uuid creation time
+
+
+var _lastMSecs = 0;
+var _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
+
+function v1(options, buf, offset) {
+  var i = buf && offset || 0;
+  var b = buf || new Array(16);
+  options = options || {};
+  var node = options.node || _nodeId;
+  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq; // node and clockseq need to be initialized to random values if they're not
+  // specified.  We do this lazily to minimize issues related to insufficient
+  // system entropy.  See #189
+
+  if (node == null || clockseq == null) {
+    var seedBytes = options.random || (options.rng || _rng_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
+
+    if (node == null) {
+      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+      node = _nodeId = [seedBytes[0] | 0x01, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
+    }
+
+    if (clockseq == null) {
+      // Per 4.2.2, randomize (14 bit) clockseq
+      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
+    }
+  } // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+
+
+  var msecs = options.msecs !== undefined ? options.msecs : Date.now(); // Per 4.2.1.2, use count of uuid's generated during the current clock
+  // cycle to simulate higher resolution clock
+
+  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1; // Time since last uuid creation (in msecs)
+
+  var dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
+
+  if (dt < 0 && options.clockseq === undefined) {
+    clockseq = clockseq + 1 & 0x3fff;
+  } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+  // time interval
+
+
+  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+    nsecs = 0;
+  } // Per 4.2.1.2 Throw error if too many uuids are requested
+
+
+  if (nsecs >= 10000) {
+    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
+  }
+
+  _lastMSecs = msecs;
+  _lastNSecs = nsecs;
+  _clockseq = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+
+  msecs += 12219292800000; // `time_low`
+
+  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+  b[i++] = tl >>> 24 & 0xff;
+  b[i++] = tl >>> 16 & 0xff;
+  b[i++] = tl >>> 8 & 0xff;
+  b[i++] = tl & 0xff; // `time_mid`
+
+  var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
+  b[i++] = tmh >>> 8 & 0xff;
+  b[i++] = tmh & 0xff; // `time_high_and_version`
+
+  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+
+  b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+
+  b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
+
+  b[i++] = clockseq & 0xff; // `node`
+
+  for (var n = 0; n < 6; ++n) {
+    b[i + n] = node[n];
+  }
+
+  return buf || (0,_stringify_js__WEBPACK_IMPORTED_MODULE_1__["default"])(b);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (v1);
+
+/***/ }),
+
+/***/ "./node_modules/uuid/dist/esm-browser/validate.js":
+/*!********************************************************!*\
+  !*** ./node_modules/uuid/dist/esm-browser/validate.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _regex_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regex.js */ "./node_modules/uuid/dist/esm-browser/regex.js");
+
+
+function validate(uuid) {
+  return typeof uuid === 'string' && _regex_js__WEBPACK_IMPORTED_MODULE_0__["default"].test(uuid);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (validate);
+
 /***/ })
 
 /******/ 	});
@@ -4775,7 +4819,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vendor_addEvento__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vendor/addEvento */ "./web/assets/encore/js/vendor/addEvento.js");
 /* harmony import */ var _vendor_hoverElement__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vendor/hoverElement */ "./web/assets/encore/js/vendor/hoverElement.js");
 /* harmony import */ var _vendor_disabledEnabled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vendor/disabledEnabled */ "./web/assets/encore/js/vendor/disabledEnabled.js");
-/* harmony import */ var _vendor_searchClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vendor/searchClass */ "./web/assets/encore/js/vendor/searchClass.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v1.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -4797,7 +4841,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
- //Agregar el cdn de tailwindcss para que funcione el plugin de inspectFlow 
+ //import { searchClass } from './vendor/searchClass'
+
+console.log((0,uuid__WEBPACK_IMPORTED_MODULE_7__["default"])()); //Agregar el cdn de tailwindcss para que funcione el plugin de inspectFlow 
 
 var prefiexTailwind = ['sm:', 'h'];
 var prefixBreakpoint = []; //aspect-w-2
@@ -4845,7 +4891,7 @@ function addEvent(parent, evt, selector, handler) {
   }, false);
 }
 
-var dev = true;
+var dev = false;
 var initButton = document.querySelector('.init-config');
 var arrowDown = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>';
 var copyCss = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>';
@@ -5013,10 +5059,8 @@ addEvent(document, 'click', '.select-item', function (e) {
   span.setAttribute('data-class-select', selectData);
   span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
   document.querySelector('.selected-class').appendChild(span);
+  checkClassSelected();
   copyClass.push(selectData.replace('undefined', ''));
-
-  if (false) { var span; }
-
   document.querySelector('.click-element-over').classList.add(selectData);
 });
 addEvent(document, 'click', '.move-inspect', function (e) {
@@ -5038,13 +5082,212 @@ addEvent(document, 'click', '.disabled-move', function (e) {
 addEvent(document, 'click', '.close-inspector', function (e) {
   document.querySelector('.content-app-tw').remove();
 });
+var indexSelect = 0;
+
+var searchClass = function searchClass(dataMaster) {
+  var simulateClick = function simulateClick(elem) {
+    // Create our event (with options)
+    var evt = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+      view: window
+    }); // If cancelled, don't dispatch our event
+
+    var canceled = !elem.dispatchEvent(evt);
+  };
+
+  var attributeTailwind = {
+    'height': 'h',
+    'width': 'w',
+    'min-height': 'min-h',
+    'min-width': 'min-w',
+    'max-height': 'max-h',
+    'max-width': 'max-w',
+    'margin': 'm',
+    'margin-top': 'mt',
+    'margin-right': 'mr',
+    'margin-bottom': 'mb',
+    'margin-left': 'ml',
+    'padding': 'p',
+    'padding-top': 'pt',
+    'padding-right': 'pr',
+    'padding-bottom': 'pb',
+    'padding-left': 'pl',
+    'border': 'b',
+    'border-top': 'bt',
+    'border-right': 'br',
+    'border-bottom': 'bb',
+    'border-left': 'bl',
+    'border-radius': 'rounded',
+    'border-top-left-radius': 'rounded-tl',
+    'border-top-right-radius': 'rounded-tr',
+    'border-bottom-left-radius': 'rounded-bl',
+    'border-bottom-right-radius': 'rounded-br',
+    'border-style': 'border-style',
+    'border-width': 'border-width',
+    'border-color': 'border-color'
+  };
+  document.getElementById('input-tw-search').addEventListener('click', function (e) {
+    e.preventDefault();
+    this.focus();
+  }); // getting all required elements
+
+  var searchWrapper = document.querySelector(".search-input");
+  var inputBox = searchWrapper.querySelector(".search-input input");
+  var suggBox = searchWrapper.querySelector(".autocom-box");
+  var icon = searchWrapper.querySelector(".icon");
+  var linkTag = searchWrapper.querySelector("a");
+  var webLink; // if user press any key and release
+
+  inputBox.onkeyup = function (e) {
+    var userData = e.target.value; //user enetered data
+
+    var emptyArray = [];
+
+    if (userData) {
+      emptyArray = dataMaster.filter(function (data) {
+        //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+        return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+      });
+      emptyArray = emptyArray.map(function (data) {
+        // passing return data inside li tag
+        return data = '<li>' + data + '</li>';
+      });
+      searchWrapper.classList.add("active"); //show autocomplete box
+
+      showdataMaster(emptyArray);
+      var allList = suggBox.querySelectorAll("li");
+
+      for (var i = 0; i < allList.length; i++) {
+        //adding onclick attribute in all li tag
+        //allList[i].setAttribute("onclick", "select(this)");
+        allList[i].classList.add("select-item");
+        allList[i].setAttribute("data-value", allList[i].innerHTML);
+
+        if (allList[i].textContent.indexOf('bg-') > -1) {
+          var span = document.createElement('span');
+          var clases = allList[i].textContent;
+          span.classList.add(clases, 'w-3', 'h-3', 'rounded', 'flex', 'ml-auto');
+          allList[i].appendChild(span);
+        }
+      }
+    } else {
+      searchWrapper.classList.remove("active"); //hide autocomplete box
+    }
+  };
+
+  document.getElementById('input-tw-search').addEventListener('keydown', function (e) {
+    if (e.which === 38 || e.which === 40) {
+      e.preventDefault();
+    }
+  });
+  document.onkeydown = checkKey;
+  document.onkeyup = checkKeypress;
+
+  function checkKeypress(e) {
+    document.getElementById('input-tw-search').addEventListener('keydown', function (e) {
+      if (e.which === 38 || e.which === 40) {
+        e.preventDefault();
+      }
+    });
+    e = e || window.event;
+    console.log(e.keyCode);
+
+    if (e.keyCode == '40') {
+      document.querySelector('.select-item').classList.remove('active');
+      document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+
+      if (indexSelect <= document.querySelectorAll('.select-item').length) {
+        indexSelect++;
+      } else {}
+    }
+
+    if (e.keyCode == '38') {
+      if (indexSelect == 0) {
+        indexSelect = 0;
+      } else {
+        indexSelect--;
+      }
+
+      document.querySelector('.select-item').classList.remove('active');
+      document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+    }
+
+    if (e.keyCode == '13') {
+      var span = document.createElement("span");
+      var cssSelect = document.querySelector('#input-tw-search').value;
+      span.classList.add('selected-item');
+      span.classList.add('relative');
+      span.classList.add('mr-2');
+      span.setAttribute('data-class-select', cssSelect);
+      span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+      document.querySelector('.selected-class').appendChild(span);
+      copyClass.push(selectData.replace('undefined', ''));
+      document.querySelector('.click-element-over').classList.add(cssSelect);
+    }
+  }
+
+  function checkKey(e) {
+    e = e || window.event;
+
+    if (e.keyCode == '13') {
+      var someLink = document.querySelector('.select-item.active');
+      simulateClick(someLink);
+      indexSelect == 0;
+      document.querySelector('.autocom-box').innerHTML = '';
+      document.querySelector('#input-tw-search').value = '';
+      document.querySelector('.search-input').classList.remove('active');
+    }
+
+    if (e.keyCode == '38') {// up arrow
+    } else if (e.keyCode == '40') {} else if (e.keyCode == '37') {// left arrow
+    } else if (e.keyCode == '39') {// right arrow
+    }
+  }
+
+  function showdataMaster(list) {
+    var listData;
+
+    if (!list.length) {
+      var userValue = inputBox.value;
+      listData = '<li>' + userValue + '</li>';
+    } else {
+      listData = list.join('');
+    }
+
+    suggBox.innerHTML = listData;
+  }
+
+  document.getElementById('input-tw-search').addEventListener('keyup', function (e) {
+    if (e.target.value === '') {
+      indexSelect = 0;
+      document.querySelector('.autocom-box').innerHTML = '';
+    }
+  });
+}; //-------------
+
+
 var cssFile = document.createElement('link');
 cssFile.rel = 'stylesheet';
 cssFile.href = "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"; // or path for file {themes('/styles/mobile.css')}
 
 document.head.appendChild(cssFile);
-var html = "\n\n<div class=\"content-app-tw block-drag aspect-1\" id=\"mydiv\">\n            <div id=\"mydivheader\" class=\"flex flex-col content-app-wrapper h-100\">\n                <nav class=\"flex items-center h-16 px-4 pt-4 text-gray-300 rounded-lg\">\n                    <div class=\" bg-gray-100 rounded-lg bg-opacity-5\">\n                        <button title=\"Move to left\" data-position='left' class=\"p-2 rounded-lg hover:text-white move-inspect\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 fill-transparent\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 5l7 7-7 7\" />\n                            </svg>\n                        </button>\n                        <button class=\"p-2 rounded-lg text-primary disabled-move\" title=\"Pause\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 fill-transparent\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 9l4-4 4 4m0 6l-4 4-4-4\" />\n                            </svg>\n                        </button>\n                        <button class=\"p-2 hidden rounded-lg hover:text-white\" title=\"Show grid\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"22\" height=\"22\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path d=\"M14 10h-4v4h4v-4zm2 0v4h3v-4h-3zm-2 9v-3h-4v3h4zm2 0h3v-3h-3v3zM14 5h-4v3h4V5zm2 0v3h3V5h-3zm-8 5H5v4h3v-4zm0 9v-3H5v3h3zM8 5H5v3h3V5zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z\"></path>\n                            </svg>\n                        </button>\n                    </div>\n                    <div class=\"flex-grow\"></div>\n                    <a href=\"https://github.com/kholid060/inspect-css\" class=\"hidden mr-4\" target=\"_blank\" title=\"GitHub\">\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                            <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                            <path\n                                d=\"M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 0 0 6.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 0 1 2.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0 0 22 12c0-5.525-4.475-10-10-10z\"\n                            ></path>\n                        </svg>\n                    </a>\n                    <button title=\"Close extension\" class=\"close-inspector\">\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                            <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                            <path d=\"M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z\"></path>\n                        </svg>\n                    </button>\n                </nav>\n                <div class=\"flex-1 py-2 my-2 overflow-auto scroll scroll-main \">\n                    <div class=\"px-4 init-config scroll\">\n                        <div class=\"flex w-full px-1 py-1 bg-gray-100 rounded-full bg-opacity-5\">\n                            <button data-id=\"live\" class=\"w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class\">Live</button>\n                            <button data-id=\"preview\" class=\"w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class\">Preview</button>\n                        </div>\n                        <div class=\"overflow-auto live-editor-tw scroll\">\n                            <div data-id=\"live\" class=\"class-linear-tw tab-tw-inspect-content active-tw-content open\"></div>\n                            <div data-id=\"preview\" class=\"tab-tw-inspect-content\">\n                                <div class=\"search-input\">\n                                    <a href=\"\" target=\"_blank\" hidden></a>\n                                    <input type=\"text\" placeholder=\"Type to search..\" id=\"input-tw-search\"  class=\"w-full px-3 py-4 mt-5 bg-gray-900 border-0 rounded-lg input-tw-search\">\n                                    <div class=\"autocom-box\">\n                                    <!-- here list are inserted from javascript -->\n                                    </div>\n                                    <div class=\"px-3 py-3 selected-class\">\n                                    </div>\n                                    <div>\n                                        <button class=\"w-full px-5 py-4 text-white uppercase bg-blue-500 rounded copy-class text-md\">Copy class</button>\n                                    </div>\n                                    <div class=\"icon\"><i class=\"fas fa-search\"></i></div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"ContenthtmlParent\">\n\n                    </div>\n                </div>\n                <div class=\"flex items-center justify-between flex-shrink-0 w-full h-16 px-4 text-gray-300 bg-gray-100 rounded-lg bg-opacity-5 \">\n                    <button role=\"button\" class=\"relative p-2 transition transition-colors bg-gray-100 rounded-lg ui-button bg-opacity-5 text-primary\" title=\"Properties\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path\n                                    d=\"M13 1l.001 3.062A8.004 8.004 0 0 1 19.938 11H23v2l-3.062.001a8.004 8.004 0 0 1-6.937 6.937L13 23h-2v-3.062a8.004 8.004 0 0 1-6.938-6.937L1 13v-2h3.062A8.004 8.004 0 0 1 11 4.062V1h2zm-1 5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4z\"\n                                ></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                    <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Attributes\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path d=\"M16.757 3l-2 2H5v14h14V9.243l2-2V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12.757zm3.728-.9L21.9 3.516l-9.192 9.192-1.412.003-.002-1.417L20.485 2.1z\"></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                    <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Custom CSS\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path d=\"M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z\"></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                    <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Graphic Assets\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path\n                                    d=\"M4.828 21l-.02.02-.021-.02H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H4.828zM20 15V5H4v14L14 9l6 6zm0 2.828l-6-6L6.828 19H20v-1.172zM8 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z\"\n                                ></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                    <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Palettes\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path\n                                    d=\"M12 2c5.522 0 10 3.978 10 8.889a5.558 5.558 0 0 1-5.556 5.555h-1.966c-.922 0-1.667.745-1.667 1.667 0 .422.167.811.422 1.1.267.3.434.689.434 1.122C13.667 21.256 12.9 22 12 22 6.478 22 2 17.522 2 12S6.478 2 12 2zm-1.189 16.111a3.664 3.664 0 0 1 3.667-3.667h1.966A3.558 3.558 0 0 0 20 10.89C20 7.139 16.468 4 12 4a8 8 0 0 0-.676 15.972 3.648 3.648 0 0 1-.513-1.86zM7.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm9 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM12 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z\"\n                                ></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                </div>\n\n\n\n            </div>\n        </div>\n\n\n\n\n";
-console.log(dataMaster);
+var html = "\n\n<div class=\"content-app-tw block-drag aspect-1\" id=\"mydiv\">\n            <div id=\"mydivheader\" class=\"flex flex-col content-app-wrapper h-100\">\n                <nav class=\"flex items-center h-16 px-4 pt-4 text-gray-300 rounded-lg\">\n                    <div class=\" bg-gray-100 rounded-lg bg-opacity-5\">\n                        <button title=\"Move to left\" data-position='left' class=\"p-2 rounded-lg hover:text-white move-inspect\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 fill-transparent\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 5l7 7-7 7\" />\n                            </svg>\n                        </button>\n                        <button class=\"p-2 rounded-lg text-primary disabled-move\" title=\"Pause\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 fill-transparent\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 9l4-4 4 4m0 6l-4 4-4-4\" />\n                            </svg>\n                        </button>\n                        <button class=\"p-2 hidden rounded-lg hover:text-white\" title=\"Show grid\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"22\" height=\"22\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path d=\"M14 10h-4v4h4v-4zm2 0v4h3v-4h-3zm-2 9v-3h-4v3h4zm2 0h3v-3h-3v3zM14 5h-4v3h4V5zm2 0v3h3V5h-3zm-8 5H5v4h3v-4zm0 9v-3H5v3h3zM8 5H5v3h3V5zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z\"></path>\n                            </svg>\n                        </button>\n                    </div>\n                    <div class=\"flex-grow\"></div>\n                    <a href=\"https://github.com/kholid060/inspect-css\" class=\"hidden mr-4\" target=\"_blank\" title=\"GitHub\">\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                            <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                            <path\n                                d=\"M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 0 0 6.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 0 1 2.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0 0 22 12c0-5.525-4.475-10-10-10z\"\n                            ></path>\n                        </svg>\n                    </a>\n                    <button title=\"Close extension\" class=\"close-inspector\">\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                            <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                            <path d=\"M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z\"></path>\n                        </svg>\n                    </button>\n                </nav>\n                <div class=\"flex-1 py-2 my-2 overflow-auto scroll scroll-main \">\n                    <div class=\"px-4 init-config scroll\">\n                        <div class=\"flex w-full px-1 py-1 bg-gray-100 rounded-full bg-opacity-5\">\n                            <button data-id=\"live\" class=\"w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class\">Live</button>\n                            <button data-id=\"preview\" class=\"w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class\">Preview</button>\n                        </div>\n                        <div class=\"overflow-auto live-editor-tw scroll\">\n                            <div data-id=\"live\" class=\"class-linear-tw tab-tw-inspect-content active-tw-content open\"></div>\n                            <div data-id=\"preview\" class=\"tab-tw-inspect-content\">\n                                <div class=\"search-input\">\n                                    <a href=\"\" target=\"_blank\" hidden></a>\n                                    <input type=\"text\" placeholder=\"Type to search..\" id=\"input-tw-search\"  class=\"w-full px-3 py-4 mt-5 bg-gray-900 border-0 rounded-lg input-tw-search\">\n                                    <div class=\"autocom-box\">\n                                    <!-- here list are inserted from javascript -->\n                                    </div>\n                                    <div class=\"px-3 py-3 selected-class\">\n                                    </div>\n                                    <div>\n                                        <button class=\"w-full px-5 py-4 text-white uppercase bg-blue-500 rounded copy-class text-md\">Copy class</button>\n                                    </div>\n                                    <div class=\"icon\"><i class=\"fas fa-search\"></i></div>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"ContenthtmlParent\">\n\n                    </div>\n                </div>\n                <div class=\"flex items-center justify-between flex-shrink-0 w-full h-16 px-4 text-gray-300 bg-gray-100 rounded-lg bg-opacity-5 \">\n                    <button role=\"button\" class=\"relative p-2 transition transition-colors bg-gray-100 rounded-lg ui-button bg-opacity-5 text-primary\" title=\"Properties\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path\n                                    d=\"M13 1l.001 3.062A8.004 8.004 0 0 1 19.938 11H23v2l-3.062.001a8.004 8.004 0 0 1-6.937 6.937L13 23h-2v-3.062a8.004 8.004 0 0 1-6.938-6.937L1 13v-2h3.062A8.004 8.004 0 0 1 11 4.062V1h2zm-1 5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4z\"\n                                ></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                    <button role=\"button\" class=\"relative  p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Attributes\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z\" />\n                                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                    <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Custom CSS\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path d=\"M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z\"></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                    <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Graphic Assets\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path\n                                    d=\"M4.828 21l-.02.02-.021-.02H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H4.828zM20 15V5H4v14L14 9l6 6zm0 2.828l-6-6L6.828 19H20v-1.172zM8 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z\"\n                                ></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                    <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Palettes\">\n                        <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                <path\n                                    d=\"M12 2c5.522 0 10 3.978 10 8.889a5.558 5.558 0 0 1-5.556 5.555h-1.966c-.922 0-1.667.745-1.667 1.667 0 .422.167.811.422 1.1.267.3.434.689.434 1.122C13.667 21.256 12.9 22 12 22 6.478 22 2 17.522 2 12S6.478 2 12 2zm-1.189 16.111a3.664 3.664 0 0 1 3.667-3.667h1.966A3.558 3.558 0 0 0 20 10.89C20 7.139 16.468 4 12 4a8 8 0 0 0-.676 15.972 3.648 3.648 0 0 1-.513-1.86zM7.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm9 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM12 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z\"\n                                ></path>\n                            </svg>\n                        </span>\n                        <!---->\n                    </button>\n                </div>\n\n\n\n            </div>\n        </div>\n\n\n\n\n";
+
+var createClassUnid = function createClassUnid(id) {
+  var classUnid = document.createElement('div');
+  classUnid.className = 'classUnid';
+  classUnid.id = id;
+  document.querySelector('html').appendChild(classUnid);
+};
+
+var checkClassSelected = function checkClassSelected(className) {
+  if (document.querySelector('.selected-class').childNodes.length > 1) {
+    document.querySelector('.click-element-over').classList.add('fixed-click-element-over');
+    document.querySelector('.click-element-over').setAttribute('unid', (0,uuid__WEBPACK_IMPORTED_MODULE_7__["default"])());
+    createClassUnid((0,uuid__WEBPACK_IMPORTED_MODULE_7__["default"])());
+  }
+};
 
 var initTW = function initTW() {
   document.querySelector('body').insertAdjacentHTML('beforeend', html);
@@ -5061,15 +5304,28 @@ addEvent(document, 'click', '.active-inspect', function () {
   setTimeout(function () {
     (0,_vendor_addEvento__WEBPACK_IMPORTED_MODULE_4__.addE)();
     (0,_vendor_hoverElement__WEBPACK_IMPORTED_MODULE_5__.hoverElement)();
-    (0,_vendor_searchClass__WEBPACK_IMPORTED_MODULE_7__.searchClass)();
     (0,_vendor_clickElement__WEBPACK_IMPORTED_MODULE_3__.clickElement)();
     (0,_vendor_dragElements__WEBPACK_IMPORTED_MODULE_2__.dragElement)(document.getElementById("mydiv"));
     space();
     JSONDATA();
-    (0,_vendor_searchClass__WEBPACK_IMPORTED_MODULE_7__.searchClass)(dataMaster); //disabledEnabled()
+    searchClass(dataMaster); //disabledEnabled()
     //toggleAction.activate()
   }, 3000);
 });
+setTimeout(function () {
+  if (dev) {
+    initTW();
+  }
+
+  (0,_vendor_addEvento__WEBPACK_IMPORTED_MODULE_4__.addE)();
+  (0,_vendor_hoverElement__WEBPACK_IMPORTED_MODULE_5__.hoverElement)();
+  (0,_vendor_clickElement__WEBPACK_IMPORTED_MODULE_3__.clickElement)();
+  (0,_vendor_dragElements__WEBPACK_IMPORTED_MODULE_2__.dragElement)(document.getElementById("mydiv"));
+  space();
+  JSONDATA();
+  searchClass(dataMaster); //disabledEnabled()
+  //toggleAction.activate()
+}, 3000);
 
 function showCSS() {
   var element = document.querySelector('.class-row-tw');

@@ -4,4 +4,8 @@
 
 @tailwind utilities;
 
-@import './inspectorFlow.scss'
+@import './inspectorFlow.scss';
+
+body{
+    background-color: black;
+}

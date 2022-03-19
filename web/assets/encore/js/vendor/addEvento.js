@@ -23,6 +23,20 @@ export const  addE = () => {
         document.querySelector('.tab-tw-inspect-btn[data-id="' + id + '"]').classList.add('active-tab-selector')
         document.querySelector('.tab-tw-inspect-content[data-id="' + id + '"]').classList.add('open')
       });
+
+
+      addEvent(document, 'click', '.tab-tw-inspect-btn2', function(e) {
+        var id = this.getAttribute('data-id')
+        document.querySelectorAll('.tab-tw-inspect-content2').forEach(function(element) {
+            element.classList.remove('open2')
+        })
+        document.querySelectorAll('.tab-tw-inspect-btn2').forEach(function(element) {
+           element.classList.remove('active-tab-selector2')
+        })
+     
+        document.querySelector('.tab-tw-inspect-btn2[data-id="' + id + '"]').classList.add('active-tab-selector2')
+        document.querySelector('.tab-tw-inspect-content2[data-id="' + id + '"]').classList.add('open2')
+      });
      
       addEvent(document, 'click', '.delete-row', function(e) {
      

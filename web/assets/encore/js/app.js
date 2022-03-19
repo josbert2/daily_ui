@@ -6,9 +6,10 @@ import { clickElement } from './vendor/clickElement'
 import { addE } from './vendor/addEvento'
 import { hoverElement } from './vendor/hoverElement'
 import  { disabledEnabled }  from './vendor/disabledEnabled'
-import { searchClass } from './vendor/searchClass'
+import { v1 as uuidv1 } from 'uuid';
+//import { searchClass } from './vendor/searchClass'
 
-
+console.log(uuidv1())
 //Agregar el cdn de tailwindcss para que funcione el plugin de inspectFlow 
 
 
@@ -77,7 +78,7 @@ function addEvent(parent, evt, selector, handler) {
 
 
 
-const dev = true
+const dev = false
 const initButton = document.querySelector('.init-config')
 const arrowDown = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>'
 const copyCss = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>'
@@ -244,17 +245,8 @@ addEvent(document, 'click', '.select-item', function(e) {
    
 
    document.querySelector('.selected-class').appendChild(span) 
+   checkClassSelected()
    copyClass.push(selectData.replace('undefined', ''))
-   
-   if (false){
-      searchWrapper.classList.remove("active");
-      var span = document.createElement("span");
-      span.classList.add('selected-item')
-      span.innerHTML = selectData;
-      console.log(span)
-      document.querySelector('.selected-class').appendChild(span)  
-   }
-   
    document.querySelector('.click-element-over').classList.add(selectData)
 
 });
@@ -287,6 +279,227 @@ addEvent(document, 'click', '.close-inspector', function(e) {
 });
 
 
+
+var indexSelect = 0;
+const searchClass = (dataMaster) => {
+    var simulateClick = function(elem) {
+        // Create our event (with options)
+        var evt = new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window
+        });
+        // If cancelled, don't dispatch our event
+        var canceled = !elem.dispatchEvent(evt);
+    };
+    const attributeTailwind = {
+        'height': 'h',
+        'width': 'w',
+        'min-height': 'min-h',
+        'min-width': 'min-w',
+        'max-height': 'max-h',
+        'max-width': 'max-w',
+        'margin': 'm',
+        'margin-top': 'mt',
+        'margin-right': 'mr',
+        'margin-bottom': 'mb',
+        'margin-left': 'ml',
+        'padding': 'p',
+        'padding-top': 'pt',
+        'padding-right': 'pr',
+        'padding-bottom': 'pb',
+        'padding-left': 'pl',
+        'border': 'b',
+        'border-top': 'bt',
+        'border-right': 'br',
+        'border-bottom': 'bb',
+        'border-left': 'bl',
+        'border-radius': 'rounded',
+        'border-top-left-radius': 'rounded-tl',
+        'border-top-right-radius': 'rounded-tr',
+        'border-bottom-left-radius': 'rounded-bl',
+        'border-bottom-right-radius': 'rounded-br',
+        'border-style': 'border-style',
+        'border-width': 'border-width',
+        'border-color': 'border-color',
+
+
+    }
+
+    document.getElementById('input-tw-search').addEventListener('click', function(e) {
+        e.preventDefault()
+        this.focus()
+    })
+
+
+
+   
+
+    // getting all required elements
+    const searchWrapper = document.querySelector(".search-input");
+    const inputBox = searchWrapper.querySelector(".search-input input");
+    const suggBox = searchWrapper.querySelector(".autocom-box");
+    const icon = searchWrapper.querySelector(".icon");
+    let linkTag = searchWrapper.querySelector("a");
+    let webLink;
+
+    // if user press any key and release
+    inputBox.onkeyup = (e) => {
+        let userData = e.target.value; //user enetered data
+        let emptyArray = [];
+        if (userData) {
+
+            emptyArray = dataMaster.filter((data) => {
+                //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+                return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+            });
+            emptyArray = emptyArray.map((data) => {
+                // passing return data inside li tag
+                return data = '<li>' + data + '</li>';
+            });
+            searchWrapper.classList.add("active"); //show autocomplete box
+            showdataMaster(emptyArray);
+            let allList = suggBox.querySelectorAll("li");
+            for (let i = 0; i < allList.length; i++) {
+                //adding onclick attribute in all li tag
+                //allList[i].setAttribute("onclick", "select(this)");
+                
+                allList[i].classList.add("select-item");
+                allList[i].setAttribute("data-value", allList[i].innerHTML);
+                if (allList[i].textContent.indexOf('bg-') > -1) {
+                    var span = document.createElement('span')
+                    var clases = allList[i].textContent
+                    span.classList.add(clases, 'w-3', 'h-3', 'rounded', 'flex', 'ml-auto')
+                    allList[i].appendChild(span);
+                }
+
+            }
+        } else {
+            searchWrapper.classList.remove("active"); //hide autocomplete box
+        }
+
+
+    }
+
+    document.getElementById('input-tw-search').addEventListener('keydown', function(e) {
+        if (e.which === 38 || e.which === 40) {
+            e.preventDefault();
+        }
+    });
+
+    document.onkeydown = checkKey;
+   
+
+    document.onkeyup = checkKeypress
+
+   
+    function checkKeypress(e) {
+        document.getElementById('input-tw-search').addEventListener('keydown', function(e) {
+            if (e.which === 38 || e.which === 40) {
+                e.preventDefault();
+            }
+        });
+        e = e || window.event;
+        console.log(e.keyCode)
+        if (e.keyCode == '40') {
+            document.querySelector('.select-item').classList.remove('active');
+            document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+
+            if (indexSelect <= document.querySelectorAll('.select-item').length) {
+                indexSelect++;
+            } else {
+
+            }
+        }
+
+        if (e.keyCode == '38') {
+
+            if (indexSelect == 0) {
+                indexSelect = 0;
+            } else {
+                indexSelect--;
+            }
+
+            document.querySelector('.select-item').classList.remove('active');
+            document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+
+        }
+        
+        if (e.keyCode == '13') {
+            var span = document.createElement("span");
+            var cssSelect = document.querySelector('#input-tw-search').value
+            span.classList.add('selected-item')
+            span.classList.add('relative')
+            span.classList.add('mr-2')
+            span.setAttribute('data-class-select', cssSelect)
+
+            span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+            
+            document.querySelector('.selected-class').appendChild(span) 
+            copyClass.push(selectData.replace('undefined', ''))
+            document.querySelector('.click-element-over').classList.add(cssSelect)
+        }
+
+    }
+
+    function checkKey(e) {
+
+        e = e || window.event;
+
+        if (e.keyCode == '13') {
+         
+            var someLink = document.querySelector('.select-item.active')
+
+            simulateClick(someLink);
+
+            indexSelect == 0
+            document.querySelector('.autocom-box').innerHTML = '';
+            document.querySelector('#input-tw-search').value = '';
+            document.querySelector('.search-input').classList.remove('active');
+        }
+
+        if (e.keyCode == '38') {
+            // up arrow
+        } else if (e.keyCode == '40') {
+
+        } else if (e.keyCode == '37') {
+            // left arrow
+        } else if (e.keyCode == '39') {
+            // right arrow
+        }
+
+    }
+
+
+
+
+    function showdataMaster(list) {
+        let listData;
+        if (!list.length) {
+            var userValue = inputBox.value;
+            listData = '<li>' + userValue + '</li>';
+        } else {
+            listData = list.join('');
+        }
+        suggBox.innerHTML = listData;
+
+
+    }
+
+    document.getElementById('input-tw-search').addEventListener('keyup', function(e) {
+        if (e.target.value === '') {
+            indexSelect = 0;
+            document.querySelector('.autocom-box').innerHTML = '';
+        }
+
+    })
+
+
+}
+
+
+
+//-------------
 
 
 
@@ -375,11 +588,11 @@ const html = `
                         </span>
                         <!---->
                     </button>
-                    <button role="button" class="relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white" title="Attributes">
+                    <button role="button" class="relative  p-2 transition transition-colors rounded-lg ui-button hover:text-white" title="Attributes">
                         <span class="flex items-center justify-center h-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                                <path fill="none" d="M0 0h24v24H0z"></path>
-                                <path d="M16.757 3l-2 2H5v14h14V9.243l2-2V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12.757zm3.728-.9L21.9 3.516l-9.192 9.192-1.412.003-.002-1.417L20.485 2.1z"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                         </span>
                         <!---->
@@ -427,7 +640,23 @@ const html = `
 
 `
 
-console.log( dataMaster)
+const createClassUnid = (id) => {
+    var classUnid = document.createElement('div');
+    classUnid.className = 'classUnid';
+    classUnid.id = id;
+    document.querySelector('html').appendChild(classUnid)
+}
+
+const checkClassSelected = (className) => {
+    if (document.querySelector('.selected-class').childNodes.length > 1){
+        document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
+        document.querySelector('.click-element-over').setAttribute('unid', uuidv1())
+        createClassUnid(uuidv1())
+    }
+}
+
+
+
 
 const initTW = () => {
   
@@ -444,7 +673,7 @@ addEvent(document, 'click', '.active-inspect', function(){
     setTimeout(() => {
         addE()
         hoverElement()
-        searchClass()
+     
         clickElement()
         dragElement(document.getElementById("mydiv"));
         space()
@@ -455,6 +684,23 @@ addEvent(document, 'click', '.active-inspect', function(){
         
      }, 3000)
 })
+
+setTimeout(() => {
+    if (dev) {
+    initTW()
+    }
+    addE()
+    hoverElement()
+  
+    clickElement()
+    dragElement(document.getElementById("mydiv"));
+    space()
+    JSONDATA()
+    searchClass(dataMaster)
+    //disabledEnabled()
+    //toggleAction.activate()
+    
+ }, 3000)
 
 
 function showCSS(){
