@@ -34,6 +34,9 @@ export const  clickElement = () => {
        }
        if (document.querySelector('.click-element-over') == null) {
           event.target.classList.add('click-element-over')
+
+          //Eliminamos las clases añadidas anteriormente
+        
           
           setClassTw(getClass(event.target))
           return false

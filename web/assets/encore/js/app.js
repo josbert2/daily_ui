@@ -219,17 +219,17 @@ addEvent(document, 'click', '.select-item', function(e) {
    const searchWrapper = document.querySelector(".search-input");
    const inputBox = searchWrapper.querySelector(".search-input input");
    const suggBox = searchWrapper.querySelector(".autocom-box");
-   let selectData = e.target.getAttribute("data-value");
+   var selectData = e.target.getAttribute("data-value");
    searchWrapper.classList.remove("active");
    var selectFor = document.querySelectorAll('.selected-item')
-
+  
     for (var i = 0; i <  selectFor.length; i++) {
       if (selectFor[i].getAttribute('data-class-select') === selectData) {
         break;
         console.log(selectData)
       }
    }
-   console.log('paso')
+
         
 
 
@@ -248,6 +248,23 @@ addEvent(document, 'click', '.select-item', function(e) {
    checkClassSelected()
    copyClass.push(selectData.replace('undefined', ''))
    document.querySelector('.click-element-over').classList.add(selectData)
+   console.log(copyClass)
+   if (document.querySelector('.fixed-click-element-over') !== null) {
+      var uuii = document.querySelector('.fixed-click-element-over').getAttribute('unid')
+      var dataArrayClass = ''
+  
+      if (copyClass.length == 1){
+            dataArrayClass += copyClass[0]
+      }else{
+        for(var i = 0; i <  copyClass.length; i++) {
+            dataArrayClass += copyClass[i] + ','
+        }
+        dataArrayClass = dataArrayClass.replace(/,\s*$/, "");
+      }
+      document.getElementById(uuii).setAttribute('data-class', dataArrayClass)
+      
+   }
+ 
 
 });
 
@@ -426,7 +443,7 @@ const searchClass = (dataMaster) => {
         }
         
         if (e.keyCode == '13') {
-            var span = document.createElement("span");
+            /*var span = document.createElement("span");
             var cssSelect = document.querySelector('#input-tw-search').value
             span.classList.add('selected-item')
             span.classList.add('relative')
@@ -436,8 +453,8 @@ const searchClass = (dataMaster) => {
             span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
             
             document.querySelector('.selected-class').appendChild(span) 
-            copyClass.push(selectData.replace('undefined', ''))
-            document.querySelector('.click-element-over').classList.add(cssSelect)
+            copyClass.push(cssSelect.replace('undefined', ''))
+            document.querySelector('.click-element-over').classList.add(cssSelect) */
         }
 
     }
@@ -642,16 +659,35 @@ const html = `
 
 const createClassUnid = (id) => {
     var classUnid = document.createElement('div');
+    var idu = id;
     classUnid.className = 'classUnid';
-    classUnid.id = id;
+    classUnid.id = idu;
+    if (document.querySelector('.fixed-click-element-over') !== null){
+        var unid = document.querySelector('.fixed-click-element-over').getAttribute('unid')
+        console.log(unid)
+        for (var i = 0; i < copyClass.length; i++) {
+            if (copyClass.length != 0){
+                document.querySelector('.classUnid[id="'+unid+'"]').setAttribute('data-class', copyClass[i]);
+            }
+        }
+            
+    }
+   
+    
     document.querySelector('html').appendChild(classUnid)
 }
 
 const checkClassSelected = (className) => {
+ 
+    var id = uuidv1()
     if (document.querySelector('.selected-class').childNodes.length > 1){
+        if (document.querySelector('.click-element-over.fixed-click-element-over') !== null){
+            return false;
+        }
+        var span = document.createElement('span')
         document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
-        document.querySelector('.click-element-over').setAttribute('unid', uuidv1())
-        createClassUnid(uuidv1())
+        document.querySelector('.click-element-over').setAttribute('unid', id)
+        createClassUnid(id)
     }
 }
 
@@ -668,6 +704,24 @@ if (dev) {
   const twActive = '<div class="fixed active-inspect cursor-pointer px-2 w-[36px] bg-black rounded  bottom-[36px] right-0"><img class="w-8 h-8" src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.79614a5f61617ba49a0891494521226b.svg"></div>'
   document.querySelector('body').insertAdjacentHTML('beforeend', twActive)
 }
+
+
+// Hacemos click en todos los elementos disponibles del DOM para remover el array
+addEvent(document, 'click', '*', function(){
+    document.querySelector('.selected-class').innerHTML = ''
+    if (document.querySelector('.fixed-click-element-over') !== null){
+        copyClass = []
+        console.log(copyClass)
+       
+    }
+})
+
+
+
+
+
+
+
 addEvent(document, 'click', '.active-inspect', function(){
     initTW()
     setTimeout(() => {

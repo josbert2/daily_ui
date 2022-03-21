@@ -298,7 +298,8 @@ var clickElement = function clickElement() {
     }
 
     if (document.querySelector('.click-element-over') == null) {
-      event.target.classList.add('click-element-over');
+      event.target.classList.add('click-element-over'); //Eliminamos las clases añadidas anteriormente
+
       setClassTw(getClass(event.target));
       return false;
     }
@@ -5051,7 +5052,6 @@ addEvent(document, 'click', '.select-item', function (e) {
     }
   }
 
-  console.log('paso');
   var span = document.createElement("span");
   span.classList.add('selected-item');
   span.classList.add('relative');
@@ -5062,6 +5062,24 @@ addEvent(document, 'click', '.select-item', function (e) {
   checkClassSelected();
   copyClass.push(selectData.replace('undefined', ''));
   document.querySelector('.click-element-over').classList.add(selectData);
+  console.log(copyClass);
+
+  if (document.querySelector('.fixed-click-element-over') !== null) {
+    var uuii = document.querySelector('.fixed-click-element-over').getAttribute('unid');
+    var dataArrayClass = '';
+
+    if (copyClass.length == 1) {
+      dataArrayClass += copyClass[0];
+    } else {
+      for (var i = 0; i < copyClass.length; i++) {
+        dataArrayClass += copyClass[i] + ',';
+      }
+
+      dataArrayClass = dataArrayClass.replace(/,\s*$/, "");
+    }
+
+    document.getElementById(uuii).setAttribute('data-class', dataArrayClass);
+  }
 });
 addEvent(document, 'click', '.move-inspect', function (e) {
   if (e.target.closest('.move-inspect').getAttribute('data-position') == 'left') {
@@ -5214,16 +5232,17 @@ var searchClass = function searchClass(dataMaster) {
     }
 
     if (e.keyCode == '13') {
-      var span = document.createElement("span");
-      var cssSelect = document.querySelector('#input-tw-search').value;
-      span.classList.add('selected-item');
-      span.classList.add('relative');
-      span.classList.add('mr-2');
-      span.setAttribute('data-class-select', cssSelect);
-      span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
-      document.querySelector('.selected-class').appendChild(span);
-      copyClass.push(selectData.replace('undefined', ''));
-      document.querySelector('.click-element-over').classList.add(cssSelect);
+      /*var span = document.createElement("span");
+      var cssSelect = document.querySelector('#input-tw-search').value
+      span.classList.add('selected-item')
+      span.classList.add('relative')
+      span.classList.add('mr-2')
+      span.setAttribute('data-class-select', cssSelect)
+        span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+      
+      document.querySelector('.selected-class').appendChild(span) 
+      copyClass.push(cssSelect.replace('undefined', ''))
+      document.querySelector('.click-element-over').classList.add(cssSelect) */
     }
   }
 
@@ -5276,16 +5295,36 @@ var html = "\n\n<div class=\"content-app-tw block-drag aspect-1\" id=\"mydiv\">\
 
 var createClassUnid = function createClassUnid(id) {
   var classUnid = document.createElement('div');
+  var idu = id;
   classUnid.className = 'classUnid';
-  classUnid.id = id;
+  classUnid.id = idu;
+
+  if (document.querySelector('.fixed-click-element-over') !== null) {
+    var unid = document.querySelector('.fixed-click-element-over').getAttribute('unid');
+    console.log(unid);
+
+    for (var i = 0; i < copyClass.length; i++) {
+      if (copyClass.length != 0) {
+        document.querySelector('.classUnid[id="' + unid + '"]').setAttribute('data-class', copyClass[i]);
+      }
+    }
+  }
+
   document.querySelector('html').appendChild(classUnid);
 };
 
 var checkClassSelected = function checkClassSelected(className) {
+  var id = (0,uuid__WEBPACK_IMPORTED_MODULE_7__["default"])();
+
   if (document.querySelector('.selected-class').childNodes.length > 1) {
+    if (document.querySelector('.click-element-over.fixed-click-element-over') !== null) {
+      return false;
+    }
+
+    var span = document.createElement('span');
     document.querySelector('.click-element-over').classList.add('fixed-click-element-over');
-    document.querySelector('.click-element-over').setAttribute('unid', (0,uuid__WEBPACK_IMPORTED_MODULE_7__["default"])());
-    createClassUnid((0,uuid__WEBPACK_IMPORTED_MODULE_7__["default"])());
+    document.querySelector('.click-element-over').setAttribute('unid', id);
+    createClassUnid(id);
   }
 };
 
@@ -5297,8 +5336,17 @@ if (dev) {
   //initTW()
   var twActive = '<div class="fixed active-inspect cursor-pointer px-2 w-[36px] bg-black rounded  bottom-[36px] right-0"><img class="w-8 h-8" src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.79614a5f61617ba49a0891494521226b.svg"></div>';
   document.querySelector('body').insertAdjacentHTML('beforeend', twActive);
-}
+} // Hacemos click en todos los elementos disponibles del DOM para remover el array
 
+
+addEvent(document, 'click', '*', function () {
+  document.querySelector('.selected-class').innerHTML = '';
+
+  if (document.querySelector('.fixed-click-element-over') !== null) {
+    copyClass = [];
+    console.log(copyClass);
+  }
+});
 addEvent(document, 'click', '.active-inspect', function () {
   initTW();
   setTimeout(function () {
