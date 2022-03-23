@@ -5238,7 +5238,7 @@ var searchClass = function searchClass(dataMaster) {
       span.classList.add('relative')
       span.classList.add('mr-2')
       span.setAttribute('data-class-select', cssSelect)
-        span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+       span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
       
       document.querySelector('.selected-class').appendChild(span) 
       copyClass.push(cssSelect.replace('undefined', ''))
@@ -5340,12 +5340,12 @@ if (dev) {
 
 
 addEvent(document, 'click', '*', function () {
-  document.querySelector('.selected-class').innerHTML = '';
-
-  if (document.querySelector('.fixed-click-element-over') !== null) {
-    copyClass = [];
-    console.log(copyClass);
-  }
+  /*document.querySelector('.selected-class').innerHTML = ''
+  if (document.querySelector('.fixed-click-element-over') !== null){
+      copyClass = []
+      console.log(copyClass)
+     
+  } */
 });
 addEvent(document, 'click', '.active-inspect', function () {
   initTW();

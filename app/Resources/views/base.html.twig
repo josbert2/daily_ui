@@ -1,10 +1,11 @@
+{% set ramdon = random() %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <link href="{{ asset('build/css/app.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('build/css/app.css?v=' ~ ramdon ) }}" rel="stylesheet" type="text/css">
         {# {{ encore_entry_link_tags('tailwind') }}#}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +17,6 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
-        <script src="{{ asset('build/js/app.js') }}"></script>
+        <script src="{{ asset('build/js/app.js?v=' ~ ramdon ) }}"></script>
     </body>
 </html>

@@ -708,12 +708,12 @@ if (dev) {
 
 // Hacemos click en todos los elementos disponibles del DOM para remover el array
 addEvent(document, 'click', '*', function(){
-    document.querySelector('.selected-class').innerHTML = ''
+    /*document.querySelector('.selected-class').innerHTML = ''
     if (document.querySelector('.fixed-click-element-over') !== null){
         copyClass = []
         console.log(copyClass)
        
-    }
+    } */
 })
 
 
