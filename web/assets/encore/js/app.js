@@ -678,8 +678,7 @@ const createClassUnid = (id) => {
 }
 
 const checkClassSelected = (className) => {
- 
-    var id = uuidv1()
+    /*var id = uuidv1()
     if (document.querySelector('.selected-class').childNodes.length > 1){
         if (document.querySelector('.click-element-over.fixed-click-element-over') !== null){
             return false;
@@ -688,7 +687,8 @@ const checkClassSelected = (className) => {
         document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
         document.querySelector('.click-element-over').setAttribute('unid', id)
         createClassUnid(id)
-    }
+    } */
+    
 }
 
 

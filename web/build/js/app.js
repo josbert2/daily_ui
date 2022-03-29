@@ -5314,18 +5314,16 @@ var createClassUnid = function createClassUnid(id) {
 };
 
 var checkClassSelected = function checkClassSelected(className) {
-  var id = (0,uuid__WEBPACK_IMPORTED_MODULE_7__["default"])();
-
-  if (document.querySelector('.selected-class').childNodes.length > 1) {
-    if (document.querySelector('.click-element-over.fixed-click-element-over') !== null) {
-      return false;
-    }
-
-    var span = document.createElement('span');
-    document.querySelector('.click-element-over').classList.add('fixed-click-element-over');
-    document.querySelector('.click-element-over').setAttribute('unid', id);
-    createClassUnid(id);
-  }
+  /*var id = uuidv1()
+  if (document.querySelector('.selected-class').childNodes.length > 1){
+      if (document.querySelector('.click-element-over.fixed-click-element-over') !== null){
+          return false;
+      }
+      var span = document.createElement('span')
+      document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
+      document.querySelector('.click-element-over').setAttribute('unid', id)
+      createClassUnid(id)
+  } */
 };
 
 var initTW = function initTW() {
