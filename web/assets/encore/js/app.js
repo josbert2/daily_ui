@@ -707,7 +707,7 @@ const checkClassSelected = (className) => {
         var idu = id;
         classUnid.className = 'classUnid';
         classUnid.id = id;
-
+        document.querySelector('.selected-class').setAttribute('unid', idu)
        
         document.querySelector('html').appendChild(classUnid)
         var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
@@ -757,9 +757,33 @@ addEvent(document, 'click', '*', function(){
 
 addEvent(document, 'click', '.click-element-over', function(){
     if (this.className.indexOf('fixed-click-element-over') !== -1){
-        console.log(1)
+        var newData = []
+        var dataDivid = this.getAttribute('unid')
+        var dataDiv = document.querySelector('.classUnid[id="'+dataDivid+'"]').getAttribute('data-class')
+        var toSplit = dataDiv.split(',')
+        for (var i = 0; i < toSplit.length; i++) {
+            newData.push(toSplit[i])
+        }
+        
+        
+        document.querySelector('.selected-class').innerHTML = ''
+        document.querySelector('.selected-class').setAttribute('unid', dataDivid)
+        for (var i = 0; i < newData.length; i++) {
+            var  selectData = newData[i]
+            var span = document.createElement("span");
+            span.classList.add('selected-item')
+            span.classList.add('relative')
+            span.classList.add('mr-2')
+            span.setAttribute('data-class-select', selectData)
+            span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+            document.querySelector('.selected-class').appendChild(span) 
+        }
+
+        
+
     }else{
         console.log(0)
+        document.querySelector('.selected-class').innerHTML = ''
     }
 })
 
