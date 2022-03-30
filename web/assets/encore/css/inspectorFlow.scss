@@ -260,12 +260,24 @@
   color: #644bff;
   cursor: pointer;
 }
-
+.delete-class{
+  transition: all .1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  right: -100px !important;
+  background: #413f3f;
+  border-radius: 50%;
+  padding: 4px;
+}
 .selected-item{
+  overflow: hidden;
  font-size: 12px;
- padding: 3px 25px;
- background: #494b4e;
+ padding: 6px 25px;
+ background: #303030;
  border-radius: 9999px;
+ &:hover{
+  .delete-class{
+    right: 0.325rem !important;
+  }
+ }
 }
 
 

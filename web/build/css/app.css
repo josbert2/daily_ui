@@ -879,11 +879,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-size: 20px;
   color: #644bff;
   cursor: pointer;
+}.delete-class {
+  transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  right: -100px !important;
+  background: #413f3f;
+  border-radius: 50%;
+  padding: 4px;
 }.selected-item {
+  overflow: hidden;
   font-size: 12px;
-  padding: 3px 25px;
-  background: #494b4e;
+  padding: 6px 25px;
+  background: #303030;
   border-radius: 9999px;
+}.selected-item:hover .delete-class {
+  right: 0.325rem !important;
 }.content-app-tw.block-drag {
   top: 20px !important;
   left: 25px !important;

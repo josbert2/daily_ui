@@ -9,7 +9,7 @@ import  { disabledEnabled }  from './vendor/disabledEnabled'
 import { v1 as uuidv1 } from 'uuid';
 //import { searchClass } from './vendor/searchClass'
 
-
+console.log(uuidv1())
 //Agregar el cdn de tailwindcss para que funcione el plugin de inspectFlow 
 
 
@@ -60,7 +60,7 @@ Object.entries(fullConfigTW.theme.screens).forEach(([key, value]) => {
  })
 
 
-
+//console.log(JSON.stringify(fullConfigTW))
 
 function addEvent(parent, evt, selector, handler) {
    parent.addEventListener(evt, function(event) {
@@ -83,7 +83,8 @@ const initButton = document.querySelector('.init-config')
 const arrowDown = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>'
 const copyCss = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>'
 const deleteSvg = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>'
-
+/*console.log(userConfigTW)
+console.log(fullConfigTW) */
 
 //input-tw-search
 
@@ -99,7 +100,6 @@ const templateHtml = (text) => {
 }
 
 
-//JSON 
 
 
 
@@ -142,7 +142,7 @@ const zIndex = () => {
 }
 
 
-
+console.log(fullConfigTW)
 
 function JSONDATA () {
    aspectRatio()
@@ -196,7 +196,7 @@ addEvent(document, 'click', '.delete-class', function(e) {
    var classE =  e.target.closest('.selected-item').getAttribute('data-class-select')
    document.querySelector('.click-element-over').classList.remove(classE)
    e.target.closest('.selected-item').remove()
-
+   console.log(classE)
    copyClass.remove(classE)
    var newClass = "" 
    for (var i = 0; i <  copyClass.length; i++) {
@@ -226,7 +226,7 @@ addEvent(document, 'click', '.select-item', function(e) {
     for (var i = 0; i <  selectFor.length; i++) {
       if (selectFor[i].getAttribute('data-class-select') === selectData) {
         break;
-      
+        console.log(selectData)
       }
    }
 
@@ -245,11 +245,10 @@ addEvent(document, 'click', '.select-item', function(e) {
    
 
    document.querySelector('.selected-class').appendChild(span) 
-   
-   copyClass.push(selectData.replace('undefined', ''))
    checkClassSelected()
+   copyClass.push(selectData.replace('undefined', ''))
    document.querySelector('.click-element-over').classList.add(selectData)
-
+   console.log(copyClass)
    if (document.querySelector('.fixed-click-element-over') !== null) {
       var uuii = document.querySelector('.fixed-click-element-over').getAttribute('unid')
       var dataArrayClass = ''
@@ -262,7 +261,7 @@ addEvent(document, 'click', '.select-item', function(e) {
         }
         dataArrayClass = dataArrayClass.replace(/,\s*$/, "");
       }
-      //document.getElementById(uuii).setAttribute('data-class', dataArrayClass)
+      document.getElementById(uuii).setAttribute('data-class', dataArrayClass)
       
    }
  
@@ -418,7 +417,7 @@ const searchClass = (dataMaster) => {
             }
         });
         e = e || window.event;
-       
+        console.log(e.keyCode)
         if (e.keyCode == '40') {
             document.querySelector('.select-item').classList.remove('active');
             document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
@@ -665,7 +664,7 @@ const createClassUnid = (id) => {
     classUnid.id = idu;
     if (document.querySelector('.fixed-click-element-over') !== null){
         var unid = document.querySelector('.fixed-click-element-over').getAttribute('unid')
-    
+        console.log(unid)
         for (var i = 0; i < copyClass.length; i++) {
             if (copyClass.length != 0){
                 document.querySelector('.classUnid[id="'+unid+'"]').setAttribute('data-class', copyClass[i]);
@@ -679,46 +678,8 @@ const createClassUnid = (id) => {
 }
 
 const checkClassSelected = (className) => {
-
+ 
     var id = uuidv1()
-    if (document.querySelector('.fixed-click-element-over.click-element-over') != null)
-    {
-       console.log('ya estas en el elemento') 
-
-        var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
-        var dataArrayClass = ''
-  
-        if (copyClass.length == 1){
-                dataArrayClass += copyClass[0]
-        }else{
-            for(var i = 0; i <  copyClass.length; i++) {
-                dataArrayClass += copyClass[i] + ','
-            }
-            dataArrayClass = dataArrayClass.replace(/,\s*$/, "");
-        }
-        document.getElementById(idu).setAttribute('data-class', dataArrayClass)
-       
-    }else{
-        var id = uuidv1()
-        document.querySelector('.click-element-over').setAttribute('unid', id)
-        console.log('Nuevo elemento') 
-        document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
-        var classUnid = document.createElement('div');
-        var idu = id;
-        classUnid.className = 'classUnid';
-        classUnid.id = id;
-
-       
-        document.querySelector('html').appendChild(classUnid)
-        var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
-        for (var i = 0; i < copyClass.length; i++) {
-             if (copyClass.length != 0){
-                 document.querySelector('.classUnid[id="'+id+'"]').setAttribute('data-class', copyClass[i]);
-             }
-         }
-    }
-   
-    /*var id = uuidv1()
     if (document.querySelector('.selected-class').childNodes.length > 1){
         if (document.querySelector('.click-element-over.fixed-click-element-over') !== null){
             return false;
@@ -727,7 +688,7 @@ const checkClassSelected = (className) => {
         document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
         document.querySelector('.click-element-over').setAttribute('unid', id)
         createClassUnid(id)
-    } */
+    }
 }
 
 
@@ -750,18 +711,11 @@ addEvent(document, 'click', '*', function(){
     /*document.querySelector('.selected-class').innerHTML = ''
     if (document.querySelector('.fixed-click-element-over') !== null){
         copyClass = []
-     
+        console.log(copyClass)
        
     } */
 })
 
-addEvent(document, 'click', '.click-element-over', function(){
-    if (this.className.indexOf('fixed-click-element-over') !== -1){
-        console.log(1)
-    }else{
-        console.log(0)
-    }
-})
 
 
 
