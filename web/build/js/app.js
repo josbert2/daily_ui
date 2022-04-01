@@ -5048,7 +5048,6 @@ addEvent(document, 'click', '.select-item', function (e) {
   var span = document.createElement("span");
   span.classList.add('selected-item');
   span.classList.add('relative');
-  span.classList.add('mr-2');
   span.setAttribute('data-class-select', selectData);
   span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
   document.querySelector('.selected-class').appendChild(span);
@@ -5056,8 +5055,8 @@ addEvent(document, 'click', '.select-item', function (e) {
   checkClassSelected();
   document.querySelector('.click-element-over').classList.add(selectData);
 
-  if (document.querySelector('.fixed-click-element-over') !== null) {
-    var uuii = document.querySelector('.fixed-click-element-over').getAttribute('unid');
+  if (document.querySelector('.fixed-click-element-over.click-element-over') !== null) {
+    var uuii = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid');
     var dataArrayClass = '';
 
     if (copyClass.length == 1) {
@@ -5226,8 +5225,7 @@ var searchClass = function searchClass(dataMaster) {
       var cssSelect = document.querySelector('#input-tw-search').value
       span.classList.add('selected-item')
       span.classList.add('relative')
-      span.classList.add('mr-2')
-      span.setAttribute('data-class-select', cssSelect)
+           span.setAttribute('data-class-select', cssSelect)
         span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
       
       document.querySelector('.selected-class').appendChild(span) 
@@ -5309,6 +5307,7 @@ var checkClassSelected = function checkClassSelected(className) {
     console.log('ya estas en el elemento');
     var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid');
     var dataArrayClass = '';
+    console.log("mostramos clases", copyClass);
 
     if (copyClass.length == 1) {
       dataArrayClass += copyClass[0];
@@ -5378,6 +5377,7 @@ addEvent(document, 'click', '.click-element-over', function () {
     var dataDivid = this.getAttribute('unid');
     var dataDiv = document.querySelector('.classUnid[id="' + dataDivid + '"]').getAttribute('data-class');
     var toSplit = dataDiv.split(',');
+    console.log(toSplit);
 
     for (var i = 0; i < toSplit.length; i++) {
       newData.push(toSplit[i]);
@@ -5391,7 +5391,6 @@ addEvent(document, 'click', '.click-element-over', function () {
       var span = document.createElement("span");
       span.classList.add('selected-item');
       span.classList.add('relative');
-      span.classList.add('mr-2');
       span.setAttribute('data-class-select', selectData);
       span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
       document.querySelector('.selected-class').appendChild(span);
@@ -5399,6 +5398,7 @@ addEvent(document, 'click', '.click-element-over', function () {
   } else {
     console.log(0);
     document.querySelector('.selected-class').innerHTML = '';
+    copyClass = [];
   }
 });
 addEvent(document, 'click', '.active-inspect', function () {
