@@ -757,8 +757,11 @@ addEvent(document, 'click', '*', function(){
 
 addEvent(document, 'click', '.click-element-over', function(){
     if (this.className.indexOf('fixed-click-element-over') !== -1){
-        var newData = []
+       
         var dataDivid = this.getAttribute('unid')
+        console.log(dataDivid)
+        /*var newData = []
+        
         var dataDiv = document.querySelector('.classUnid[id="'+dataDivid+'"]').getAttribute('data-class')
         var toSplit = dataDiv.split(',')
         for (var i = 0; i < toSplit.length; i++) {
@@ -777,7 +780,7 @@ addEvent(document, 'click', '.click-element-over', function(){
             span.setAttribute('data-class-select', selectData)
             span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
             document.querySelector('.selected-class').appendChild(span) 
-        }
+        } */
 
         
 
