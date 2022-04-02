@@ -732,7 +732,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   min-height: 500px;
   width: 310px;
   max-height: calc(100vh - 3rem);
-  background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
+  background-color: #1d1d1d;
   border-radius: 5px;
 }.content-app-wrapper h1 {
   margin: 0;
@@ -841,6 +841,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0 60px 0 20px;
   font-size: 13px;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  background: #262626;
+  border: 1px solid #303030;
 }.search-input.active input {
   border-radius: 5px 5px 0 0;
 }.search-input .autocom-box {
@@ -908,6 +910,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: #68D391;
 }.fixed-click-element-over {
   outline: 2px solid #22c55e !important;
+}.container-wrapper-config {
+  display: none;
 }/*
 body{
     background-color: black;
