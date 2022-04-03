@@ -8,6 +8,9 @@ import { hoverElement } from './vendor/hoverElement'
 import  { disabledEnabled }  from './vendor/disabledEnabled'
 import { v1 as uuidv1 } from 'uuid';
 //import { searchClass } from './vendor/searchClass'
+import { textColor } from './tailwindJSON/textColor'
+import { data } from 'autoprefixer'
+
 
 
 //Agregar el cdn de tailwindcss para que funcione el plugin de inspectFlow 
@@ -30,11 +33,11 @@ var dataMaster = []
 
 
 
-
 const fullConfigTW = resolveConfig(tailwindConfig)
 const userConfigTW = tailwindConfig
 
 
+//dataMaster.push(textColor(fullConfigTW, dataMaster))
 Object.entries(fullConfigTW.theme.colors).forEach(([keys, value]) => {
 
     if (typeof value === 'string') {
@@ -60,6 +63,7 @@ Object.entries(fullConfigTW.theme.screens).forEach(([key, value]) => {
  })
 
 
+ 
 
 
 function addEvent(parent, evt, selector, handler) {
@@ -100,6 +104,8 @@ const templateHtml = (text) => {
 
 
 //JSON 
+var dataColor = ['#d63031', '#d63031', '#6c5ce7', '#e84393', '#fdcb6e', '#00b894', '#0984e3']
+
 
 
 
@@ -258,8 +264,32 @@ addEvent(document, 'click', '.select-item', function(e) {
    span.classList.add('selected-item')
    span.classList.add('relative')
 
+   var semiColor = ''
+
+   
+   prefixBreakpoint.forEach((prefix) => {
+        
+        if (selectData.indexOf(prefix + ':') >= 0) {
+            var edited = "{";
+            for (var i = 0; i < dataColor.length; i++) {
+                edited += '"'+prefixBreakpoint[i]+'":"'+dataColor[i]+'",';
+            }
+            edited = edited.substring(0, edited.length-1) + "}";
+            var color = JSON.parse(edited)
+            color = color[prefix]
+            console.log(color)
+            semiColor = '<div class="flex items-center"><span style="color:' + color  + '">' + prefix + ':'  + '</span><span>' +  selectData.replace(prefix + ':', '') + '</span></div>'
+
+        }
+   })
+
+   if (semiColor === '') {
+      semiColor = selectData
+   }
+
+
    span.setAttribute('data-class-select', selectData)
-   span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+   span.innerHTML = semiColor + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
  
   
    
@@ -698,7 +728,7 @@ const checkClassSelected = (className) => {
 
         var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
         var dataArrayClass = ''
-        console.log("mostramos clases", copyClass)
+     
         if (copyClass.length == 1){
                 dataArrayClass += copyClass[0]
         }else{
@@ -788,8 +818,10 @@ addEvent(document, 'click', '.click-element-over', function(){
           
             var  selectData = newData[i]
             var span = document.createElement("span");
+           
             span.classList.add('selected-item')
             span.classList.add('relative')
+            
        
             span.setAttribute('data-class-select', selectData)
             span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
@@ -848,3 +880,5 @@ setTimeout(() => {
 function showCSS(){
    var element = document.querySelector('.class-row-tw')
 }
+
+console.log(dataMaster)
