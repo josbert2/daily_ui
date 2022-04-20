@@ -13,10 +13,22 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;900&family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+
+        {% if app.request.get('disabled') %}
+            <style>
+                .content-app-tw {
+                    pointer-events: none;
+                    cursor: default;
+                    display:none
+                }
+            </style>
+        {% endif %}
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+
         <script src="{{ asset('build/js/app.js?v=' ~ ramdon ) }}"></script>
     </body>
 </html>

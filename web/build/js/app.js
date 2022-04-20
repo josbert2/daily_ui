@@ -8930,7 +8930,34 @@ module.exports = {
 module.exports = {
   content: ['./app/Resources/views/**/*.html.twig', './web/assets/encore/**/*.js'],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        'content': {
+          '50': '#f4f4f4',
+          '100': '#e8e9e9',
+          '200': '#c7c7c8',
+          '300': '#a5a5a7',
+          '400': '#616264',
+          '500': '#1d1e22',
+          '600': '#1a1b1f',
+          '700': '#16171a',
+          '800': '#111214',
+          '900': '#0e0f11'
+        },
+        'content-sub': {
+          '50': '#f4f5f5',
+          '100': '#eaeaea',
+          '200': '#cacbcc',
+          '300': '#ababad',
+          '400': '#6b6c6f',
+          '500': '#2c2d31',
+          '600': '#28292c',
+          '700': '#212225',
+          '800': '#1a1b1d',
+          '900': '#161618'
+        }
+      }
+    }
   },
   plugins: []
 };
@@ -27764,7 +27791,7 @@ addEvent(document, 'click', '.delete-class', function (e) {
   var classToRemove = document.getElementById(unid).getAttribute('data-class');
   /*  
   var checkComma = classToRemove.slice(-1, classToRemove.length)
-   if (checkComma === ',') {
+    if (checkComma === ',') {
        classToRemove = classToRemove.replace(',', '')
   } 
   classToRemove = classToRemove.replace(classE, '') */
@@ -27996,7 +28023,7 @@ var searchClass = function searchClass(dataMaster) {
       var cssSelect = document.querySelector('#input-tw-search').value
       span.classList.add('selected-item')
       span.classList.add('relative')
-          span.setAttribute('data-class-select', cssSelect)
+           span.setAttribute('data-class-select', cssSelect)
       span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
       
       document.querySelector('.selected-class').appendChild(span) 
