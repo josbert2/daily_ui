@@ -1,0 +1,36 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+@import 'components/all';
+
+@font-face {
+   font-family: Gilroy;
+   src: url("../../wenly/fonts/gilroy/Gilroy-Regular.ttf");
+ }
+ @font-face {
+  font-family: Gilroy-Bold;
+  src: url("../../wenly/fonts/gilroy/Gilroy-Bold.ttf");
+}
+@font-face {
+  font-family: Gilroy-Black;
+  src: url("../../wenly/fonts/gilroy/Gilroy-Black.ttf");
+}
+:root {
+  /* galaxy image from https://unsplash.com/s/photos/galaxy */
+  --bg-image: url('https://www.xtrafondos.com/wallpapers/galaxia-en-el-espacio-4052.jpg');
+}
+ body{
+   font-family:  Gilroy;
+ }
+
+ .text {       
+  background-image: linear-gradient(225deg, #28d8ff, #032eff);
+  filter: drop-shadow(0 20px 30px #28d8ff33);
+  color: black;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-box-decoration-break: clone;
+}
+
