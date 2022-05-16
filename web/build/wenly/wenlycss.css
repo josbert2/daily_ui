@@ -643,6 +643,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --bg-image: url("https://www.xtrafondos.com/wallpapers/galaxia-en-el-espacio-4052.jpg");
 }body {
   font-family: Gilroy;
+  background-color: #FAFAFA;
 }.text {
   background-image: linear-gradient(225deg, #28d8ff, #032eff);
   filter: drop-shadow(0 20px 30px #28d8ff33);

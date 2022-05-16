@@ -31,4 +31,29 @@ class Icon
     {
         return $this->id;
     }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+     private $name;
+
+    /**
+     * @var string
+     * get name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    
+
+
 }
