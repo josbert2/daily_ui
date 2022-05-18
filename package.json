@@ -1,4 +1,5 @@
 {
+  "name": "wenly",
   "scripts": {
     "watch": "cross-env NODE_ENV=dev encore dev --watch",
     "build": "cross-env NODE_ENV=production encore production --progress"
@@ -12,8 +13,11 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "dotenv": "^16.0.0",
     "postcss-import": "^14.0.2",
     "sass": "^1.49.9",
-    "sass-loader": "^12.0.0"
+    "sass-loader": "^12.0.0",
+    "webpack-notifier": "^1.6.0"
   }
 }

@@ -17,3 +17,8 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+    # generate entities bin/console doctrine:generate:entities [name]
+    # instalamos el maker bundle composer requiere symfony/maker-bundle:1.* --dev --ignore-platform-reqs 
+    # solucion para server reloader con webpack https://stackoverflow.com/questions/71364357/symfony-set-up-hot-reloading-using-webpack-encore
+    # se debe tener una terminal para ejecutar symfony server:run o php bin/console server:run
+    # para ejecutar el server en modo hot reload

@@ -1,0 +1,16 @@
+{
+  "entrypoints": {
+    "js/app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_autoprefixer_lib_autoprefixer_js-node_modules_tailwindcss_resolveConfig_-293381.js",
+        "/build/js/app.js"
+      ]
+    },
+    "css/app": {
+      "js": [
+        "/build/runtime.js"
+      ]
+    }
+  }
+}
