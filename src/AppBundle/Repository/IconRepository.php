@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class IconRepository extends \Doctrine\ORM\EntityRepository
 {
+
+      /**
+      * @param $icon
+      * @return mixed
+      */
+      public function findByIcon($icon)
+      {
+         $qb = $this->createQueryBuilder('i');
+         $qb->where('i.icon = :icon')
+               ->setParameter('icon', $icon);
+         return $qb->getQuery()->getResult();
+      }
+
+     
 }

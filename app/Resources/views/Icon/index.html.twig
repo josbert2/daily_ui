@@ -1,7 +1,27 @@
 {% extends 'baseFrontend.html.twig' %}
 
+
+
+
+
+
 {% block content %}
-    <div class="h-[90vh] flex justify-center items-center bg-tilt">
-        <h1 class="text-blue-500 text text-9xl font-Gilroy-Black">Wenly</h1>
+    <div class="px-5 pt-5 ml-64 main-container">
+        <div class="mx-auto bg-white rounded w-96">
+            <h1 class="text-center">Agregar nuevo icono</h1>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" class="">Nombre</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre">
+                </div>
+            </form>
+        </div>
+
+        <div class="">
+            {% for icon in icons %}
+                {{icon.name}}
+            {% endfor %}
+        </div>
+        
     </div>
 {% endblock %}
