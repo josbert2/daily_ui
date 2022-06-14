@@ -18,7 +18,7 @@
                         <div class="ml-auto">
                             <div class="relative">
                                 <div class="w-full h-full misc-btn"> </div>
-                                <button class="h-full px-10 py-4 text-xs text-white uppercase bg-black rounded font-Gilroy-Bold ">
+                                <button class="h-full px-10 py-4 text-xs font-medium text-white uppercase bg-black rounded">
                                     Go  the app
                                 </button>
                             </div>
@@ -27,15 +27,17 @@
                 </nav>
             </header>
             {% include 'baseSiderbarFrontent.html.twig' %}
-            {% block content %}
+            <div class="px-5 pt-5 ml-64 main-container">
+                {% block content %}
             
-            {% endblock %}
+                {% endblock %}
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-
+    
 {% endblock %}
 
