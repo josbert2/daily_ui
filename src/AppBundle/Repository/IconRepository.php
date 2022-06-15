@@ -23,5 +23,19 @@ class IconRepository extends \Doctrine\ORM\EntityRepository
          return $qb->getQuery()->getResult();
       }
 
+      public function findAllIcons()
+      {
+         $qb = $this->createQueryBuilder('i');
+         return $qb->getQuery()->getResult();
+      }
+
+      public function deleteIcon($id)
+      {
+         $em = $this->getEntityManager();
+         $icon = $em->getRepository(Icon::class)->find($id);
+         $em->remove($icon);
+         $em->flush();
+      }
+
      
 }

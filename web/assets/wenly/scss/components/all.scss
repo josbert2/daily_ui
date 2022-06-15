@@ -1,1 +1,23 @@
-@import 'misc/all.scss'
+@import 'misc/all.scss';
+
+
+:root {
+  /* galaxy image from https://unsplash.com/s/photos/galaxy */
+  --bg-image: url('https://www.xtrafondos.com/wallpapers/galaxia-en-el-espacio-4052.jpg');
+}
+ body{
+   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+   background-color: #F6F8FA;
+   -webkit-font-smoothing: antialiased;
+   text-rendering: optimizelegibility;
+ }
+
+ .text {       
+  background-image: linear-gradient(225deg, #28d8ff, #032eff);
+  filter: drop-shadow(0 20px 30px #28d8ff33);
+  color: black;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-box-decoration-break: clone;
+}
+

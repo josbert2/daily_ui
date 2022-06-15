@@ -2,12 +2,12 @@
   "entrypoints": {
     "js/app": {
       "js": [
-        "/build/wenly/js/app.js"
+        "/build/js/app.js"
       ]
     },
     "css/app": {
       "css": [
-        "/build/wenly/css/app.css"
+        "/build/css/app.css"
       ]
     }
   }

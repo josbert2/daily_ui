@@ -12,6 +12,7 @@ import { textColor } from './tailwindJSON/textColor'
 import { data } from 'autoprefixer'
 
 
+alert(0)
 //Agregar el cdn de tailwindcss para que funcione el plugin de inspectFlow 
 
 
@@ -81,7 +82,7 @@ function addEvent(parent, evt, selector, handler) {
 
 
 
-const dev = true
+const dev = false
 const initButton = document.querySelector('.init-config')
 const arrowDown = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>'
 const copyCss = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>'
@@ -618,14 +619,9 @@ const html = `
                         <div class="flex w-full px-1 py-1 bg-gray-100 rounded-full bg-opacity-5">
                             <button data-id="live" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class">Live</button>
                             <button data-id="preview" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class">Preview</button>
-                            <button data-id="fonts" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class ">Fonts</button>
                         </div>
                         <div class="overflow-auto live-editor-tw scroll">
-                            <div data-id="live" class="class-linear-tw tab-tw-inspect-content active-tw-content open">
-                              <div class="h-full w-full flex justify-center items-center text-xs text-center pt-10 text-gray-300">
-                                 Haz click en el elemento que quieras ver sus clases y editarlas
-                              </div>
-                            </div>
+                            <div data-id="live" class="class-linear-tw tab-tw-inspect-content active-tw-content open"></div>
                             <div data-id="preview" class="tab-tw-inspect-content">
                                 <div class="search-input">
                                     <a href="" target="_blank" hidden></a>

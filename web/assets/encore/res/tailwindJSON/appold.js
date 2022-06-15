@@ -8,10 +8,8 @@ import { hoverElement } from './vendor/hoverElement'
 import  { disabledEnabled }  from './vendor/disabledEnabled'
 import { v1 as uuidv1 } from 'uuid';
 //import { searchClass } from './vendor/searchClass'
-import { textColor } from './tailwindJSON/textColor'
-import { data } from 'autoprefixer'
 
-
+console.log(uuidv1())
 //Agregar el cdn de tailwindcss para que funcione el plugin de inspectFlow 
 
 
@@ -32,11 +30,11 @@ var dataMaster = []
 
 
 
+
 const fullConfigTW = resolveConfig(tailwindConfig)
 const userConfigTW = tailwindConfig
 
 
-//dataMaster.push(textColor(fullConfigTW, dataMaster))
 Object.entries(fullConfigTW.theme.colors).forEach(([keys, value]) => {
 
     if (typeof value === 'string') {
@@ -62,8 +60,7 @@ Object.entries(fullConfigTW.theme.screens).forEach(([key, value]) => {
  })
 
 
- 
-
+//console.log(JSON.stringify(fullConfigTW))
 
 function addEvent(parent, evt, selector, handler) {
    parent.addEventListener(evt, function(event) {
@@ -81,12 +78,13 @@ function addEvent(parent, evt, selector, handler) {
 
 
 
-const dev = true
+const dev = false
 const initButton = document.querySelector('.init-config')
 const arrowDown = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>'
 const copyCss = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>'
 const deleteSvg = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>'
-
+/*console.log(userConfigTW)
+console.log(fullConfigTW) */
 
 //input-tw-search
 
@@ -101,9 +99,6 @@ const templateHtml = (text) => {
   
 }
 
-
-//JSON 
-var dataColor = ['#d63031', '#d63031', '#6c5ce7', '#e84393', '#fdcb6e', '#00b894', '#0984e3']
 
 
 
@@ -147,7 +142,7 @@ const zIndex = () => {
 }
 
 
-
+console.log(fullConfigTW)
 
 function JSONDATA () {
    aspectRatio()
@@ -199,36 +194,16 @@ addEvent(document, 'click', '.copy-class', function(e) {
 
 addEvent(document, 'click', '.delete-class', function(e) {
    var classE =  e.target.closest('.selected-item').getAttribute('data-class-select')
-   
    document.querySelector('.click-element-over').classList.remove(classE)
    e.target.closest('.selected-item').remove()
-
+   console.log(classE)
    copyClass.remove(classE)
    var newClass = "" 
    for (var i = 0; i <  copyClass.length; i++) {
       newClass += copyClass[i] + ' '
    }
-   var unid = document.querySelector('.selected-class').getAttribute('unid')
-   var classToRemove = document.getElementById(unid).getAttribute('data-class')
-   /*  
-   var checkComma = classToRemove.slice(-1, classToRemove.length)
 
-   if (checkComma === ',') {
-        classToRemove = classToRemove.replace(',', '')
-   } 
-   classToRemove = classToRemove.replace(classE, '') */
-   if (classToRemove.indexOf(classE + ',') >= 0) {
-        classToRemove = classToRemove.replace(classE + ',', '')
-   }else{
-        classToRemove = classToRemove.replace(classE, '')
-   }
-
-   document.getElementById(unid).setAttribute('data-class', classToRemove)
-
-   
-   console.log(classToRemove)
-
-   copyToClipboardWebpack(newClass.replace('undefined', ''));
+      copyToClipboardWebpack(newClass.replace('undefined', ''));
 
   
 })
@@ -251,7 +226,7 @@ addEvent(document, 'click', '.select-item', function(e) {
     for (var i = 0; i <  selectFor.length; i++) {
       if (selectFor[i].getAttribute('data-class-select') === selectData) {
         break;
-      
+        console.log(selectData)
       }
    }
 
@@ -262,45 +237,20 @@ addEvent(document, 'click', '.select-item', function(e) {
    var span = document.createElement("span");
    span.classList.add('selected-item')
    span.classList.add('relative')
-
-   var semiColor = ''
-
-   
-   prefixBreakpoint.forEach((prefix) => {
-        
-        if (selectData.indexOf(prefix + ':') >= 0) {
-            var edited = "{";
-            for (var i = 0; i < dataColor.length; i++) {
-                edited += '"'+prefixBreakpoint[i]+'":"'+dataColor[i]+'",';
-            }
-            edited = edited.substring(0, edited.length-1) + "}";
-            var color = JSON.parse(edited)
-            color = color[prefix]
-            console.log(color)
-            semiColor = '<div class="flex items-center"><span style="color:' + color  + '">' + prefix + ':'  + '</span><span>' +  selectData.replace(prefix + ':', '') + '</span></div>'
-
-        }
-   })
-
-   if (semiColor === '') {
-      semiColor = selectData
-   }
-
-
+   span.classList.add('mr-2')
    span.setAttribute('data-class-select', selectData)
-   span.innerHTML = semiColor + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+   span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
  
   
    
 
    document.querySelector('.selected-class').appendChild(span) 
-   
-   copyClass.push(selectData.replace('undefined', ''))
    checkClassSelected()
+   copyClass.push(selectData.replace('undefined', ''))
    document.querySelector('.click-element-over').classList.add(selectData)
-
-   if (document.querySelector('.fixed-click-element-over.click-element-over') !== null) {
-      var uuii = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
+   console.log(copyClass)
+   if (document.querySelector('.fixed-click-element-over') !== null) {
+      var uuii = document.querySelector('.fixed-click-element-over').getAttribute('unid')
       var dataArrayClass = ''
   
       if (copyClass.length == 1){
@@ -311,10 +261,9 @@ addEvent(document, 'click', '.select-item', function(e) {
         }
         dataArrayClass = dataArrayClass.replace(/,\s*$/, "");
       }
-      //document.getElementById(uuii).setAttribute('data-class', dataArrayClass)
+      document.getElementById(uuii).setAttribute('data-class', dataArrayClass)
       
    }
-   document.querySelector('.search-input input').value = ''
  
 
 });
@@ -468,7 +417,7 @@ const searchClass = (dataMaster) => {
             }
         });
         e = e || window.event;
-       
+        console.log(e.keyCode)
         if (e.keyCode == '40') {
             document.querySelector('.select-item').classList.remove('active');
             document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
@@ -498,8 +447,9 @@ const searchClass = (dataMaster) => {
             var cssSelect = document.querySelector('#input-tw-search').value
             span.classList.add('selected-item')
             span.classList.add('relative')
-   
+            span.classList.add('mr-2')
             span.setAttribute('data-class-select', cssSelect)
+
             span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
             
             document.querySelector('.selected-class').appendChild(span) 
@@ -576,6 +526,7 @@ var cssFile = document.createElement('link');
     document.head.appendChild(cssFile);
 
 const html = `
+
 <div class="content-app-tw block-drag aspect-1" id="mydiv">
             <div id="mydivheader" class="flex flex-col content-app-wrapper h-100">
                 <nav class="flex items-center h-16 px-4 pt-4 text-gray-300 rounded-lg">
@@ -618,14 +569,9 @@ const html = `
                         <div class="flex w-full px-1 py-1 bg-gray-100 rounded-full bg-opacity-5">
                             <button data-id="live" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class">Live</button>
                             <button data-id="preview" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class">Preview</button>
-                            <button data-id="fonts" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class ">Fonts</button>
                         </div>
                         <div class="overflow-auto live-editor-tw scroll">
-                            <div data-id="live" class="class-linear-tw tab-tw-inspect-content active-tw-content open">
-                              <div class="h-full w-full flex justify-center items-center text-xs text-center pt-10 text-gray-300">
-                                 Haz click en el elemento que quieras ver sus clases y editarlas
-                              </div>
-                            </div>
+                            <div data-id="live" class="class-linear-tw tab-tw-inspect-content active-tw-content open"></div>
                             <div data-id="preview" class="tab-tw-inspect-content">
                                 <div class="search-input">
                                     <a href="" target="_blank" hidden></a>
@@ -644,6 +590,7 @@ const html = `
                         </div>
                     </div>
                     <div class="ContenthtmlParent">
+
                     </div>
                 </div>
                 <div class="flex items-center justify-between flex-shrink-0 w-full h-16 px-4 text-gray-300 bg-gray-100 rounded-lg bg-opacity-5 ">
@@ -699,8 +646,15 @@ const html = `
                         <!---->
                     </button>
                 </div>
+
+
+
             </div>
         </div>
+
+
+
+
 `
 
 const createClassUnid = (id) => {
@@ -710,7 +664,7 @@ const createClassUnid = (id) => {
     classUnid.id = idu;
     if (document.querySelector('.fixed-click-element-over') !== null){
         var unid = document.querySelector('.fixed-click-element-over').getAttribute('unid')
-    
+        console.log(unid)
         for (var i = 0; i < copyClass.length; i++) {
             if (copyClass.length != 0){
                 document.querySelector('.classUnid[id="'+unid+'"]').setAttribute('data-class', copyClass[i]);
@@ -724,48 +678,8 @@ const createClassUnid = (id) => {
 }
 
 const checkClassSelected = (className) => {
-
+ 
     var id = uuidv1()
-    if (document.querySelector('.fixed-click-element-over.click-element-over') != null)
-    {
-       console.log('ya estas en el elemento') 
-
-        var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
-        var dataArrayClass = ''
-     
-        if (copyClass.length == 1){
-                dataArrayClass += copyClass[0]
-        }else{
-            for(var i = 0; i <  copyClass.length; i++) {
-                dataArrayClass += copyClass[i] + ','
-            }
-            dataArrayClass = dataArrayClass.replace(/,\s*$/, "");
-        }
-
-        document.getElementById(idu).setAttribute('data-class', dataArrayClass)
-       
-    }else{
-        var id = uuidv1()
-        document.querySelector('.click-element-over').setAttribute('unid', id)
-        console.log('Nuevo elemento') 
-        document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
-        var classUnid = document.createElement('div');
-        var idu = id;
-        classUnid.className = 'classUnid';
-        classUnid.id = id;
-        document.querySelector('.selected-class').setAttribute('unid', idu)
-       
-        document.querySelector('html').appendChild(classUnid)
-        var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
-        for (var i = 0; i < copyClass.length; i++) {
-             if (copyClass.length != 0){
-                 document.querySelector('.classUnid[id="'+id+'"]').setAttribute('data-class', copyClass[i]);
-             }
-         }
-        
-    }
-   
-    /*var id = uuidv1()
     if (document.querySelector('.selected-class').childNodes.length > 1){
         if (document.querySelector('.click-element-over.fixed-click-element-over') !== null){
             return false;
@@ -774,7 +688,7 @@ const checkClassSelected = (className) => {
         document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
         document.querySelector('.click-element-over').setAttribute('unid', id)
         createClassUnid(id)
-    } */
+    }
 }
 
 
@@ -797,49 +711,11 @@ addEvent(document, 'click', '*', function(){
     /*document.querySelector('.selected-class').innerHTML = ''
     if (document.querySelector('.fixed-click-element-over') !== null){
         copyClass = []
-     
+        console.log(copyClass)
        
     } */
 })
 
-addEvent(document, 'click', '.click-element-over', function(){
-    if (this.className.indexOf('fixed-click-element-over') !== -1){
-        var newData = []
-        var dataDivid = this.getAttribute('unid')
-        var dataDiv = document.querySelector('.classUnid[id="'+dataDivid+'"]').getAttribute('data-class')
-        var toSplit = dataDiv.split(',')
-        console.log(toSplit)
-        for (var i = 0; i < toSplit.length; i++) {
-            newData.push(toSplit[i])
-        }
-        document.querySelector('.selected-class').innerHTML = ''
-        document.querySelector('.selected-class').setAttribute('unid', dataDivid)
-        
-        if (document.getElementById(dataDivid).getAttribute('data-class') == ''){
-            return false;
-        }
-        for (var i = 0; i < newData.length; i++) {
-          
-            var  selectData = newData[i]
-            var span = document.createElement("span");
-           
-            span.classList.add('selected-item')
-            span.classList.add('relative')
-            
-       
-            span.setAttribute('data-class-select', selectData)
-            span.innerHTML = selectData + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
-            document.querySelector('.selected-class').appendChild(span) 
-        } 
-
-        
-
-    }else{
-        console.log(0)
-        document.querySelector('.selected-class').innerHTML = ''
-        copyClass = []
-    }
-})
 
 
 
@@ -885,4 +761,3 @@ function showCSS(){
    var element = document.querySelector('.class-row-tw')
 }
 
-console.log(dataMaster)
