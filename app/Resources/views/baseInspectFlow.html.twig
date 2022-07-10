@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-  
+        <script src="https://cdn.tailwindcss.com"></script>
         <link href="{{ asset('build/css/app.css?v=' ~ ramdon ) }}" rel="stylesheet" type="text/css">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
