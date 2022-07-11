@@ -1,6 +1,7 @@
 {
   "name": "wenly",
   "scripts": {
+    "dev": "php bin/console server:run && npm run watch",
     "watch": "cross-env NODE_ENV=dev encore dev --watch",
     "build": "cross-env NODE_ENV=production encore production --progress"
   },

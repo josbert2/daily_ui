@@ -1,17 +1,13 @@
 {
   "entrypoints": {
-    "wenlyjs": {
+    "js/app": {
       "js": [
-        "/build/wenly/runtime.js",
-        "/build/wenly/wenlyjs.js"
+        "/build/wenly/js/app.js"
       ]
     },
-    "wenlycss": {
-      "js": [
-        "/build/wenly/runtime.js"
-      ],
+    "css/app": {
       "css": [
-        "/build/wenly/wenlycss.css"
+        "/build/wenly/css/app.css"
       ]
     }
   }

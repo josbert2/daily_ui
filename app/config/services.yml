@@ -35,3 +35,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AppBundle\Twig\:
+        resource: '../../src/AppBundle/Twig'
+        tags: [{ name: 'twig.extension' }]

@@ -9,11 +9,11 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 
-Encore.DisableVersion = true;
+/*Encore.DisableVersion = true;
 
 Encore
 
-    .setOutputPath('web/build/wenly')
+    .setOutputPath('web/build/wenly/')
     .setPublicPath('/build/wenly')
     .addStyleEntry('wenlycss', './web/assets/wenly/scss/app.scss')
     .addEntry('wenlyjs', './web/assets/wenly/js/app.js')
@@ -23,6 +23,8 @@ Encore
     .enableBuildNotifications()
     .enableSassLoader()
     .enablePostCssLoader()
+
+    
     .configureFontRule({
         type: 'asset',
         //maxSize: 4 * 1024
@@ -37,50 +39,64 @@ Encore
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = 3;
-    })
+    }) */
 
     // entry to add 
-    .addPlugin(new BrowserSyncPlugin(
-        {
-            host: "localhost",
-            port: 3000,
-            proxy: process.env.PROXY,
-            files: [
-                {
-                    match: ["app/Resources/views/**/*.twig"],
-                },
-                {
-                    match: ["src/**/*.php"],
-                },
-                {
-                    match: ["web/assets/**/*.js"],
-                },
-                {
-                    match: ["web/assets/**/*.scss"],
-                },
-            ],
-            notify: false,
-        },
+    //.addPlugin(new BrowserSyncPlugin(
+    //    {
+    //        host: "localhost",
+    //        port: 3000,
+    //        proxy: process.env.PROXY,
+    //        files: [
+    //            {
+    //                match: ["app/Resources/views/**/*.twig"],
+    //            },
+    //            {
+    //                match: ["src/**/*.php"],
+    //            },
+    //            {
+    //                match: ["web/assets/**/*.js"],
+    //            },
+    //            {
+    //                match: ["web/assets/**/*.scss"],
+    //            },
+    //        ],
+    //        notify: false,
+    //    },
+    //
+    //    {
+    //
+    //        reload: true,
+    //    }
+    //))
+//
+//;
 
-        {
+//"php": ">=5.5.9",
+Encore
+  .setOutputPath('web/build/wenly/')
+  .setPublicPath('/build/wenly')
+  .addStyleEntry('css/app', './web/assets/wenly/scss/app.scss')
+  .addEntry('js/app', './web/assets/wenly/js/app.js')
+  //.cleanupOutputBeforeBuild()
+  //.enableVersioning()
+  .disableSingleRuntimeChunk() 
+  // enable post css loader
+  .enableSassLoader()
+  .enablePostCssLoader()
+  .configureFontRule({
+    type: 'asset',
+    //maxSize: 4 * 1024
+    filename: 'fonts/[name][ext]'  
+  })
 
-            reload: true,
-        }
-    ))
+const wenly = Encore.getWebpackConfig();
+wenly.name = 'wenly';
 
-;
-
-module.exports = Encore.getWebpackConfig();
+// reset Encore to build the second config
+Encore.reset();
 
 
-/*
-Config vieja
-const Encore = require('@symfony/webpack-encore')
-
-
-if (!Encore.isRuntimeEnvironmentConfigured()) {
-    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
-}
 
 
 //"php": ">=5.5.9",
@@ -89,7 +105,7 @@ Encore
   .setPublicPath('/build')
   .addStyleEntry('css/app', './web/assets/encore/css/app.scss')
   .addEntry('js/app', './web/assets/encore/js/app.js')
-  .cleanupOutputBeforeBuild()
+  //.cleanupOutputBeforeBuild()
   //.enableVersioning()
   .disableSingleRuntimeChunk() 
   // enable post css loader
@@ -97,4 +113,9 @@ Encore
   .enablePostCssLoader()
 
 
-module.exports = Encore.getWebpackConfig() */
+  
+const inspectFlow = Encore.getWebpackConfig();
+inspectFlow.name = 'inspectFlow';
+
+
+module.exports = [wenly, inspectFlow];

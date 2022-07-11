@@ -1,7 +1,122 @@
 {% extends 'baseFrontend.html.twig' %}
 
+
+
+
+
+
 {% block content %}
-    <div class="h-[90vh] flex justify-center items-center bg-tilt">
-        <h1 class="text-blue-500 text text-9xl font-Gilroy-Black">Wenly</h1>
+    <div class="px-5 pt-5 ml-64 main-container">
+        <div class="px-6 py-4 mx-auto bg-white rounded w-96">
+        {{ form_start(form, {'attr': {'class': 'task_field'}}) }}
+
+            {{ form_widget(form, { 'value': '' }) }}
+
+        {{ form_end(form) }}
+        </div>
     </div>
+    {{ Multi(3232) }}
+    <div class="px-5 pt-5 ml-64 main-container">
+        <div class="grid grid-cols-7 gap-10">
+            {% for icon in icons %}
+                <div class="relative">
+                    <div class="relative flex flex-col items-center justify-center px-2 py-5 bg-white rounded-lg shadow-lg">
+                        <div class="w-6 h-6 mb-4">
+                            <img class="w-full h-full"  src="{{ asset('uploads/images/' ~ icon.image)}}">
+                        </div>
+                        <span class="text-gray-500">{{ icon.name }}</span>
+                    </div>
+                    <div class="absolute -top-3 -right-3">
+                        <div class="px-1 py-1 bg-white rounded-full shadow cursor-pointer a delete-icon" data-id="26">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            
+                
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+       function showIconLista(){
+              $.ajax({
+                url: '{{ path('listaIcon') }}',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data){
+                     $('#lista-icon').empty();
+                     data.forEach(element => {
+                          $('#lista-icon').append(`
+                            <div class="relative">
+                                <div class="relative flex items-center justify-center px-2 py-5 bg-white rounded-lg shadow-lg">
+                                ${element.name}
+                                
+                                </div>
+                                <div class="absolute -top-3 -right-3">
+                                    <div class="px-1 py-1 bg-white rounded-full shadow cursor-pointer a delete-icon" data-id="${element.id}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                          `);
+                     });
+                }
+              });   
+
+       }
+       $(document).on('click', '.delete-icon', function(){
+            var id = $(this).data('id');
+            $.ajax({
+                url: "{{path('deleteIcon')}}",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function(data){
+                    showIconLista()
+              
+                }
+            });
+       });
+       $('.addIconBtn').on('click', function(e){
+            e.preventDefault();
+            $.ajax({
+                url: "{{path('addIcon')}}",
+                type: "POST",
+                data: {
+                    name: $('#icon_name').val(),
+                    image: $('#svg_icon').val()
+                },
+                success: function(data){
+                    console.log(data);
+                    showIconLista()
+                }
+            });
+        });
+
+        {#$('body, html').on('click', '.delete-icon', function(){
+            var id = $(this).data('id');
+            console.log(2)
+            $.ajax({
+                url: "{{path('deleteIcon')}}",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function(data){
+                    showIconLista()
+              
+                }
+            });
+        });#}
+
+
+        showIconLista();
+    </script>
 {% endblock %}
