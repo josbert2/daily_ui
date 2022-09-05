@@ -11,9 +11,13 @@
             <img class="object-cover w-full h-full"  src=" https://toka.b-cdn.net/wp-content/uploads/2022/04/gtjnvkg.png">
         
         </div>
-        <div class="container relative z-10 flex px-10 mx-auto">
-            asd
+        <div class="">
+            {% include 'partials/sidebar.html.twig' %}
+            {% block content %}
+
+            {% endblock %}
         </div>
+     
   
         
 {% endblock %}
