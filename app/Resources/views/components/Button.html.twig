@@ -7,71 +7,58 @@
 
 
 {% block content %}
-    <div class="">
-        <div class="py-3">
-            <div class="">
-                <svg class="nextui-c-gXbdHx nextui-c-gXbdHx-gjRtCi-auto-true navbar__logo" height="24.48" viewBox="0 0 100 24.48" width="100"><path d="M18.745 0v24.069h-2.139L2.386 3.914h-.188v20.155H0V0h2.127l14.267 20.179h.188V0zm13.256 24.445a7.934 7.934 0 01-4.371-1.181 7.79 7.79 0 01-2.85-3.279 11.069 11.069 0 01-1-4.836 11.2 11.2 0 011-4.848 8.1 8.1 0 012.785-3.326 7.175 7.175 0 014.119-1.2 7.689 7.689 0 012.832.535 7.042 7.042 0 012.45 1.634 7.836 7.836 0 011.722 2.756 11.015 11.015 0 01.635 3.931v1.034h-12.1V13.82h9.963a6.882 6.882 0 00-.7-3.132 5.55 5.55 0 00-1.939-2.2 5.11 5.11 0 00-2.862-.811 5.121 5.121 0 00-3.02.917 6.251 6.251 0 00-2.039 2.421 7.513 7.513 0 00-.746 3.291v1.1a8.822 8.822 0 00.746 3.755 5.751 5.751 0 002.124 2.487 5.9 5.9 0 003.255.881 5.873 5.873 0 002.251-.4 4.843 4.843 0 001.634-1.075 4.729 4.729 0 001-1.487l1.986.646a5.885 5.885 0 01-1.346 2.1 6.889 6.889 0 01-2.327 1.545 8.251 8.251 0 01-3.202.587zm12.74-18.428l4.654 7.7 4.654-7.7h2.433l-5.806 9.026 5.806 9.026H54.05l-4.654-7.451-4.655 7.451H42.32l5.735-9.026-5.735-9.026zm23.246 0v1.822h-8.615V6.017zm-5.923-4.325h2.1v17.664a3.414 3.414 0 00.388 1.769 2.159 2.159 0 001.011.9 3.363 3.363 0 001.328.264 4.045 4.045 0 00.705-.053q.294-.053.517-.112l.447 1.892a5.433 5.433 0 01-.752.217 5.162 5.162 0 01-1.1.1 5.1 5.1 0 01-2.215-.505 4.337 4.337 0 01-1.743-1.499 4.3 4.3 0 01-.682-2.48zM89.211 0h2.2v15.936a8.411 8.411 0 01-1.152 4.389 8.18 8.18 0 01-3.2 3.044 9.854 9.854 0 01-4.77 1.111 9.82 9.82 0 01-4.76-1.116 8.225 8.225 0 01-3.208-3.044 8.379 8.379 0 01-1.152-4.384V0h2.2v15.783a6.747 6.747 0 00.858 3.414 6.13 6.13 0 002.415 2.356 7.444 7.444 0 003.649.858 7.478 7.478 0 003.655-.858 6.08 6.08 0 002.413-2.353 6.784 6.784 0 00.852-3.414zM100 0v24.069h-2.2V0z"></path></svg>
-            </div>
-            <div class="">
-            
-            </div>
-        </div>        
-        <div class="flex">
-            {% include 'partials/sidebar.html.twig' %}
-            <div class="w-[75%] ">
-                <div class="text-white">
-                    <div class="pb-10 border-b border-purple-50 border-opacity-10">
-                        <div class="mb-5 text-4xl font-black tracking-tighter component-text">
-                            {{ component.name }}
-                        </div>
+    <div class="w-[75%] ">
+        <div class="text-white">
+            <div class="pb-10 border-b border-purple-50 border-opacity-10">
+                <div class="mb-5 text-4xl font-black tracking-tighter component-text">
+                    {{ component.name }}
+                </div>
 
-                        <p class="mt-2 text-sm">
-                            {{ component.description }} 
-                        </p>
+                <p class="mt-2 text-sm">
+                    {{ component.description }} 
+                </p>
+            </div>
+                <div class="pt-10">
+                    <div class="text-xl">
+                        Defaults
                     </div>
-                        <div class="pt-10">
-                            <div class="text-xl">
-                                Defaults
+                    <div class="pt-1 text-sm text-gray-400">
+                        Boton de Defaults 
+                    </div>
+                    <div class="flex flex-wrap gap-5 pt-5">
+                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-blue-500 rounded-2xl ">Button</button>
+                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-danger-500 rounded-2xl ">Button </button>
+                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-purple-500 rounded-2xl ">Button </button>
+                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-green-500 rounded-2xl ">Button </button>
+                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-warning-500 rounded-2xl ">Button </button>
+                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-gray-500 rounded-2xl ">Button </button>
+                    </div>
+                    <div class="relative mt-4 container-code">
+                        <div class="absolute flex p-2 -right-px -top-px ">
+                            <div class="px-4 py-1 text-xs container-code-tabs">
+                                Components
                             </div>
-                            <div class="pt-1 text-sm text-gray-400">
-                                Boton de Defaults 
+                            <div class="flex items-center px-4 py-1 text-xs container-code-tabs">
+                                <svg viewBox="0 0 24 24" class="h-4 mr-2 text-slate-900 dark:text-white">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.517 0C18.712 0 14.46 3.382 12.758 10.146c2.552-3.382 5.529-4.65 8.931-3.805 1.941.482 3.329 1.882 4.864 3.432 2.502 2.524 5.398 5.445 11.722 5.445 6.804 0 11.057-3.382 12.758-10.145-2.551 3.382-5.528 4.65-8.93 3.804-1.942-.482-3.33-1.882-4.865-3.431C34.736 2.92 31.841 0 25.517 0zM12.758 15.218C5.954 15.218 1.701 18.6 0 25.364c2.552-3.382 5.529-4.65 8.93-3.805 1.942.482 3.33 1.882 4.865 3.432 2.502 2.524 5.397 5.445 11.722 5.445 6.804 0 11.057-3.381 12.758-10.145-2.552 3.382-5.529 4.65-8.931 3.805-1.941-.483-3.329-1.883-4.864-3.432-2.502-2.524-5.398-5.446-11.722-5.446z" fill="#38bdf8"></path>
+                                </svg>
+                                Tailwind
                             </div>
-                            <div class="flex flex-wrap gap-5 pt-5">
+                        </div>
+                        <pre class="mt-1">
+                            <code class="" data-language="html">
+                                
                                 <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-blue-500 rounded-2xl ">Button</button>
                                 <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-danger-500 rounded-2xl ">Button </button>
                                 <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-purple-500 rounded-2xl ">Button </button>
                                 <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-green-500 rounded-2xl ">Button </button>
                                 <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-warning-500 rounded-2xl ">Button </button>
                                 <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-gray-500 rounded-2xl ">Button </button>
-                            </div>
-                            <div class="relative mt-4 container-code">
-                                <div class="absolute flex p-2 -right-px -top-px ">
-                                    <div class="px-4 py-1 text-xs container-code-tabs">
-                                        Components
-                                    </div>
-                                    <div class="flex items-center px-4 py-1 text-xs container-code-tabs">
-                                        <svg viewBox="0 0 24 24" class="h-4 mr-2 text-slate-900 dark:text-white">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M25.517 0C18.712 0 14.46 3.382 12.758 10.146c2.552-3.382 5.529-4.65 8.931-3.805 1.941.482 3.329 1.882 4.864 3.432 2.502 2.524 5.398 5.445 11.722 5.445 6.804 0 11.057-3.382 12.758-10.145-2.551 3.382-5.528 4.65-8.93 3.804-1.942-.482-3.33-1.882-4.865-3.431C34.736 2.92 31.841 0 25.517 0zM12.758 15.218C5.954 15.218 1.701 18.6 0 25.364c2.552-3.382 5.529-4.65 8.93-3.805 1.942.482 3.33 1.882 4.865 3.432 2.502 2.524 5.397 5.445 11.722 5.445 6.804 0 11.057-3.381 12.758-10.145-2.552 3.382-5.529 4.65-8.931 3.805-1.941-.483-3.329-1.883-4.864-3.432-2.502-2.524-5.398-5.446-11.722-5.446z" fill="#38bdf8"></path>
-                                        </svg>
-                                        Tailwind
-                                    </div>
-                                </div>
-                                <pre class="mt-1">
-                                    <code class="" data-language="html">
-                                        
-                                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-blue-500 rounded-2xl ">Button</button>
-                                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-danger-500 rounded-2xl ">Button </button>
-                                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-purple-500 rounded-2xl ">Button </button>
-                                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-green-500 rounded-2xl ">Button </button>
-                                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-warning-500 rounded-2xl ">Button </button>
-                                        <button class="px-10 py-3 text-xs font-medium text-white uppercase transition-colors bg-primary-gray-500 rounded-2xl ">Button </button>
-                                    </code>
-                                </pre>
-                            </div>
-                        
-                        </div>
+                            </code>
+                        </pre>
+                    </div>
+                
                 </div>
-            </div>
         </div>
     </div>
 {% endblock %}
