@@ -5,21 +5,14 @@
   
 {% endblock %}
 {% block body %}
-   
-        <div class="fixed w-screen h-screen">
-            {#<img class="object-cover w-full h-full"  src="https://toka.b-cdn.net/wp-content/uploads/2022/05/krvjbrv.png">#}
-            <img class="object-cover w-full h-full"  src=" https://toka.b-cdn.net/wp-content/uploads/2022/04/gtjnvkg.png">
-        
-        </div>
-        <div class="">
-            {% include 'partials/sidebar.html.twig' %}
-            {% block content %}
+    <div class="fixed w-screen h-screen -z-10">
+        {#<img class="object-cover w-full h-full"  src="https://toka.b-cdn.net/wp-content/uploads/2022/05/krvjbrv.png">#}
+        <img class="object-cover w-full h-full"  src=" https://toka.b-cdn.net/wp-content/uploads/2022/04/gtjnvkg.png">
 
-            {% endblock %}
-        </div>
-     
-  
-        
+    </div>
+    {% block content %}
+    
+    {% endblock %}
 {% endblock %}
 
 {% block javascripts %}
