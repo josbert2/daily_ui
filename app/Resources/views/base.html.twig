@@ -19,7 +19,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap" rel="stylesheet">
         <link href="{{ asset('build/wenly/css/app.css?v=' ~ ramdon ) }}" rel="stylesheet" type="text/css">
-        {#<link href="{{ asset('build/css/app.css?v=' ~ ramdon ) }}" rel="stylesheet" type="text/css">#}
+        <link href="{{ asset('build/css/app.css?v=' ~ ramdon ) }}" rel="stylesheet" type="text/css">
         {# {{ encore_entry_link_tags('tailwind') }}#}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
        <style>
@@ -50,6 +50,6 @@
         {#<script id="__bs_script__">//<![CDATA[
             document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.27.9'><\/script>".replace("HOST", location.hostname));
         //]]></script>#}
-        {#<script type="text/javascript" src="{{ asset('build/js/app.js?v=' ~ ramdon ) }}"></script>#}
+        <script type="text/javascript" src="{{ asset('build/js/app.js?v=' ~ ramdon ) }}"></script>
     </body>
 </html>

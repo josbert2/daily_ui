@@ -89,6 +89,40 @@ Encore
     //maxSize: 4 * 1024
     filename: 'fonts/[name][ext]'  
   })
+  .configureBabel((config) => {
+    config.plugins.push('@babel/plugin-proposal-class-properties');
+})
+.configureBabelPresetEnv((config) => {
+    config.useBuiltIns = 'usage';
+    config.corejs = 3;
+})
+  .addPlugin(new BrowserSyncPlugin(
+        {
+            host: "localhost",
+            port: 3000,
+            proxy: process.env.PROXY,
+            files: [
+                {
+                   match: ["app/Resources/views/**/*.twig"],
+                },
+              {
+                    match: ["src/**/*.php"],
+               },
+                {
+                    match: ["web/assets/**/*.js"],
+                },
+                {
+                    match: ["web/assets/**/*.scss"],
+                },
+          ],
+            notify: false,
+        },
+    
+        {
+    
+            reload: true,
+        }
+    ))
 
 const wenly = Encore.getWebpackConfig();
 wenly.name = 'wenly';
