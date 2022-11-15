@@ -10,6 +10,8 @@ import { textColor } from './tailwindJSON/textColor'
 import { data } from 'autoprefixer'
 
 
+
+
 // Prefijos para la composicin del plugin
 
 const prefiexTailwind = [
@@ -176,6 +178,18 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
           })
        }
  }
+
+ const Padding = () => {
+    const name = 'p'
+    for (var i = 0; i <  prefiexTailwind.length; i++) {
+         for (const [key, value] of Object.entries(fullConfigTW.theme.padding)) {
+            dataMaster.push(arrayListClassTailwind[name] + '-' + prefiexTailwind[i] + '-' + key)
+            }
+    }
+}
+
+console.log(dataMaster)
+
  
  
  
@@ -388,8 +402,9 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
              cancelable: true,
              view: window
          });
+         //evt.initEvent ('mouseup', true, true);
          // If cancelled, don't dispatch our event
-         var canceled = !elem.dispatchEvent(evt);
+         //var canceled = !elem.dispatchEvent(evt);
      };
      const attributeTailwind = {
          'height': 'h',
@@ -444,45 +459,96 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
  
      // if user press any key and release
      inputBox.onkeyup = (e) => {
-         let userData = e.target.value; //user enetered data
-         let emptyArray = [];
-         if (userData) {
- 
-             emptyArray = dataMaster.filter((data) => {
-                 //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-                 return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-             });
-             emptyArray = emptyArray.map((data) => {
-                 // passing return data inside li tag
-                 return data = '<li>' + data + '</li>';
-             });
-             searchWrapper.classList.add("active"); //show autocomplete box
-             showdataMaster(emptyArray);
-             let allList = suggBox.querySelectorAll("li");
-             for (let i = 0; i < allList.length; i++) {
-                 //adding onclick attribute in all li tag
-                 //allList[i].setAttribute("onclick", "select(this)");
-                 
-                 allList[i].classList.add("select-item");
-                 allList[i].setAttribute("data-value", allList[i].innerHTML);
-                 if (allList[i].textContent.indexOf('bg-') > -1) {
-                     var span = document.createElement('span')
-                     var clases = allList[i].textContent
-                     span.classList.add(clases, 'w-3', 'h-3', 'rounded', 'flex', 'ml-auto')
-                     allList[i].appendChild(span);
-                 }
- 
-             }
-         } else {
-             searchWrapper.classList.remove("active"); //hide autocomplete box
-         }
- 
+        if (e.keyCode != 40 && e.keyCode != 38 && e.keyCode != 13) {
+            let userData = e.target.value; //user enetered data
+            let emptyArray = [];
+            if (userData) {
+    
+                emptyArray = dataMaster.filter((data) => {
+                    //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+                    return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+                });
+                emptyArray = emptyArray.map((data) => {
+                    // passing return data inside li tag
+                    return data = '<li>' + data + '</li>';
+                });
+                searchWrapper.classList.add("active"); //show autocomplete box
+                showdataMaster(emptyArray);
+                let allList = suggBox.querySelectorAll("li");
+                for (let i = 0; i < allList.length; i++) {
+                    //adding onclick attribute in all li tag
+                    //allList[i].setAttribute("onclick", "select(this)");
+                    
+                    allList[i].classList.add("select-item");
+                    allList[i].setAttribute("data-value", allList[i].innerHTML);
+                    if (allList[i].textContent.indexOf('bg-') > -1) {
+                        var span = document.createElement('span')
+                        var clases = allList[i].textContent
+                        span.classList.add(clases, 'w-3', 'h-3', 'rounded', 'flex', 'ml-auto')
+                        allList[i].appendChild(span);
+                    }
+    
+                }
+            } else {
+                searchWrapper.classList.remove("active"); //hide autocomplete box
+            }
+        }else{
+            if (e.keyCode == 40) {
+                indexSelect++
+                if (indexSelect >= document.querySelectorAll('.select-item').length) {
+                    indexSelect = 0
+                }
+
+                const selectItem = document.querySelectorAll('.select-item')
+                selectItem.forEach((item, index) => {
+                    item.classList.remove('active')
+                })
+
+                var dataSelected = document.querySelectorAll('.select-item')[indexSelect].getAttribute('data-value')
+                document.querySelector('#input-tw-search').value = dataSelected
+
+                
+                document.querySelectorAll('.select-item')[indexSelect].classList.add('active')
+                document.querySelectorAll('.select-item')[indexSelect].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'center'
+                });
+            }else if (e.keyCode == 38) {
+                indexSelect--
+                if (indexSelect < 0) {
+                    indexSelect = document.querySelectorAll('.select-item').length - 1
+                }
+
+               
+
+                const selectItem = document.querySelectorAll('.select-item')
+                selectItem.forEach((item, index) => {
+                    item.classList.remove('active')
+                })
+
+                var dataSelected = document.querySelectorAll('.select-item')[indexSelect].getAttribute('data-value')
+                
+                document.querySelector('#input-tw-search').value = dataSelected
+
+                document.querySelectorAll('.select-item')[indexSelect].classList.add('active')
+                document.querySelectorAll('.select-item')[indexSelect].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'center'
+                });
+            }else if (e.keyCode == 13) {
+                document.querySelectorAll('.select-item')[indexSelect].click()
+            }
+
+        }
  
      }
  
      document.getElementById('input-tw-search').addEventListener('keydown', function(e) {
          if (e.which === 38 || e.which === 40) {
              e.preventDefault();
+             
          }
      });
  
@@ -501,41 +567,35 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
          e = e || window.event;
         
          if (e.keyCode == '40') {
-             document.querySelector('.select-item').classList.remove('active');
-             document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
- 
-             if (indexSelect <= document.querySelectorAll('.select-item').length) {
+            
+            
+
+            /*document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+            var data = document.querySelectorAll('.select-item')[indexSelect].getAttribute('data-value')
+            document.getElementById('input-tw-search').value = data
+            if (indexSelect <= document.querySelectorAll('.select-item').length) {
                  indexSelect++;
-             } else {
+            } else {
  
-             }
+            } */
          }
  
          if (e.keyCode == '38') {
  
-             if (indexSelect == 0) {
+             /*if (indexSelect == 0) {
                  indexSelect = 0;
              } else {
                  indexSelect--;
              }
  
              document.querySelector('.select-item').classList.remove('active');
-             document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+             document.querySelectorAll('.select-item')[indexSelect].classList.add('active'); */
  
          }
          
          if (e.keyCode == '13') {
-             /*var span = document.createElement("span");
-             var cssSelect = document.querySelector('#input-tw-search').value
-             span.classList.add('selected-item')
-             span.classList.add('relative')
-    
-             span.setAttribute('data-class-select', cssSelect)
-             span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
-             
-             document.querySelector('.selected-class').appendChild(span) 
-             copyClass.push(cssSelect.replace('undefined', ''))
-             document.querySelector('.click-element-over').classList.add(cssSelect) */
+            
+            
          }
  
      }
@@ -549,6 +609,22 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
              var someLink = document.querySelector('.select-item.active')
  
              simulateClick(someLink);
+                if (document.querySelector('#input-tw-search').value != '') {
+                    var span = document.createElement("span");
+                    var cssSelect = document.querySelector('#input-tw-search').value
+                    span.classList.add('selected-item')
+                    span.classList.add('relative')
+                    span.setAttribute('data-class-select', cssSelect)
+                    span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+                    document.querySelector('.selected-class').appendChild(span) 
+                    copyClass.push(cssSelect.replace('undefined', ''))
+                    document.querySelector('.click-element-over').classList.add(cssSelect)
+        
+                    indexSelect == 0
+                    document.querySelector('.autocom-box').innerHTML = '';
+                    document.querySelector('#input-tw-search').value = '';
+                    document.querySelector('.search-input').classList.remove('active');
+                }
  
              indexSelect == 0
              document.querySelector('.autocom-box').innerHTML = '';

@@ -27812,6 +27812,22 @@ var zIndex = function zIndex() {
   }
 };
 
+var Padding = function Padding() {
+  var name = 'p';
+
+  for (var i = 0; i < prefiexTailwind.length; i++) {
+    for (var _i5 = 0, _Object$entries4 = Object.entries(fullConfigTW.theme.padding); _i5 < _Object$entries4.length; _i5++) {
+      var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i5], 2),
+          key = _Object$entries4$_i[0],
+          value = _Object$entries4$_i[1];
+
+      dataMaster.push(arrayListClassTailwind[name] + '-' + prefiexTailwind[i] + '-' + key);
+    }
+  }
+};
+
+console.log(dataMaster);
+
 function JSONDATA() {
   aspectRatio();
   zIndex();
@@ -27987,9 +28003,9 @@ var searchClass = function searchClass(dataMaster) {
       bubbles: true,
       cancelable: true,
       view: window
-    }); // If cancelled, don't dispatch our event
-
-    var canceled = !elem.dispatchEvent(evt);
+    }); //evt.initEvent ('mouseup', true, true);
+    // If cancelled, don't dispatch our event
+    //var canceled = !elem.dispatchEvent(evt);
   };
 
   var attributeTailwind = {
@@ -28036,39 +28052,85 @@ var searchClass = function searchClass(dataMaster) {
   var webLink; // if user press any key and release
 
   inputBox.onkeyup = function (e) {
-    var userData = e.target.value; //user enetered data
+    if (e.keyCode != 40 && e.keyCode != 38 && e.keyCode != 13) {
+      var userData = e.target.value; //user enetered data
 
-    var emptyArray = [];
+      var emptyArray = [];
 
-    if (userData) {
-      emptyArray = dataMaster.filter(function (data) {
-        //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-        return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-      });
-      emptyArray = emptyArray.map(function (data) {
-        // passing return data inside li tag
-        return data = '<li>' + data + '</li>';
-      });
-      searchWrapper.classList.add("active"); //show autocomplete box
+      if (userData) {
+        emptyArray = dataMaster.filter(function (data) {
+          //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+          return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+        });
+        emptyArray = emptyArray.map(function (data) {
+          // passing return data inside li tag
+          return data = '<li>' + data + '</li>';
+        });
+        searchWrapper.classList.add("active"); //show autocomplete box
 
-      showdataMaster(emptyArray);
-      var allList = suggBox.querySelectorAll("li");
+        showdataMaster(emptyArray);
+        var allList = suggBox.querySelectorAll("li");
 
-      for (var i = 0; i < allList.length; i++) {
-        //adding onclick attribute in all li tag
-        //allList[i].setAttribute("onclick", "select(this)");
-        allList[i].classList.add("select-item");
-        allList[i].setAttribute("data-value", allList[i].innerHTML);
+        for (var i = 0; i < allList.length; i++) {
+          //adding onclick attribute in all li tag
+          //allList[i].setAttribute("onclick", "select(this)");
+          allList[i].classList.add("select-item");
+          allList[i].setAttribute("data-value", allList[i].innerHTML);
 
-        if (allList[i].textContent.indexOf('bg-') > -1) {
-          var span = document.createElement('span');
-          var clases = allList[i].textContent;
-          span.classList.add(clases, 'w-3', 'h-3', 'rounded', 'flex', 'ml-auto');
-          allList[i].appendChild(span);
+          if (allList[i].textContent.indexOf('bg-') > -1) {
+            var span = document.createElement('span');
+            var clases = allList[i].textContent;
+            span.classList.add(clases, 'w-3', 'h-3', 'rounded', 'flex', 'ml-auto');
+            allList[i].appendChild(span);
+          }
         }
+      } else {
+        searchWrapper.classList.remove("active"); //hide autocomplete box
       }
     } else {
-      searchWrapper.classList.remove("active"); //hide autocomplete box
+      if (e.keyCode == 40) {
+        indexSelect++;
+
+        if (indexSelect >= document.querySelectorAll('.select-item').length) {
+          indexSelect = 0;
+        }
+
+        var selectItem = document.querySelectorAll('.select-item');
+        selectItem.forEach(function (item, index) {
+          item.classList.remove('active');
+        });
+        var dataSelected = document.querySelectorAll('.select-item')[indexSelect].getAttribute('data-value');
+        document.querySelector('#input-tw-search').value = dataSelected;
+        document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+        document.querySelectorAll('.select-item')[indexSelect].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center'
+        });
+      } else if (e.keyCode == 38) {
+        indexSelect--;
+
+        if (indexSelect < 0) {
+          indexSelect = document.querySelectorAll('.select-item').length - 1;
+        }
+
+        var _selectItem = document.querySelectorAll('.select-item');
+
+        _selectItem.forEach(function (item, index) {
+          item.classList.remove('active');
+        });
+
+        var dataSelected = document.querySelectorAll('.select-item')[indexSelect].getAttribute('data-value');
+        document.querySelector('#input-tw-search').value = dataSelected;
+        document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+        document.querySelectorAll('.select-item')[indexSelect].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center'
+        });
+      } else if (e.keyCode == 13) {
+        document.querySelectorAll('.select-item')[indexSelect].click();
+      }
     }
   };
 
@@ -28089,37 +28151,26 @@ var searchClass = function searchClass(dataMaster) {
     e = e || window.event;
 
     if (e.keyCode == '40') {
-      document.querySelector('.select-item').classList.remove('active');
-      document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
-
+      /*document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+      var data = document.querySelectorAll('.select-item')[indexSelect].getAttribute('data-value')
+      document.getElementById('input-tw-search').value = data
       if (indexSelect <= document.querySelectorAll('.select-item').length) {
-        indexSelect++;
-      } else {}
+           indexSelect++;
+      } else {
+         } */
     }
 
     if (e.keyCode == '38') {
-      if (indexSelect == 0) {
-        indexSelect = 0;
+      /*if (indexSelect == 0) {
+          indexSelect = 0;
       } else {
-        indexSelect--;
+          indexSelect--;
       }
-
-      document.querySelector('.select-item').classList.remove('active');
-      document.querySelectorAll('.select-item')[indexSelect].classList.add('active');
+         document.querySelector('.select-item').classList.remove('active');
+      document.querySelectorAll('.select-item')[indexSelect].classList.add('active'); */
     }
 
-    if (e.keyCode == '13') {
-      /*var span = document.createElement("span");
-      var cssSelect = document.querySelector('#input-tw-search').value
-      span.classList.add('selected-item')
-      span.classList.add('relative')
-            span.setAttribute('data-class-select', cssSelect)
-      span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
-      
-      document.querySelector('.selected-class').appendChild(span) 
-      copyClass.push(cssSelect.replace('undefined', ''))
-      document.querySelector('.click-element-over').classList.add(cssSelect) */
-    }
+    if (e.keyCode == '13') {}
   }
 
   function checkKey(e) {
@@ -28128,6 +28179,23 @@ var searchClass = function searchClass(dataMaster) {
     if (e.keyCode == '13') {
       var someLink = document.querySelector('.select-item.active');
       simulateClick(someLink);
+
+      if (document.querySelector('#input-tw-search').value != '') {
+        var span = document.createElement("span");
+        var cssSelect = document.querySelector('#input-tw-search').value;
+        span.classList.add('selected-item');
+        span.classList.add('relative');
+        span.setAttribute('data-class-select', cssSelect);
+        span.innerHTML = cssSelect + '<span class="absolute cursor-pointer top-2/4 right-1 transform -translate-y-2/4 delete-class"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></span>';
+        document.querySelector('.selected-class').appendChild(span);
+        copyClass.push(cssSelect.replace('undefined', ''));
+        document.querySelector('.click-element-over').classList.add(cssSelect);
+        indexSelect == 0;
+        document.querySelector('.autocom-box').innerHTML = '';
+        document.querySelector('#input-tw-search').value = '';
+        document.querySelector('.search-input').classList.remove('active');
+      }
+
       indexSelect == 0;
       document.querySelector('.autocom-box').innerHTML = '';
       document.querySelector('#input-tw-search').value = '';
