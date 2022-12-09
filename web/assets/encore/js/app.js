@@ -10,6 +10,11 @@ import { textColor } from './tailwindJSON/textColor'
 import { data } from 'autoprefixer'
 
 
+import { mainMasterData } from './tailwindJSON/index'
+
+
+
+
 
 
 // Prefijos para la composicin del plugin
@@ -31,10 +36,10 @@ const arrayListClassTailwind = {
 
 function getObjectTailwind(arr){
     Object.entries(arr.theme).forEach(([key, value]) => {
-        console.log(key)
+       
         if (arrayListClassTailwind[key]) {
             Object.entries(value).forEach(([val]) => {
-                console.log(arrayListClassTailwind[key] + '-' + val)
+             
             })
         }
     })
@@ -43,13 +48,24 @@ function getObjectTailwind(arr){
 
 var dataMaster = []
  
+
+
+
+
+
  
  
  
  const fullConfigTW = resolveConfig(tailwindConfig)
  const userConfigTW = tailwindConfig
+
+
+
  
  getObjectTailwind(fullConfigTW)
+ 
+
+
 
 
 /*// Get Aspect Ratio
@@ -58,7 +74,7 @@ Object.entries(fullConfigTW.theme.aspectRatio).forEach(([key, value]) => {
 })
 // Get Container
 Object.entries(fullConfigTW.theme.container).forEach(([key, value]) => {
-    console.log(key)
+
 })
 // Get columns
 Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
@@ -157,47 +173,15 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
     } 
  }
  
- const aspectRatio = () => {
-    const name = 'aspectRatio'
-    for (var i = 0; i <  prefiexTailwind.length; i++) {
-       for (const [key, value] of Object.entries(fullConfigTW.theme.aspectRatio)) {
-          dataMaster.push(arrayListClassTailwind[name] + '-' + prefiexTailwind[i] + '-' + key)
-       } 
-    }
- }
  
- const zIndex = () => {
-    const name = 'z'
-       for (const [key, value] of Object.entries(fullConfigTW.theme.zIndex)) {
-          dataMaster.push(name + '-' + key)
-       } 
- 
-       for (var i = 0; i <  prefixBreakpoint.length; i++) {
-          Object.entries(fullConfigTW.theme.zIndex).forEach(([key, value]) => {
-             dataMaster.push(prefixBreakpoint[i] + ':' + name + '-' + key)
-          })
-       }
- }
 
- const Padding = () => {
-    const name = 'p'
-    for (var i = 0; i <  prefiexTailwind.length; i++) {
-         for (const [key, value] of Object.entries(fullConfigTW.theme.padding)) {
-            dataMaster.push(arrayListClassTailwind[name] + '-' + prefiexTailwind[i] + '-' + key)
-            }
-    }
-}
 
-console.log(dataMaster)
+
 
  
  
- 
- 
- function JSONDATA () {
-    aspectRatio()
-    zIndex()
- }
+
+
  function myFunction() {
     var copyText = document.getElementById("myInput");
     copyText.select();
@@ -271,7 +255,7 @@ console.log(dataMaster)
     document.getElementById(unid).setAttribute('data-class', classToRemove)
  
     
-    console.log(classToRemove)
+
  
     copyToClipboardWebpack(newClass.replace('undefined', ''));
  
@@ -321,7 +305,7 @@ console.log(dataMaster)
              edited = edited.substring(0, edited.length-1) + "}";
              var color = JSON.parse(edited)
              color = color[prefix]
-             console.log(color)
+          
              semiColor = '<div class="flex items-center"><span style="color:' + color  + '">' + prefix + ':'  + '</span><span>' +  selectData.replace(prefix + ':', '') + '</span></div>'
  
          }
@@ -835,7 +819,7 @@ console.log(dataMaster)
      var id = uuidv1()
      if (document.querySelector('.fixed-click-element-over.click-element-over') != null)
      {
-        console.log('ya estas en el elemento') 
+        
  
          var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
          var dataArrayClass = ''
@@ -854,7 +838,7 @@ console.log(dataMaster)
      }else{
          var id = uuidv1()
          document.querySelector('.click-element-over').setAttribute('unid', id)
-         console.log('Nuevo elemento') 
+  
          document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
          var classUnid = document.createElement('div');
          var idu = id;
@@ -915,7 +899,7 @@ console.log(dataMaster)
          var dataDivid = this.getAttribute('unid')
          var dataDiv = document.querySelector('.classUnid[id="'+dataDivid+'"]').getAttribute('data-class')
          var toSplit = dataDiv.split(',')
-         console.log(toSplit)
+    
          for (var i = 0; i < toSplit.length; i++) {
              newData.push(toSplit[i])
          }
@@ -942,7 +926,7 @@ console.log(dataMaster)
          
  
      }else{
-         console.log(0)
+
          document.querySelector('.selected-class').innerHTML = ''
          copyClass = []
      }
@@ -962,7 +946,7 @@ console.log(dataMaster)
          clickElement()
          dragElement(document.getElementById("mydiv"));
          space()
-         JSONDATA()
+         mainMasterData(resolveConfig(fullConfigTW), dataMaster)
          searchClass(dataMaster)
          //disabledEnabled()
          //toggleAction.activate()
@@ -980,7 +964,7 @@ console.log(dataMaster)
      clickElement()
      dragElement(document.getElementById("mydiv"));
      space()
-     JSONDATA()
+     mainMasterData(resolveConfig(fullConfigTW), dataMaster)
      searchClass(dataMaster)
      //disabledEnabled()
      //toggleAction.activate()
@@ -991,5 +975,5 @@ console.log(dataMaster)
  function showCSS(){
     var element = document.querySelector('.class-row-tw')
  }
- 
- console.log(dataMaster)
+
+

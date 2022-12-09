@@ -9020,6 +9020,102 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./web/assets/encore/js/tailwindJSON/index.js":
+/*!****************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/index.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "mainMasterData": () => (/* binding */ mainMasterData)
+/* harmony export */ });
+/* harmony import */ var _util_MaxWidth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util/MaxWidth */ "./web/assets/encore/js/tailwindJSON/util/MaxWidth.js");
+/* harmony import */ var _util_MinWidth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util/MinWidth */ "./web/assets/encore/js/tailwindJSON/util/MinWidth.js");
+/* harmony import */ var _util_MinHeight__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util/MinHeight */ "./web/assets/encore/js/tailwindJSON/util/MinHeight.js");
+/* harmony import */ var _util_MaxHeight__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/MaxHeight */ "./web/assets/encore/js/tailwindJSON/util/MaxHeight.js");
+/* harmony import */ var _util_Width__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/Width */ "./web/assets/encore/js/tailwindJSON/util/Width.js");
+/* harmony import */ var _util_Height__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/Height */ "./web/assets/encore/js/tailwindJSON/util/Height.js");
+/* harmony import */ var _util_Padding__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/Padding */ "./web/assets/encore/js/tailwindJSON/util/Padding.js");
+/* harmony import */ var _util_Transitions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/Transitions */ "./web/assets/encore/js/tailwindJSON/util/Transitions.js");
+/* harmony import */ var _util_Durations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/Durations */ "./web/assets/encore/js/tailwindJSON/util/Durations.js");
+/* harmony import */ var _util_TimeFunction__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util/TimeFunction */ "./web/assets/encore/js/tailwindJSON/util/TimeFunction.js");
+/* harmony import */ var _util_Delay__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./util/Delay */ "./web/assets/encore/js/tailwindJSON/util/Delay.js");
+/* harmony import */ var _util_Animation__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./util/Animation */ "./web/assets/encore/js/tailwindJSON/util/Animation.js");
+/* harmony import */ var _util_Layouts__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./util/Layouts */ "./web/assets/encore/js/tailwindJSON/util/Layouts/index.js");
+/* harmony import */ var _util_Border__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./util/Border */ "./web/assets/encore/js/tailwindJSON/util/Border/index.js");
+/* harmony import */ var _util_Divide__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./util/Divide */ "./web/assets/encore/js/tailwindJSON/util/Divide/index.js");
+/* harmony import */ var _util_Outline__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./util/Outline */ "./web/assets/encore/js/tailwindJSON/util/Outline/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+ // Transitions
+
+
+
+
+
+
+
+
+
+
+var mainMasterData = function mainMasterData(fullConfigTW, data) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var fullDataMaster = data;
+  var ObjTW = {
+    //'aspectRatio': AspectRatio(fullConfigTWMain),
+    "maxWidth": (0,_util_MaxWidth__WEBPACK_IMPORTED_MODULE_0__.MaxWidth)(fullConfigTWMain),
+    "minHeight": (0,_util_MinHeight__WEBPACK_IMPORTED_MODULE_2__.MinHeight)(fullConfigTWMain),
+    "maxHeight": (0,_util_MaxHeight__WEBPACK_IMPORTED_MODULE_3__.MaxHeight)(fullConfigTWMain),
+    "width": (0,_util_Width__WEBPACK_IMPORTED_MODULE_4__.Width)(fullConfigTWMain),
+    "height": (0,_util_Height__WEBPACK_IMPORTED_MODULE_5__.Height)(fullConfigTWMain),
+    "padding": (0,_util_Padding__WEBPACK_IMPORTED_MODULE_6__.Padding)(fullConfigTWMain),
+    "minWidth": (0,_util_MinWidth__WEBPACK_IMPORTED_MODULE_1__.MinWidth)(fullConfigTWMain),
+    "transition": (0,_util_Transitions__WEBPACK_IMPORTED_MODULE_7__.Transition)(fullConfigTWMain),
+    "duration": (0,_util_Durations__WEBPACK_IMPORTED_MODULE_8__.Durations)(fullConfigTWMain),
+    "TimeFunction": (0,_util_TimeFunction__WEBPACK_IMPORTED_MODULE_9__.TimeFunction)(fullConfigTWMain),
+    "Delay": (0,_util_Delay__WEBPACK_IMPORTED_MODULE_10__.Delay)(fullConfigTWMain),
+    "Animation": (0,_util_Animation__WEBPACK_IMPORTED_MODULE_11__.Animation)(fullConfigTWMain),
+    "Border": (0,_util_Border__WEBPACK_IMPORTED_MODULE_13__.Border)(fullConfigTWMain),
+    "Divide": (0,_util_Divide__WEBPACK_IMPORTED_MODULE_14__.Divide)(fullConfigTWMain),
+    "Outline": (0,_util_Outline__WEBPACK_IMPORTED_MODULE_15__.Outline)(fullConfigTWMain),
+    "Layouts": (0,_util_Layouts__WEBPACK_IMPORTED_MODULE_12__.Layouts)(fullConfigTWMain)
+  };
+  console.log(ObjTW);
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      fullDataMaster.push(value[i]);
+    }
+  }
+
+  return fullDataMaster;
+};
+
+/***/ }),
+
 /***/ "./web/assets/encore/js/tailwindJSON/textColor.js":
 /*!********************************************************!*\
   !*** ./web/assets/encore/js/tailwindJSON/textColor.js ***!
@@ -9082,6 +9178,1717 @@ var textColor = function textColor(fullConfigTW, data) {
       });
     }
   });
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Animation.js":
+/*!*************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Animation.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Animation": () => (/* binding */ Animation)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Animation = function Animation(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['animate'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.animation); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Border/BorderColor.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Border/BorderColor.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BorderColor": () => (/* binding */ BorderColor)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var BorderColor = function BorderColor(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['border'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.borderColor); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Border/BorderRadius.js":
+/*!***********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Border/BorderRadius.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BorderRadius": () => (/* binding */ BorderRadius)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var BorderRadius = function BorderRadius(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['rounded'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.borderRadius); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Border/BorderStyle.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Border/BorderStyle.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BorderStyle": () => (/* binding */ BorderStyle)
+/* harmony export */ });
+var BorderStyle = function BorderStyle(fullConfigTW) {
+  var dataPush = [];
+  var prefixBorder = ['solid', 'dashed', 'dotted', 'double', 'none'];
+
+  for (var i = 0; i < prefixBorder.length; i++) {
+    dataPush.push('border-' + prefixBorder[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Border/BorderWidth.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Border/BorderWidth.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BorderWidth": () => (/* binding */ BorderWidth)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var BorderWidth = function BorderWidth(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['border'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.borderWidth); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Border/index.js":
+/*!****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Border/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Border": () => (/* binding */ Border)
+/* harmony export */ });
+/* harmony import */ var _BorderWidth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BorderWidth */ "./web/assets/encore/js/tailwindJSON/util/Border/BorderWidth.js");
+/* harmony import */ var _BorderRadius__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BorderRadius */ "./web/assets/encore/js/tailwindJSON/util/Border/BorderRadius.js");
+/* harmony import */ var _BorderColor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BorderColor */ "./web/assets/encore/js/tailwindJSON/util/Border/BorderColor.js");
+/* harmony import */ var _BorderStyle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BorderStyle */ "./web/assets/encore/js/tailwindJSON/util/Border/BorderStyle.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var Border = function Border(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "borderWidth": (0,_BorderWidth__WEBPACK_IMPORTED_MODULE_0__.BorderWidth)(fullConfigTWMain),
+    "borderRadius": (0,_BorderRadius__WEBPACK_IMPORTED_MODULE_1__.BorderRadius)(fullConfigTWMain),
+    "borderColor": (0,_BorderColor__WEBPACK_IMPORTED_MODULE_2__.BorderColor)(fullConfigTWMain),
+    "borderStyle": (0,_BorderStyle__WEBPACK_IMPORTED_MODULE_3__.BorderStyle)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Delay.js":
+/*!*********************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Delay.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Delay": () => (/* binding */ Delay)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Delay = function Delay(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['delay'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.transitionDelay); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Divide/DivideWidth.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Divide/DivideWidth.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DivideWidth": () => (/* binding */ DivideWidth)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var DivideWidth = function DivideWidth(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['divide'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.borderWidth); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Divide/index.js":
+/*!****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Divide/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Divide": () => (/* binding */ Divide)
+/* harmony export */ });
+/* harmony import */ var _DivideWidth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DivideWidth */ "./web/assets/encore/js/tailwindJSON/util/Divide/DivideWidth.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+var Divide = function Divide(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "divideWidth": (0,_DivideWidth__WEBPACK_IMPORTED_MODULE_0__.DivideWidth)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Durations.js":
+/*!*************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Durations.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Durations": () => (/* binding */ Durations)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Durations = function Durations(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['duration'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.transitionDuration); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Height.js":
+/*!**********************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Height.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Height": () => (/* binding */ Height)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Height = function Height(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['h'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.height); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/AspectRatio.js":
+/*!***********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/AspectRatio.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AspectRatio": () => (/* binding */ AspectRatio)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var AspectRatio = function AspectRatio(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var prefiexTailwind = ['sm:', 'h'];
+  var prefixBreakpoint = [];
+  var arrayListClassTailwind = {
+    'aspectRatio': 'aspect',
+    'columns': 'columns',
+    'break-after': 'break-after'
+  };
+  var name = 'aspectRatio';
+
+  for (var i = 0; i < prefiexTailwind.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTWMain.theme.aspectRatio); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(arrayListClassTailwind[name] + '-' + prefiexTailwind[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/BoxDecorationBreak.js":
+/*!******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/BoxDecorationBreak.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BoxDecorationBreak": () => (/* binding */ BoxDecorationBreak)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var BoxDecorationBreak = function BoxDecorationBreak(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['box-decoration-break'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.boxDecorationBreak); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/BoxSizing.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/BoxSizing.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BoxSizing": () => (/* binding */ BoxSizing)
+/* harmony export */ });
+var BoxSizing = function BoxSizing(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['box-border', 'box-content'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/BreakAfter.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/BreakAfter.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BreakAfter": () => (/* binding */ BreakAfter)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var BreakAfter = function BreakAfter(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['break-after'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.breakAfter); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/BreakBefore.js":
+/*!***********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/BreakBefore.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BreakBefore": () => (/* binding */ BreakBefore)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var BreakBefore = function BreakBefore(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['break-before'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.breakBefore); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/BreakInside.js":
+/*!***********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/BreakInside.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BreakInside": () => (/* binding */ BreakInside)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var BreakInside = function BreakInside(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['break-inside'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.breakInside); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Clear.js":
+/*!*****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Clear.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Clear": () => (/* binding */ Clear)
+/* harmony export */ });
+var Clear = function Clear(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['clear-left', 'clear-right', 'clear-both', 'clear-none'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Column.js":
+/*!******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Column.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Column": () => (/* binding */ Column)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Column = function Column(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['col'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.screens); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Container.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Container.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Container": () => (/* binding */ Container)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Container = function Container(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['container'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.screens); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Display.js":
+/*!*******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Display.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Display": () => (/* binding */ Display)
+/* harmony export */ });
+var Display = function Display(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['block', 'inline-block', 'inline', 'flex', 'inline-flex', 'table', 'table-caption', 'table-cell', 'table-column', 'table-column-group', 'table-footer-group', 'table-header-group', 'table-row-group', 'table-row', 'flow-root', 'grid', 'inline-grid', 'contents', 'hidden'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Floats.js":
+/*!******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Floats.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Floats": () => (/* binding */ Floats)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Floats = function Floats(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['float'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme["float"]); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Isolation.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Isolation.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Isolation": () => (/* binding */ Isolation)
+/* harmony export */ });
+var Isolation = function Isolation(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['isolate', 'isolation-auto'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/ObjectFit.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/ObjectFit.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ObjectFit": () => (/* binding */ ObjectFit)
+/* harmony export */ });
+var ObjectFit = function ObjectFit(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['object-contain', 'object-cover', 'object-fill', 'object-none', 'object-scale-down'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/ObjectPosition.js":
+/*!**************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/ObjectPosition.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ObjectPosition": () => (/* binding */ ObjectPosition)
+/* harmony export */ });
+var ObjectPosition = function ObjectPosition(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['object-center', 'object-top', 'object-right', 'object-bottom', 'object-left', 'object-contain', 'object-cover', 'object-fill', 'object-none', 'object-scale-down'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Overflow.js":
+/*!********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Overflow.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Overflow": () => (/* binding */ Overflow)
+/* harmony export */ });
+var Overflow = function Overflow(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['overflow-auto', 'overflow-hidden', 'overflow-visible', 'overflow-scroll', 'overflow-x-auto', 'overflow-y-auto', 'overflow-x-hidden', 'overflow-y-hidden', 'overflow-x-visible', 'overflow-y-visible', 'overflow-x-scroll', 'overflow-y-scroll'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/OverscrollBehavior.js":
+/*!******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/OverscrollBehavior.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OverscrollBehavior": () => (/* binding */ OverscrollBehavior)
+/* harmony export */ });
+var OverscrollBehavior = function OverscrollBehavior(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['overscroll-auto', 'overscroll-contain', 'overscroll-none', 'overscroll-y-auto', 'overscroll-y-contain', 'overscroll-y-none', 'overscroll-x-auto', 'overscroll-x-contain', 'overscroll-x-none'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Position.js":
+/*!********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Position.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Position": () => (/* binding */ Position)
+/* harmony export */ });
+var Position = function Position(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['static', 'fixed', 'absolute', 'relative', 'sticky'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/TopRightBottomLeft.js":
+/*!******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/TopRightBottomLeft.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "TopRightBottomLeft": () => (/* binding */ TopRightBottomLeft)
+/* harmony export */ });
+var TopRightBottomLeft = function TopRightBottomLeft(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['inset', 'inset-x', 'inset-y', 'top', 'right', 'bottom', 'left'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/Visibility.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/Visibility.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Visibility": () => (/* binding */ Visibility)
+/* harmony export */ });
+var Visibility = function Visibility(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['visible', 'invisible'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/ZIndex.js":
+/*!******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/ZIndex.js ***!
+  \******************************************************************/
+/***/ (() => {
+
+
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Layouts/index.js":
+/*!*****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Layouts/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Layouts": () => (/* binding */ Layouts)
+/* harmony export */ });
+/* harmony import */ var _AspectRatio__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AspectRatio */ "./web/assets/encore/js/tailwindJSON/util/Layouts/AspectRatio.js");
+/* harmony import */ var _Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Container */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Container.js");
+/* harmony import */ var _Column__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Column */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Column.js");
+/* harmony import */ var _BreakAfter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BreakAfter */ "./web/assets/encore/js/tailwindJSON/util/Layouts/BreakAfter.js");
+/* harmony import */ var _BreakBefore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./BreakBefore */ "./web/assets/encore/js/tailwindJSON/util/Layouts/BreakBefore.js");
+/* harmony import */ var _BreakInside__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./BreakInside */ "./web/assets/encore/js/tailwindJSON/util/Layouts/BreakInside.js");
+/* harmony import */ var _BoxDecorationBreak__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./BoxDecorationBreak */ "./web/assets/encore/js/tailwindJSON/util/Layouts/BoxDecorationBreak.js");
+/* harmony import */ var _BoxSizing__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./BoxSizing */ "./web/assets/encore/js/tailwindJSON/util/Layouts/BoxSizing.js");
+/* harmony import */ var _Display__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Display */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Display.js");
+/* harmony import */ var _Floats__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Floats */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Floats.js");
+/* harmony import */ var _Clear__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Clear */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Clear.js");
+/* harmony import */ var _Isolation__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Isolation */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Isolation.js");
+/* harmony import */ var _ObjectFit__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ObjectFit */ "./web/assets/encore/js/tailwindJSON/util/Layouts/ObjectFit.js");
+/* harmony import */ var _ObjectPosition__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ObjectPosition */ "./web/assets/encore/js/tailwindJSON/util/Layouts/ObjectPosition.js");
+/* harmony import */ var _Overflow__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Overflow */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Overflow.js");
+/* harmony import */ var _OverscrollBehavior__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./OverscrollBehavior */ "./web/assets/encore/js/tailwindJSON/util/Layouts/OverscrollBehavior.js");
+/* harmony import */ var _Position__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Position */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Position.js");
+/* harmony import */ var _TopRightBottomLeft__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./TopRightBottomLeft */ "./web/assets/encore/js/tailwindJSON/util/Layouts/TopRightBottomLeft.js");
+/* harmony import */ var _Visibility__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Visibility */ "./web/assets/encore/js/tailwindJSON/util/Layouts/Visibility.js");
+/* harmony import */ var _ZIndex__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./ZIndex */ "./web/assets/encore/js/tailwindJSON/util/Layouts/ZIndex.js");
+/* harmony import */ var _ZIndex__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_ZIndex__WEBPACK_IMPORTED_MODULE_19__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Layouts = function Layouts(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "aspectRatio": (0,_AspectRatio__WEBPACK_IMPORTED_MODULE_0__.AspectRatio)(fullConfigTWMain),
+    "container": (0,_Container__WEBPACK_IMPORTED_MODULE_1__.Container)(fullConfigTWMain),
+    "column": (0,_Column__WEBPACK_IMPORTED_MODULE_2__.Column)(fullConfigTWMain),
+    "breakAfter": (0,_BreakAfter__WEBPACK_IMPORTED_MODULE_3__.BreakAfter)(fullConfigTWMain),
+    "breakBefore": (0,_BreakBefore__WEBPACK_IMPORTED_MODULE_4__.BreakBefore)(fullConfigTWMain),
+    "breakInside": (0,_BreakInside__WEBPACK_IMPORTED_MODULE_5__.BreakInside)(fullConfigTWMain),
+    "boxDecorationBreak": (0,_BoxDecorationBreak__WEBPACK_IMPORTED_MODULE_6__.BoxDecorationBreak)(fullConfigTWMain),
+    "boxSizing": (0,_BoxSizing__WEBPACK_IMPORTED_MODULE_7__.BoxSizing)(fullConfigTWMain),
+    "display": (0,_Display__WEBPACK_IMPORTED_MODULE_8__.Display)(fullConfigTWMain),
+    "floats": (0,_Floats__WEBPACK_IMPORTED_MODULE_9__.Floats)(fullConfigTWMain),
+    "clear": (0,_Clear__WEBPACK_IMPORTED_MODULE_10__.Clear)(fullConfigTWMain),
+    "isolation": (0,_Isolation__WEBPACK_IMPORTED_MODULE_11__.Isolation)(fullConfigTWMain),
+    "objectFit": (0,_ObjectFit__WEBPACK_IMPORTED_MODULE_12__.ObjectFit)(fullConfigTWMain),
+    "objectPosition": (0,_ObjectPosition__WEBPACK_IMPORTED_MODULE_13__.ObjectPosition)(fullConfigTWMain),
+    "overflow": (0,_Overflow__WEBPACK_IMPORTED_MODULE_14__.Overflow)(fullConfigTWMain),
+    "overscrollBehavior": (0,_OverscrollBehavior__WEBPACK_IMPORTED_MODULE_15__.OverscrollBehavior)(fullConfigTWMain),
+    "position": (0,_Position__WEBPACK_IMPORTED_MODULE_16__.Position)(fullConfigTWMain),
+    "topRightBottomLeft": (0,_TopRightBottomLeft__WEBPACK_IMPORTED_MODULE_17__.TopRightBottomLeft)(fullConfigTWMain),
+    "visibility": (0,_Visibility__WEBPACK_IMPORTED_MODULE_18__.Visibility)(fullConfigTWMain),
+    "zIndex": (0,_ZIndex__WEBPACK_IMPORTED_MODULE_19__.ZIndex)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/MaxHeight.js":
+/*!*************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/MaxHeight.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MaxHeight": () => (/* binding */ MaxHeight)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var MaxHeight = function MaxHeight(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['max-h'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.maxHeight); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/MaxWidth.js":
+/*!************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/MaxWidth.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MaxWidth": () => (/* binding */ MaxWidth)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var MaxWidth = function MaxWidth(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['max-w'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.maxWidth); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/MinHeight.js":
+/*!*************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/MinHeight.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MinHeight": () => (/* binding */ MinHeight)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var MinHeight = function MinHeight(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['min-h'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.minHeight); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/MinWidth.js":
+/*!************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/MinWidth.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MinWidth": () => (/* binding */ MinWidth)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var MinWidth = function MinWidth(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['min-w'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.minWidth); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Outline/OutlineColor.js":
+/*!************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Outline/OutlineColor.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OutlineColor": () => (/* binding */ OutlineColor)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var OutlineColor = function OutlineColor(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['outline'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.borderColor); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Outline/OutlineOffset.js":
+/*!*************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Outline/OutlineOffset.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OutlineOffset": () => (/* binding */ OutlineOffset)
+/* harmony export */ });
+var OutlineOffset = function OutlineOffset(fullConfigTW) {
+  var dataPush = [];
+  var prefixOutlineOffset = ['0', '2', '4', '8'];
+
+  for (var i = 0; i < prefixOutlineOffset.length; i++) {
+    dataPush.push('outline-offset-' + prefixOutlineOffset[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Outline/OutlineStyle.js":
+/*!************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Outline/OutlineStyle.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OutlineStyle": () => (/* binding */ OutlineStyle)
+/* harmony export */ });
+var OutlineStyle = function OutlineStyle(fullConfigTW) {
+  var prefixOutline = ['solid', 'dashed', 'dotted', 'double', 'none'];
+  var dataPush = [];
+
+  for (var i = 0; i < prefixOutline.length; i++) {
+    dataPush.push('outline-' + prefixOutline[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Outline/OutlineWidth.js":
+/*!************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Outline/OutlineWidth.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OutlineWidth": () => (/* binding */ OutlineWidth)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var OutlineWidth = function OutlineWidth(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['outline'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.borderWidth); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Outline/index.js":
+/*!*****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Outline/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Outline": () => (/* binding */ Outline)
+/* harmony export */ });
+/* harmony import */ var _OutlineWidth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OutlineWidth */ "./web/assets/encore/js/tailwindJSON/util/Outline/OutlineWidth.js");
+/* harmony import */ var _OutlineColor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OutlineColor */ "./web/assets/encore/js/tailwindJSON/util/Outline/OutlineColor.js");
+/* harmony import */ var _OutlineOffset__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OutlineOffset */ "./web/assets/encore/js/tailwindJSON/util/Outline/OutlineOffset.js");
+/* harmony import */ var _OutlineStyle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OutlineStyle */ "./web/assets/encore/js/tailwindJSON/util/Outline/OutlineStyle.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var Outline = function Outline(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "OutlineWidth": (0,_OutlineWidth__WEBPACK_IMPORTED_MODULE_0__.OutlineWidth)(fullConfigTWMain),
+    "OutlineColor": (0,_OutlineColor__WEBPACK_IMPORTED_MODULE_1__.OutlineColor)(fullConfigTWMain),
+    "OutlineOffset": (0,_OutlineOffset__WEBPACK_IMPORTED_MODULE_2__.OutlineOffset)(fullConfigTWMain),
+    "OutlineStyle": (0,_OutlineStyle__WEBPACK_IMPORTED_MODULE_3__.OutlineStyle)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Padding.js":
+/*!***********************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Padding.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Padding": () => (/* binding */ Padding)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Padding = function Padding(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['p', 'px', 'py', 'pt', 'pb', 'pl', 'pr'];
+  var name = 'padding';
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.spacing); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/TimeFunction.js":
+/*!****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/TimeFunction.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "TimeFunction": () => (/* binding */ TimeFunction)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var TimeFunction = function TimeFunction(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['ease'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.transitionTimingFunction); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Transitions.js":
+/*!***************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Transitions.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Transition": () => (/* binding */ Transition)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Transition = function Transition(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['transition'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.transitionProperty); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Width.js":
+/*!*********************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Width.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Width": () => (/* binding */ Width)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Width = function Width(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['w'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.width); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
   return dataPush;
 };
 
@@ -27626,10 +29433,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vendor_addEvento__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vendor/addEvento */ "./web/assets/encore/js/vendor/addEvento.js");
 /* harmony import */ var _vendor_hoverElement__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vendor/hoverElement */ "./web/assets/encore/js/vendor/hoverElement.js");
 /* harmony import */ var _vendor_disabledEnabled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vendor/disabledEnabled */ "./web/assets/encore/js/vendor/disabledEnabled.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v1.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v1.js");
 /* harmony import */ var _tailwindJSON_textColor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tailwindJSON/textColor */ "./web/assets/encore/js/tailwindJSON/textColor.js");
 /* harmony import */ var autoprefixer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! autoprefixer */ "./node_modules/autoprefixer/lib/autoprefixer.js");
 /* harmony import */ var autoprefixer__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(autoprefixer__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _tailwindJSON_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tailwindJSON/index */ "./web/assets/encore/js/tailwindJSON/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -27643,6 +29451,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -27669,14 +29478,10 @@ function getObjectTailwind(arr) {
         key = _ref2[0],
         value = _ref2[1];
 
-    console.log(key);
-
     if (arrayListClassTailwind[key]) {
       Object.entries(value).forEach(function (_ref3) {
         var _ref4 = _slicedToArray(_ref3, 1),
             val = _ref4[0];
-
-        console.log(arrayListClassTailwind[key] + '-' + val);
       });
     }
   });
@@ -27692,7 +29497,7 @@ Object.entries(fullConfigTW.theme.aspectRatio).forEach(([key, value]) => {
 })
 // Get Container
 Object.entries(fullConfigTW.theme.container).forEach(([key, value]) => {
-    console.log(key)
+
 })
 // Get columns
 Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
@@ -27776,63 +29581,6 @@ var space = function space() {
   }
 };
 
-var aspectRatio = function aspectRatio() {
-  var name = 'aspectRatio';
-
-  for (var i = 0; i < prefiexTailwind.length; i++) {
-    for (var _i3 = 0, _Object$entries2 = Object.entries(fullConfigTW.theme.aspectRatio); _i3 < _Object$entries2.length; _i3++) {
-      var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
-          key = _Object$entries2$_i[0],
-          value = _Object$entries2$_i[1];
-
-      dataMaster.push(arrayListClassTailwind[name] + '-' + prefiexTailwind[i] + '-' + key);
-    }
-  }
-};
-
-var zIndex = function zIndex() {
-  var name = 'z';
-
-  for (var _i4 = 0, _Object$entries3 = Object.entries(fullConfigTW.theme.zIndex); _i4 < _Object$entries3.length; _i4++) {
-    var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i4], 2),
-        key = _Object$entries3$_i[0],
-        value = _Object$entries3$_i[1];
-
-    dataMaster.push(name + '-' + key);
-  }
-
-  for (var i = 0; i < prefixBreakpoint.length; i++) {
-    Object.entries(fullConfigTW.theme.zIndex).forEach(function (_ref11) {
-      var _ref12 = _slicedToArray(_ref11, 2),
-          key = _ref12[0],
-          value = _ref12[1];
-
-      dataMaster.push(prefixBreakpoint[i] + ':' + name + '-' + key);
-    });
-  }
-};
-
-var Padding = function Padding() {
-  var name = 'p';
-
-  for (var i = 0; i < prefiexTailwind.length; i++) {
-    for (var _i5 = 0, _Object$entries4 = Object.entries(fullConfigTW.theme.padding); _i5 < _Object$entries4.length; _i5++) {
-      var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i5], 2),
-          key = _Object$entries4$_i[0],
-          value = _Object$entries4$_i[1];
-
-      dataMaster.push(arrayListClassTailwind[name] + '-' + prefiexTailwind[i] + '-' + key);
-    }
-  }
-};
-
-console.log(dataMaster);
-
-function JSONDATA() {
-  aspectRatio();
-  zIndex();
-}
-
 function myFunction() {
   var copyText = document.getElementById("myInput");
   copyText.select();
@@ -27909,7 +29657,6 @@ addEvent(document, 'click', '.delete-class', function (e) {
   }
 
   document.getElementById(unid).setAttribute('data-class', classToRemove);
-  console.log(classToRemove);
   copyToClipboardWebpack(newClass.replace('undefined', ''));
 });
 addEvent(document, 'click', '.select-item', function (e) {
@@ -27941,7 +29688,6 @@ addEvent(document, 'click', '.select-item', function (e) {
       edited = edited.substring(0, edited.length - 1) + "}";
       var color = JSON.parse(edited);
       color = color[prefix];
-      console.log(color);
       semiColor = '<div class="flex items-center"><span style="color:' + color + '">' + prefix + ':' + '</span><span>' + selectData.replace(prefix + ':', '') + '</span></div>';
     }
   });
@@ -28257,10 +30003,9 @@ var createClassUnid = function createClassUnid(id) {
 };
 
 var checkClassSelected = function checkClassSelected(className) {
-  var id = (0,uuid__WEBPACK_IMPORTED_MODULE_9__["default"])();
+  var id = (0,uuid__WEBPACK_IMPORTED_MODULE_10__["default"])();
 
   if (document.querySelector('.fixed-click-element-over.click-element-over') != null) {
-    console.log('ya estas en el elemento');
     var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid');
     var dataArrayClass = '';
 
@@ -28276,9 +30021,8 @@ var checkClassSelected = function checkClassSelected(className) {
 
     document.getElementById(idu).setAttribute('data-class', dataArrayClass);
   } else {
-    var id = (0,uuid__WEBPACK_IMPORTED_MODULE_9__["default"])();
+    var id = (0,uuid__WEBPACK_IMPORTED_MODULE_10__["default"])();
     document.querySelector('.click-element-over').setAttribute('unid', id);
-    console.log('Nuevo elemento');
     document.querySelector('.click-element-over').classList.add('fixed-click-element-over');
     var classUnid = document.createElement('div');
     var idu = id;
@@ -28332,7 +30076,6 @@ addEvent(document, 'click', '.click-element-over', function () {
     var dataDivid = this.getAttribute('unid');
     var dataDiv = document.querySelector('.classUnid[id="' + dataDivid + '"]').getAttribute('data-class');
     var toSplit = dataDiv.split(',');
-    console.log(toSplit);
 
     for (var i = 0; i < toSplit.length; i++) {
       newData.push(toSplit[i]);
@@ -28355,7 +30098,6 @@ addEvent(document, 'click', '.click-element-over', function () {
       document.querySelector('.selected-class').appendChild(span);
     }
   } else {
-    console.log(0);
     document.querySelector('.selected-class').innerHTML = '';
     copyClass = [];
   }
@@ -28368,7 +30110,7 @@ addEvent(document, 'click', '.active-inspect', function () {
     (0,_vendor_clickElement__WEBPACK_IMPORTED_MODULE_3__.clickElement)();
     (0,_vendor_dragElements__WEBPACK_IMPORTED_MODULE_2__.dragElement)(document.getElementById("mydiv"));
     space();
-    JSONDATA();
+    (0,_tailwindJSON_index__WEBPACK_IMPORTED_MODULE_9__.mainMasterData)(tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_1___default()(fullConfigTW), dataMaster);
     searchClass(dataMaster); //disabledEnabled()
     //toggleAction.activate()
   }, 3000);
@@ -28383,7 +30125,7 @@ setTimeout(function () {
   (0,_vendor_clickElement__WEBPACK_IMPORTED_MODULE_3__.clickElement)();
   (0,_vendor_dragElements__WEBPACK_IMPORTED_MODULE_2__.dragElement)(document.getElementById("mydiv"));
   space();
-  JSONDATA();
+  (0,_tailwindJSON_index__WEBPACK_IMPORTED_MODULE_9__.mainMasterData)(tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_1___default()(fullConfigTW), dataMaster);
   searchClass(dataMaster); //disabledEnabled()
   //toggleAction.activate()
 }, 3000);
@@ -28391,8 +30133,6 @@ setTimeout(function () {
 function showCSS() {
   var element = document.querySelector('.class-row-tw');
 }
-
-console.log(dataMaster);
 })();
 
 /******/ })()
