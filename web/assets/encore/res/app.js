@@ -146,6 +146,15 @@ const zIndex = () => {
          })
       }
 }
+console.log(fullConfigTW.theme.spacing)
+const Padding = () => {
+    const name = 'p'
+    for (var i = 0; i <  prefiexTailwind.length; i++) {
+         for (const [key, value] of Object.entries(fullConfigTW.theme.spacing)) {
+            dataMaster.push(arrayListClassTailwind[name] + '-' + prefiexTailwind[i] + '-' + key)
+        }
+    }
+}
 
 
 
@@ -153,6 +162,7 @@ const zIndex = () => {
 function JSONDATA () {
    aspectRatio()
    zIndex()
+   Padding()
 }
 function myFunction() {
    var copyText = document.getElementById("myInput");
@@ -277,7 +287,7 @@ addEvent(document, 'click', '.select-item', function(e) {
             edited = edited.substring(0, edited.length-1) + "}";
             var color = JSON.parse(edited)
             color = color[prefix]
-            console.log(color)
+           
             semiColor = '<div class="flex items-center"><span style="color:' + color  + '">' + prefix + ':'  + '</span><span>' +  selectData.replace(prefix + ':', '') + '</span></div>'
 
         }
@@ -724,7 +734,7 @@ const checkClassSelected = (className) => {
     var id = uuidv1()
     if (document.querySelector('.fixed-click-element-over.click-element-over') != null)
     {
-       console.log('ya estas en el elemento') 
+   
 
         var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid')
         var dataArrayClass = ''
@@ -743,7 +753,7 @@ const checkClassSelected = (className) => {
     }else{
         var id = uuidv1()
         document.querySelector('.click-element-over').setAttribute('unid', id)
-        console.log('Nuevo elemento') 
+      
         document.querySelector('.click-element-over').classList.add('fixed-click-element-over')
         var classUnid = document.createElement('div');
         var idu = id;
@@ -804,7 +814,7 @@ addEvent(document, 'click', '.click-element-over', function(){
         var dataDivid = this.getAttribute('unid')
         var dataDiv = document.querySelector('.classUnid[id="'+dataDivid+'"]').getAttribute('data-class')
         var toSplit = dataDiv.split(',')
-        console.log(toSplit)
+  
         for (var i = 0; i < toSplit.length; i++) {
             newData.push(toSplit[i])
         }
@@ -831,7 +841,7 @@ addEvent(document, 'click', '.click-element-over', function(){
         
 
     }else{
-        console.log(0)
+
         document.querySelector('.selected-class').innerHTML = ''
         copyClass = []
     }
@@ -881,4 +891,3 @@ function showCSS(){
    var element = document.querySelector('.class-row-tw')
 }
 
-console.log(dataMaster)
