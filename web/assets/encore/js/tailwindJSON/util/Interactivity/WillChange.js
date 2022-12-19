@@ -1,8 +1,10 @@
-export const Floats = (fullConfigTW) => {
+
+export const WillChange = (fullConfigTW) => {
    var dataPush = []
 
-   const prefix = ['float']
-   const prefixPosition = ['left', 'right', 'none']
+   
+   const prefix = ['will-change']
+   const prefixPosition = ['auto', 'scroll', 'contents', 'transform', 'opacity', 'initial', 'inherit']
 
    for (var i = 0; i <  prefix.length; i++) {
       for (var j = 0; j <  prefixPosition.length; j++) {

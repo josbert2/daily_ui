@@ -7,12 +7,6 @@ import { Height } from "./util/Height"
 import { Padding } from "./util/Padding"
 
 
-// Transitions
-import { Transition } from "./util/Transitions"
-import { Durations } from "./util/Durations"
-import { TimeFunction } from "./util/TimeFunction"
-import { Delay } from "./util/Delay"
-import { Animation } from "./util/Animation"
 
 import { Layouts } from "./util/Layouts"
 
@@ -20,13 +14,22 @@ import { Border } from "./util/Border"
 import { Divide } from "./util/Divide"
 import { Outline } from "./util/Outline"
 
+import { Svg } from "./util/Svg"
+import { Interactivity } from "./util/Interactivity"
+
+import { Transform } from "./util/Transform"
+import { Transition } from "./util/Transition"
+
+
+
+
 
 export const mainMasterData = (fullConfigTW, data) => {
     var dataPush = []
     var fullConfigTWMain = fullConfigTW
     var fullDataMaster = data
 
-    
+ 
     const ObjTW = {
         //'aspectRatio': AspectRatio(fullConfigTWMain),
         "maxWidth": MaxWidth(fullConfigTWMain),
@@ -36,19 +39,19 @@ export const mainMasterData = (fullConfigTW, data) => {
         "height": Height(fullConfigTWMain),
         "padding": Padding(fullConfigTWMain),
         "minWidth": MinWidth(fullConfigTWMain),
-        "transition": Transition(fullConfigTWMain),
-        "duration": Durations(fullConfigTWMain),
-        "TimeFunction": TimeFunction(fullConfigTWMain),
-        "Delay": Delay(fullConfigTWMain),
-        "Animation": Animation(fullConfigTWMain),
+        
         "Border": Border(fullConfigTWMain),
         "Divide": Divide(fullConfigTWMain),
         "Outline": Outline(fullConfigTWMain),
-        "Layouts": Layouts(fullConfigTWMain)
+        "Layouts": Layouts(fullConfigTWMain),
+        "Svg": Svg(fullConfigTWMain),
+        "Interactivity": Interactivity(fullConfigTWMain),
+        "Transform": Transform(fullConfigTWMain),
+        "Transition": Transition(fullConfigTWMain),
 
     }
 
-    console.log(ObjTW)
+
 
     
     for (const [key, value] of Object.entries(ObjTW)) {

@@ -1,8 +1,9 @@
-export const Floats = (fullConfigTW) => {
+import { Colors } from "../Colors"
+export const AccentColor = (fullConfigTW) => {
    var dataPush = []
 
-   const prefix = ['float']
-   const prefixPosition = ['left', 'right', 'none']
+   var prefix = 'accent-color'
+   const prefixPosition = Colors(fullConfigTW)
 
    for (var i = 0; i <  prefix.length; i++) {
       for (var j = 0; j <  prefixPosition.length; j++) {
@@ -10,7 +11,8 @@ export const Floats = (fullConfigTW) => {
       }
    }
    
-   
+           
+    
 
    return dataPush
 }
