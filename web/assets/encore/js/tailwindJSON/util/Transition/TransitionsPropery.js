@@ -1,4 +1,4 @@
-export const Transition = (fullConfigTW) => {
+export const TransitionsPropery = (fullConfigTW) => {
    var dataPush = []
 
    const prefix = ['transition']

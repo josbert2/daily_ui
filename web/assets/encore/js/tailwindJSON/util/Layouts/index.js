@@ -1,10 +1,10 @@
 import { AspectRatio } from "./AspectRatio";
 import { Container } from "./Container";
 import { Column } from "./Column";
-import { BreakAfter } from "./BreakAfter";
-import { BreakBefore } from "./BreakBefore";
-import { BreakInside } from "./BreakInside";
-import { BoxDecorationBreak } from "./BoxDecorationBreak";
+// import { BreakAfter } from "./BreakAfter";
+//import { BreakBefore } from "./BreakBefore";
+//import { BreakInside } from "./BreakInside";
+//import { BoxDecorationBreak } from "./BoxDecorationBreak";
 import { BoxSizing } from "./BoxSizing";
 import { Display } from "./Display";
 import { Floats } from "./Floats";
@@ -17,7 +17,7 @@ import { OverscrollBehavior } from "./OverscrollBehavior";
 import { Position } from "./Position";
 import { TopRightBottomLeft } from "./TopRightBottomLeft";
 import { Visibility } from "./Visibility";
-import { ZIndex } from "./ZIndex";
+import { z } from "./z";
 
 
 export const Layouts = (fullConfigTW) => {
@@ -28,10 +28,10 @@ export const Layouts = (fullConfigTW) => {
          "aspectRatio": AspectRatio(fullConfigTWMain),
          "container": Container(fullConfigTWMain),
          "column": Column(fullConfigTWMain),
-         "breakAfter": BreakAfter(fullConfigTWMain),
-         "breakBefore": BreakBefore(fullConfigTWMain),
-         "breakInside": BreakInside(fullConfigTWMain),
-         "boxDecorationBreak": BoxDecorationBreak(fullConfigTWMain),
+         //"breakAfter": BreakAfter(fullConfigTWMain),
+         //"breakBefore": BreakBefore(fullConfigTWMain),
+         //"breakInside": BreakInside(fullConfigTWMain),
+         //"boxDecorationBreak": BoxDecorationBreak(fullConfigTWMain),
          "boxSizing": BoxSizing(fullConfigTWMain),
          "display": Display(fullConfigTWMain),
          "floats": Floats(fullConfigTWMain),
@@ -44,7 +44,7 @@ export const Layouts = (fullConfigTW) => {
          "position": Position(fullConfigTWMain),
          "topRightBottomLeft": TopRightBottomLeft(fullConfigTWMain),
          "visibility": Visibility(fullConfigTWMain),
-         "zIndex": ZIndex(fullConfigTWMain),
+         "z": z(fullConfigTWMain),
       }
    
       for (const [key, value] of Object.entries(ObjTW)) {
