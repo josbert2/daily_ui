@@ -537,8 +537,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex: 1 1 auto;
 }.flex-shrink-0 {
   flex-shrink: 0;
+}.shrink {
+  flex-shrink: 1;
+}.shrink-0 {
+  flex-shrink: 0;
 }.flex-grow {
   flex-grow: 1;
+}.grow {
+  flex-grow: 1;
+}.grow-0 {
+  flex-grow: 0;
 }.border-collapse {
   border-collapse: collapse;
 }.-translate-y-2\/4 {
@@ -567,10 +575,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }.grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}.flex-row {
+  flex-direction: row;
+}.flex-row-reverse {
+  flex-direction: row-reverse;
 }.flex-col {
   flex-direction: column;
+}.flex-col-reverse {
+  flex-direction: column-reverse;
 }.flex-wrap {
   flex-wrap: wrap;
+}.flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}.flex-nowrap {
+  flex-wrap: nowrap;
 }.items-center {
   align-items: center;
 }.justify-center {
@@ -625,6 +643,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   overflow: auto;
 }.overflow-hidden {
   overflow: hidden;
+}.overflow-clip {
+  overflow: clip;
 }.overflow-visible {
   overflow: visible;
 }.overflow-scroll {
@@ -666,6 +686,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   overscroll-behavior-x: contain;
 }.overscroll-x-none {
   overscroll-behavior-x: none;
+}.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}.overflow-ellipsis {
+  text-overflow: ellipsis;
+}.break-normal {
+  overflow-wrap: normal;
+  word-break: normal;
+}.break-words {
+  overflow-wrap: break-word;
 }.rounded-2xl {
   border-radius: 1rem;
 }.rounded-xl {
@@ -767,6 +798,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 0.05;
 }.bg-opacity-10 {
   --tw-bg-opacity: 0.1;
+}.bg-repeat {
+  background-repeat: repeat;
 }.fill-current {
   fill: currentColor;
 }.fill-transparent {
@@ -876,8 +909,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   text-align: left;
 }.text-center {
   text-align: center;
+}.align-baseline {
+  vertical-align: baseline;
+}.align-top {
+  vertical-align: top;
 }.align-middle {
   vertical-align: middle;
+}.align-bottom {
+  vertical-align: bottom;
+}.align-text-top {
+  vertical-align: text-top;
+}.align-text-bottom {
+  vertical-align: text-bottom;
+}.align-sub {
+  vertical-align: sub;
+}.align-super {
+  vertical-align: super;
 }.font-Gilroy-Black {
   font-family: Gilroy-Black;
 }.text-base {
@@ -922,6 +969,40 @@ Ensure the default browser behavior of the `hidden` attribute.
   text-transform: uppercase;
 }.lowercase {
   text-transform: lowercase;
+}.capitalize {
+  text-transform: capitalize;
+}.normal-case {
+  text-transform: none;
+}.italic {
+  font-style: italic;
+}.not-italic {
+  font-style: normal;
+}.normal-nums {
+  font-variant-numeric: normal;
+}.ordinal {
+  --tw-ordinal: ordinal;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}.slashed-zero {
+  --tw-slashed-zero: slashed-zero;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}.lining-nums {
+  --tw-numeric-figure: lining-nums;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}.oldstyle-nums {
+  --tw-numeric-figure: oldstyle-nums;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}.proportional-nums {
+  --tw-numeric-spacing: proportional-nums;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}.diagonal-fractions {
+  --tw-numeric-fraction: diagonal-fractions;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}.stacked-fractions {
+  --tw-numeric-fraction: stacked-fractions;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
 }.tracking-tighter {
   letter-spacing: -0.05em;
 }.text-green-500 {
@@ -966,6 +1047,21 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}.underline {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}.line-through {
+  -webkit-text-decoration-line: line-through;
+          text-decoration-line: line-through;
+}.no-underline {
+  -webkit-text-decoration-line: none;
+          text-decoration-line: none;
+}.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}.subpixel-antialiased {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }.placeholder-gray-500::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(107 114 128 / var(--tw-placeholder-opacity));
