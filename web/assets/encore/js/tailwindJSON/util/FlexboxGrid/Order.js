@@ -6,5 +6,7 @@ export const Order = (fullConfigTW) => {
         dataPush.push("order-" + prefixPosition[i])
     }
 
+    return dataPush
+
 
 }

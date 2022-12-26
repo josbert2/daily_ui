@@ -15,6 +15,7 @@ import { Transform } from "./util/Transform"
 import { Transition } from "./util/Transition"
 
 import { Typography } from "./util/Typography"
+import { FlexboxGrid } from "./util/FlexboxGrid"
 
 
 
@@ -39,7 +40,8 @@ export const mainMasterData = (fullConfigTW, data) => {
         "Interactivity": Interactivity(fullConfigTWMain),
         "Transform": Transform(fullConfigTWMain),
         "Transition": Transition(fullConfigTWMain),
-        "Typography": Typography(fullConfigTWMain)
+        "Typography": Typography(fullConfigTWMain),
+        "FlexboxGrid": FlexboxGrid(fullConfigTWMain),
 
     }
 

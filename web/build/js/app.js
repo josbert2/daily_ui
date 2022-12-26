@@ -9040,6 +9040,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_Transform__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/Transform */ "./web/assets/encore/js/tailwindJSON/util/Transform/index.js");
 /* harmony import */ var _util_Transition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/Transition */ "./web/assets/encore/js/tailwindJSON/util/Transition/index.js");
 /* harmony import */ var _util_Typography__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/Typography */ "./web/assets/encore/js/tailwindJSON/util/Typography/index.js");
+/* harmony import */ var _util_FlexboxGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util/FlexboxGrid */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -9051,6 +9052,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -9076,7 +9078,8 @@ var mainMasterData = function mainMasterData(fullConfigTW, data) {
     "Interactivity": (0,_util_Interactivity__WEBPACK_IMPORTED_MODULE_5__.Interactivity)(fullConfigTWMain),
     "Transform": (0,_util_Transform__WEBPACK_IMPORTED_MODULE_6__.Transform)(fullConfigTWMain),
     "Transition": (0,_util_Transition__WEBPACK_IMPORTED_MODULE_7__.Transition)(fullConfigTWMain),
-    "Typography": (0,_util_Typography__WEBPACK_IMPORTED_MODULE_8__.Typography)(fullConfigTWMain)
+    "Typography": (0,_util_Typography__WEBPACK_IMPORTED_MODULE_8__.Typography)(fullConfigTWMain),
+    "FlexboxGrid": (0,_util_FlexboxGrid__WEBPACK_IMPORTED_MODULE_9__.FlexboxGrid)(fullConfigTWMain)
   };
 
   for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
@@ -9486,6 +9489,653 @@ var Divide = function Divide(fullConfigTW) {
   var fullConfigTWMain = fullConfigTW;
   var ObjTW = {
     "divideWidth": (0,_DivideWidth__WEBPACK_IMPORTED_MODULE_0__.DivideWidth)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignContent.js":
+/*!****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignContent.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AlignContent": () => (/* binding */ AlignContent)
+/* harmony export */ });
+var AlignContent = function AlignContent(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["content-start", "content-end", "content-center", "content-between", "content-around", "content-evenly"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignItems.js":
+/*!**************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignItems.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AlignItems": () => (/* binding */ AlignItems)
+/* harmony export */ });
+var AlignItems = function AlignItems(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["items-start", "items-end", "items-center", "items-baseline", "items-stretch"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignSelf.js":
+/*!*************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignSelf.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AlignSelf": () => (/* binding */ AlignSelf)
+/* harmony export */ });
+var AlignSelf = function AlignSelf(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["self-auto", "self-start", "self-end", "self-center", "self-stretch"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Flex.js":
+/*!********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Flex.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Flex": () => (/* binding */ Flex)
+/* harmony export */ });
+var Flex = function Flex(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "flex";
+  var prefixPosition = ["-1", "-auto", "1", "auto", "initial", "none"];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexBasis.js":
+/*!*************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexBasis.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FlexBasis": () => (/* binding */ FlexBasis)
+/* harmony export */ });
+var FlexBasis = function FlexBasis(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "basis-";
+  var data = fullConfigTW.flexBasis;
+
+  for (var key in data) {
+    dataPush.push(prefix + key);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexDirection.js":
+/*!*****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexDirection.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FlexDirection": () => (/* binding */ FlexDirection)
+/* harmony export */ });
+var FlexDirection = function FlexDirection(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "flex-row";
+  dataPush.push(prefix);
+  prefix = "flex-row-reverse";
+  dataPush.push(prefix);
+  prefix = "flex-col";
+  dataPush.push(prefix);
+  prefix = "flex-col-reverse";
+  dataPush.push(prefix);
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexGrow.js":
+/*!************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexGrow.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FlexGrow": () => (/* binding */ FlexGrow)
+/* harmony export */ });
+var FlexGrow = function FlexGrow(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "grow";
+  dataPush.push(prefix);
+  var prefix = "grow-0";
+  dataPush.push(prefix);
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexShrink.js":
+/*!**************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexShrink.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FlexShrink": () => (/* binding */ FlexShrink)
+/* harmony export */ });
+var FlexShrink = function FlexShrink(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "shrink";
+  dataPush.push(prefix);
+  prefix = "shrink-0";
+  dataPush.push(prefix);
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexWrap.js":
+/*!************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexWrap.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FlexWrap": () => (/* binding */ FlexWrap)
+/* harmony export */ });
+var FlexWrap = function FlexWrap(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "flex-wrap";
+  dataPush.push(prefix);
+  prefix = "flex-nowrap";
+  dataPush.push(prefix);
+  prefix = "flex-wrap-reverse";
+  dataPush.push(prefix);
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Gap.js":
+/*!*******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Gap.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Gap": () => (/* binding */ Gap)
+/* harmony export */ });
+var Gap = function Gap(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "gap-";
+  var prefixPosition = ["0", "px", "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4", "5", "6", "7", "8", "9", "10", "11", "12", "14", "16", "20", "24", "28", "32", "36", "40", "44", "48", "52", "56", "60", "64", "72", "80", "96"];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoColumns.js":
+/*!*******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoColumns.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GridAutoColumns": () => (/* binding */ GridAutoColumns)
+/* harmony export */ });
+var GridAutoColumns = function GridAutoColumns(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "auto-cols-";
+
+  for (var i = 1; i <= fullConfigTW.theme.gridAutoColumns.max; i++) {
+    dataPush.push(prefix + i);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoFlow.js":
+/*!****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoFlow.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GridAutoFlow": () => (/* binding */ GridAutoFlow)
+/* harmony export */ });
+var GridAutoFlow = function GridAutoFlow(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "grid-flow-";
+  var prefixPosition = ["col", "row", "dense", "col dense", "row dense"];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoRows.js":
+/*!****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoRows.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GridAutoRows": () => (/* binding */ GridAutoRows)
+/* harmony export */ });
+var GridAutoRows = function GridAutoRows(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "auto-rows-";
+
+  for (var i = 1; i <= fullConfigTW.theme.gridAutoRows.max; i++) {
+    dataPush.push(prefix + i);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridColumnsStarEnd.js":
+/*!**********************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridColumnsStarEnd.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GridColumnsStarEnd": () => (/* binding */ GridColumnsStarEnd)
+/* harmony export */ });
+var GridColumnsStarEnd = function GridColumnsStarEnd(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["col-span-", "col-start-", "col-end-"];
+
+  for (var i = 1; i <= fullConfigTW.theme.gridTemplateColumns.max; i++) {
+    for (var j = 0; j < prefix.length; j++) {
+      dataPush.push(prefix[j] + i);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridRowStartEnd.js":
+/*!*******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridRowStartEnd.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GridRowStartEnd": () => (/* binding */ GridRowStartEnd)
+/* harmony export */ });
+var GridRowStartEnd = function GridRowStartEnd(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["row-span-", "row-start-", "row-end-"];
+
+  for (var i = 1; i <= fullConfigTW.theme.gridTemplateRows.max; i++) {
+    for (var j = 0; j < prefix.length; j++) {
+      dataPush.push(prefix[j] + i);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifyContent.js":
+/*!******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifyContent.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "JustifyContent": () => (/* binding */ JustifyContent)
+/* harmony export */ });
+var JustifyContent = function JustifyContent(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["justify-start", "justify-end", "justify-center", "justify-between", "justify-around", "justify-evenly"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifyItems.js":
+/*!****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifyItems.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "JustifyItems": () => (/* binding */ JustifyItems)
+/* harmony export */ });
+var JustifyItems = function JustifyItems(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["justify-items-start", "justify-items-end", "justify-items-center", "justify-items-stretch"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifySelf.js":
+/*!***************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifySelf.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "JustifySelf": () => (/* binding */ JustifySelf)
+/* harmony export */ });
+var JustifySelf = function JustifySelf(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["justify-self-start", "justify-self-end", "justify-self-center", "justify-self-stretch"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Order.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Order.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Order": () => (/* binding */ Order)
+/* harmony export */ });
+var Order = function Order(fullConfigTW) {
+  var dataPush = [];
+  var prefixPosition = fullConfigTW.theme.order;
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push("order-" + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceContent.js":
+/*!****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceContent.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PlaceContent": () => (/* binding */ PlaceContent)
+/* harmony export */ });
+var PlaceContent = function PlaceContent(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["place-content"];
+  var prefixPost = ["start", "end", "center", "between", "around", "evenly", "stretch"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var j = 0; j < prefixPost.length; j++) {
+      dataPush.push(prefix[i] + "-" + prefixPost[j]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceItems.js":
+/*!**************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceItems.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PlaceItems": () => (/* binding */ PlaceItems)
+/* harmony export */ });
+var PlaceItems = function PlaceItems(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["place-items-start", "place-items-end", "place-items-center", "place-items-stretch"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceSelf.js":
+/*!*************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceSelf.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PlaceSelf": () => (/* binding */ PlaceSelf)
+/* harmony export */ });
+var PlaceSelf = function PlaceSelf(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ["place-self-start", "place-self-end", "place-self-center", "place-self-stretch"];
+
+  for (var i = 0; i < prefix.length; i++) {
+    dataPush.push(prefix[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/index.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/index.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FlexboxGrid": () => (/* binding */ FlexboxGrid)
+/* harmony export */ });
+/* harmony import */ var _AlignContent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlignContent */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignContent.js");
+/* harmony import */ var _AlignItems__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlignItems */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignItems.js");
+/* harmony import */ var _AlignSelf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AlignSelf */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/AlignSelf.js");
+/* harmony import */ var _Flex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Flex */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Flex.js");
+/* harmony import */ var _FlexBasis__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FlexBasis */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexBasis.js");
+/* harmony import */ var _FlexGrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FlexGrow */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexGrow.js");
+/* harmony import */ var _FlexDirection__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FlexDirection */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexDirection.js");
+/* harmony import */ var _FlexShrink__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./FlexShrink */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexShrink.js");
+/* harmony import */ var _FlexWrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./FlexWrap */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/FlexWrap.js");
+/* harmony import */ var _Gap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Gap */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Gap.js");
+/* harmony import */ var _GridAutoColumns__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./GridAutoColumns */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoColumns.js");
+/* harmony import */ var _GridAutoFlow__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./GridAutoFlow */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoFlow.js");
+/* harmony import */ var _GridAutoRows__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./GridAutoRows */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridAutoRows.js");
+/* harmony import */ var _GridColumnsStarEnd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./GridColumnsStarEnd */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridColumnsStarEnd.js");
+/* harmony import */ var _GridRowStartEnd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./GridRowStartEnd */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/GridRowStartEnd.js");
+/* harmony import */ var _JustifyContent__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./JustifyContent */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifyContent.js");
+/* harmony import */ var _JustifyItems__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./JustifyItems */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifyItems.js");
+/* harmony import */ var _JustifySelf__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./JustifySelf */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/JustifySelf.js");
+/* harmony import */ var _Order__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Order */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/Order.js");
+/* harmony import */ var _PlaceContent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./PlaceContent */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceContent.js");
+/* harmony import */ var _PlaceItems__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./PlaceItems */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceItems.js");
+/* harmony import */ var _PlaceSelf__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./PlaceSelf */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/PlaceSelf.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var FlexboxGrid = function FlexboxGrid(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "AlignContent": (0,_AlignContent__WEBPACK_IMPORTED_MODULE_0__.AlignContent)(fullConfigTWMain),
+    "AlignItems": (0,_AlignItems__WEBPACK_IMPORTED_MODULE_1__.AlignItems)(fullConfigTWMain),
+    "AlignSelf": (0,_AlignSelf__WEBPACK_IMPORTED_MODULE_2__.AlignSelf)(fullConfigTWMain),
+    "Flex": (0,_Flex__WEBPACK_IMPORTED_MODULE_3__.Flex)(fullConfigTWMain),
+    "FlexBasis": (0,_FlexBasis__WEBPACK_IMPORTED_MODULE_4__.FlexBasis)(fullConfigTWMain),
+    "FlexGrow": (0,_FlexGrow__WEBPACK_IMPORTED_MODULE_5__.FlexGrow)(fullConfigTWMain),
+    "FlexDirection": (0,_FlexDirection__WEBPACK_IMPORTED_MODULE_6__.FlexDirection)(fullConfigTWMain),
+    "FlexShrink": (0,_FlexShrink__WEBPACK_IMPORTED_MODULE_7__.FlexShrink)(fullConfigTWMain),
+    "FlexWrap": (0,_FlexWrap__WEBPACK_IMPORTED_MODULE_8__.FlexWrap)(fullConfigTWMain),
+    "Gap": (0,_Gap__WEBPACK_IMPORTED_MODULE_9__.Gap)(fullConfigTWMain),
+    "GridAutoColumns": (0,_GridAutoColumns__WEBPACK_IMPORTED_MODULE_10__.GridAutoColumns)(fullConfigTWMain),
+    "GridAutoFlow": (0,_GridAutoFlow__WEBPACK_IMPORTED_MODULE_11__.GridAutoFlow)(fullConfigTWMain),
+    "GridAutoRows": (0,_GridAutoRows__WEBPACK_IMPORTED_MODULE_12__.GridAutoRows)(fullConfigTWMain),
+    "GridColumnsStarEnd": (0,_GridColumnsStarEnd__WEBPACK_IMPORTED_MODULE_13__.GridColumnsStarEnd)(fullConfigTWMain),
+    "GridRowStartEnd": (0,_GridRowStartEnd__WEBPACK_IMPORTED_MODULE_14__.GridRowStartEnd)(fullConfigTWMain),
+    "JustifyContent": (0,_JustifyContent__WEBPACK_IMPORTED_MODULE_15__.JustifyContent)(fullConfigTWMain),
+    "JustifyItems": (0,_JustifyItems__WEBPACK_IMPORTED_MODULE_16__.JustifyItems)(fullConfigTWMain),
+    "JustifySelf": (0,_JustifySelf__WEBPACK_IMPORTED_MODULE_17__.JustifySelf)(fullConfigTWMain),
+    "Order": (0,_Order__WEBPACK_IMPORTED_MODULE_18__.Order)(fullConfigTWMain),
+    "PlaceContent": (0,_PlaceContent__WEBPACK_IMPORTED_MODULE_19__.PlaceContent)(fullConfigTWMain),
+    "PlaceItems": (0,_PlaceItems__WEBPACK_IMPORTED_MODULE_20__.PlaceItems)(fullConfigTWMain),
+    "PlaceSelf": (0,_PlaceSelf__WEBPACK_IMPORTED_MODULE_21__.PlaceSelf)(fullConfigTWMain)
   };
 
   for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
