@@ -9011,6 +9011,18 @@ module.exports = {
           '700': '#23a056',
           '800': '#1c8045',
           '900': '#176838'
+        },
+        'wendy-josbert': {
+          '50': '#f4fafe',
+          '100': '#e8f5fe',
+          '200': '#c6e6fb',
+          '300': '#a4d7f9',
+          '400': '#60b9f5',
+          '500': '#1c9bf0',
+          '600': '#198cd8',
+          '700': '#1574b4',
+          '800': '#115d90',
+          '900': '#0e4c76'
         }
       }
     }
@@ -9067,7 +9079,6 @@ var mainMasterData = function mainMasterData(fullConfigTW, data) {
   var dataPush = [];
   var fullConfigTWMain = fullConfigTW;
   var fullDataMaster = data;
-  console.log("fullConfigTWMain", fullConfigTWMain);
   var ObjTW = {
     //'aspectRatio': AspectRatio(fullConfigTWMain),
     "Border": (0,_util_Border__WEBPACK_IMPORTED_MODULE_1__.Border)(fullConfigTWMain),
@@ -30547,11 +30558,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vendor_addEvento__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vendor/addEvento */ "./web/assets/encore/js/vendor/addEvento.js");
 /* harmony import */ var _vendor_hoverElement__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./vendor/hoverElement */ "./web/assets/encore/js/vendor/hoverElement.js");
 /* harmony import */ var _vendor_disabledEnabled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vendor/disabledEnabled */ "./web/assets/encore/js/vendor/disabledEnabled.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v1.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v1.js");
 /* harmony import */ var _tailwindJSON_textColor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tailwindJSON/textColor */ "./web/assets/encore/js/tailwindJSON/textColor.js");
 /* harmony import */ var autoprefixer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! autoprefixer */ "./node_modules/autoprefixer/lib/autoprefixer.js");
 /* harmony import */ var autoprefixer__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(autoprefixer__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _tailwindJSON_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./tailwindJSON/index */ "./web/assets/encore/js/tailwindJSON/index.js");
+/* harmony import */ var _tailwindJSON_util_Colors__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./tailwindJSON/util/Colors */ "./web/assets/encore/js/tailwindJSON/util/Colors/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -30565,6 +30577,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -30694,6 +30707,84 @@ var space = function space() {
     index++;
   }
 };
+
+function get500Colores(value) {
+  var middleColor = '';
+
+  if (typeof value === 'string') {
+    middleColor = value;
+  }
+
+  if (_typeof(value) === 'object') {
+    Object.entries(value).forEach(function (_ref11, index) {
+      var _ref12 = _slicedToArray(_ref11, 2),
+          key = _ref12[0],
+          value = _ref12[1];
+
+      if (key === '500') {
+        middleColor = value;
+      }
+    });
+  }
+
+  return middleColor;
+}
+
+function ColoresHtml() {
+  var html = '';
+  var colorsSort = [];
+  var container = document.querySelector('.content-color-app');
+  Object.entries(fullConfigTW.theme.colors).forEach(function (_ref13) {
+    var _ref14 = _slicedToArray(_ref13, 2),
+        keys = _ref14[0],
+        valueColor = _ref14[1];
+
+    var middleColor = get500Colores(valueColor);
+    var idContainerColores = 'container-' + keys;
+    var divContainerCategoria = document.createElement('div');
+    divContainerCategoria.setAttribute('id', idContainerColores);
+    divContainerCategoria.classList.add('container-wrapper-config-colors-opacity');
+    divContainerCategoria.innerHTML = '<div class="container-wrapper-config-colors"><div class="flex items-center px-3"><div style="background:' + middleColor + '" class=" w-4 h-4 rounded-md mr-3"></div><span class="show-element-hover">' + keys + '</span>  <div class="ml-auto">' + arrowDown + '</div></div></div>';
+    container.appendChild(divContainerCategoria);
+    var divContainerContent = document.createElement('div');
+    divContainerContent.classList.add('content-config-colors');
+    divContainerContent.setAttribute('dataid', idContainerColores);
+    var coloresMarker = document.createElement('div');
+    coloresMarker.classList.add('colores-marker');
+
+    if (typeof valueColor === 'string') {
+      coloresMarker.innerHTML = valueColor;
+      document.querySelector('#' + idContainerColores).appendChild(coloresMarker);
+    } else {
+      if (_typeof(valueColor) === 'object') {
+        var dataColor = [];
+        var dataKey = [];
+        Object.entries(valueColor).forEach(function (_ref15, index) {
+          var _ref16 = _slicedToArray(_ref15, 2),
+              key = _ref16[0],
+              value = _ref16[1];
+
+          dataColor.push(value);
+          dataKey.push(keys + '-' + key);
+        });
+        var divColor = document.createElement('div');
+        divColor.innerHTML = '<div class="flex items-center py-3 gap-2" id="color-main-' + idContainerColores + '"></div>';
+        document.querySelector('#' + idContainerColores).appendChild(divColor);
+        Object.entries(dataColor).forEach(function (_ref17, index) {
+          var _ref18 = _slicedToArray(_ref17, 2),
+              key = _ref18[0],
+              value = _ref18[1];
+
+          var div = document.createElement('div');
+          div.innerHTML = '<div data-color-main="' + dataKey[index] + '" data-color="' + value + '" class="w-5 h-5 rounded trigger-color-click scale hover:scale-110 border-2 transition-all  border-transparent hover:border-gray-500" style="background:' + value + '"></div>';
+          document.querySelector('#color-main-' + idContainerColores).appendChild(div);
+        });
+      }
+    }
+    /*document.querySelector('.container-wrapper-config-colors').appendChild(divContainerContent) */
+
+  }); //document.querySelector('.content-color-app').innerHTML = html
+}
 
 function myFunction() {
   var copyText = document.getElementById("myInput");
@@ -31095,7 +31186,7 @@ cssFile.rel = 'stylesheet';
 cssFile.href = "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"; // or path for file {themes('/styles/mobile.css')}
 
 document.head.appendChild(cssFile);
-var html = "\n <div class=\"content-app-tw block-drag aspect-1\" id=\"mydiv\">\n             <div id=\"mydivheader\" class=\"flex flex-col content-app-wrapper h-100\">\n                 <nav class=\"flex items-center h-16 px-4 pt-4 text-gray-300 rounded-lg\">\n                     <div class=\" bg-gray-100 rounded-lg bg-opacity-5\">\n                         <button title=\"Move to left\" data-position='left' class=\"p-2 rounded-lg hover:text-white move-inspect\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 fill-transparent\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                 <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 5l7 7-7 7\" />\n                             </svg>\n                         </button>\n                         <button class=\"p-2 rounded-lg text-primary disabled-move\" title=\"Pause\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 fill-transparent\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                 <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 9l4-4 4 4m0 6l-4 4-4-4\" />\n                             </svg>\n                         </button>\n                         <button class=\"p-2 hidden rounded-lg hover:text-white\" title=\"Show grid\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"22\" height=\"22\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path d=\"M14 10h-4v4h4v-4zm2 0v4h3v-4h-3zm-2 9v-3h-4v3h4zm2 0h3v-3h-3v3zM14 5h-4v3h4V5zm2 0v3h3V5h-3zm-8 5H5v4h3v-4zm0 9v-3H5v3h3zM8 5H5v3h3V5zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z\"></path>\n                             </svg>\n                         </button>\n                     </div>\n                     <div class=\"flex-grow\"></div>\n                     <a href=\"https://github.com/kholid060/inspect-css\" class=\"hidden mr-4\" target=\"_blank\" title=\"GitHub\">\n                         <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                             <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                             <path\n                                 d=\"M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 0 0 6.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 0 1 2.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0 0 22 12c0-5.525-4.475-10-10-10z\"\n                             ></path>\n                         </svg>\n                     </a>\n                     <button title=\"Close extension\" class=\"close-inspector\">\n                         <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                             <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                             <path d=\"M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z\"></path>\n                         </svg>\n                     </button>\n                 </nav>\n                 <div class=\"flex-1 py-2 my-2 overflow-auto scroll scroll-main \">\n                     <div class=\"px-4 init-config scroll\">\n                         <div class=\"flex w-full px-1 py-1 bg-gray-100 rounded-full bg-opacity-5\">\n                             <button data-id=\"live\" class=\"w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class\">Live</button>\n                             <button data-id=\"preview\" class=\"w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class\">Preview</button>\n                             \n                         </div>\n                         <div class=\"overflow-auto live-editor-tw scroll\">\n                             <div data-id=\"live\" class=\"class-linear-tw tab-tw-inspect-content active-tw-content open\">\n                               <div class=\"h-full w-full flex justify-center items-center text-xs text-center pt-10 text-gray-300\">\n                                  Haz click en el elemento que quieras ver sus clases y editarlas\n                               </div>\n                             </div>\n                             <div data-id=\"preview\" class=\"tab-tw-inspect-content\">\n                                 <div class=\"search-input\">\n                                     <a href=\"\" target=\"_blank\" hidden></a>\n                                     <input type=\"text\" placeholder=\"Type to search..\" id=\"input-tw-search\"  class=\"w-full px-3 py-4 mt-5 bg-gray-900 border-0 rounded-lg input-tw-search\">\n                                     <div class=\"autocom-box\">\n                                     <!-- here list are inserted from javascript -->\n                                     </div>\n                                     <div class=\"px-3 py-3 selected-class\">\n                                     </div>\n                                     <div>\n                                         <button class=\"w-full px-5 py-4 text-white uppercase bg-blue-500 rounded copy-class text-md\">Copy class</button>\n                                     </div>\n                                     <div class=\"icon\"><i class=\"fas fa-search\"></i></div>\n                                 </div>\n                             </div>\n                         </div>\n                     </div>\n                     <div class=\"ContenthtmlParent\">\n                     </div>\n                 </div>\n                 <div class=\"flex items-center justify-between flex-shrink-0 w-full h-16 px-4 text-gray-300 bg-gray-100 rounded-lg bg-opacity-5 \">\n                     <button role=\"button\" class=\"relative p-2 transition transition-colors bg-gray-100 rounded-lg ui-button bg-opacity-5 text-primary\" title=\"Properties\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path\n                                     d=\"M13 1l.001 3.062A8.004 8.004 0 0 1 19.938 11H23v2l-3.062.001a8.004 8.004 0 0 1-6.937 6.937L13 23h-2v-3.062a8.004 8.004 0 0 1-6.938-6.937L1 13v-2h3.062A8.004 8.004 0 0 1 11 4.062V1h2zm-1 5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4z\"\n                                 ></path>\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                     <button role=\"button\" class=\"relative  p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Attributes\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                 <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z\" />\n                                 <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                     <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Custom CSS\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path d=\"M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z\"></path>\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                     <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Graphic Assets\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path\n                                     d=\"M4.828 21l-.02.02-.021-.02H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H4.828zM20 15V5H4v14L14 9l6 6zm0 2.828l-6-6L6.828 19H20v-1.172zM8 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z\"\n                                 ></path>\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                     <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Palettes\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path\n                                     d=\"M12 2c5.522 0 10 3.978 10 8.889a5.558 5.558 0 0 1-5.556 5.555h-1.966c-.922 0-1.667.745-1.667 1.667 0 .422.167.811.422 1.1.267.3.434.689.434 1.122C13.667 21.256 12.9 22 12 22 6.478 22 2 17.522 2 12S6.478 2 12 2zm-1.189 16.111a3.664 3.664 0 0 1 3.667-3.667h1.966A3.558 3.558 0 0 0 20 10.89C20 7.139 16.468 4 12 4a8 8 0 0 0-.676 15.972 3.648 3.648 0 0 1-.513-1.86zM7.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm9 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM12 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z\"\n                                 ></path>\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                 </div>\n             </div>\n         </div>\n ";
+var html = "\n <div class=\"content-app-tw block-drag aspect-1\" id=\"mydiv\">\n             <div id=\"mydivheader\" class=\"flex flex-col overflow-hidden content-app-wrapper h-100\">\n                 <nav class=\"flex items-center h-16 px-4 pt-4 text-gray-300 rounded-lg\">\n                     <div class=\" bg-gray-100 rounded-lg bg-opacity-5\">\n                         <button title=\"Move to left\" data-position='left' class=\"p-2 rounded-lg hover:text-white move-inspect\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 fill-transparent\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                 <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 5l7 7-7 7\" />\n                             </svg>\n                         </button>\n                         <button class=\"p-2 rounded-lg text-primary disabled-move\" title=\"Pause\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6 fill-transparent\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                 <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 9l4-4 4 4m0 6l-4 4-4-4\" />\n                             </svg>\n                         </button>\n                         <button class=\"p-2 hidden rounded-lg hover:text-white\" title=\"Show grid\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"22\" height=\"22\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path d=\"M14 10h-4v4h4v-4zm2 0v4h3v-4h-3zm-2 9v-3h-4v3h4zm2 0h3v-3h-3v3zM14 5h-4v3h4V5zm2 0v3h3V5h-3zm-8 5H5v4h3v-4zm0 9v-3H5v3h3zM8 5H5v3h3V5zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z\"></path>\n                             </svg>\n                         </button>\n                     </div>\n                     <div class=\"flex-grow\"></div>\n                     <a href=\"https://github.com/kholid060/inspect-css\" class=\"hidden mr-4\" target=\"_blank\" title=\"GitHub\">\n                         <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                             <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                             <path\n                                 d=\"M12 2C6.475 2 2 6.475 2 12a9.994 9.994 0 0 0 6.838 9.488c.5.087.687-.213.687-.476 0-.237-.013-1.024-.013-1.862-2.512.463-3.162-.612-3.362-1.175-.113-.288-.6-1.175-1.025-1.413-.35-.187-.85-.65-.013-.662.788-.013 1.35.725 1.538 1.025.9 1.512 2.338 1.087 2.912.825.088-.65.35-1.087.638-1.337-2.225-.25-4.55-1.113-4.55-4.938 0-1.088.387-1.987 1.025-2.688-.1-.25-.45-1.275.1-2.65 0 0 .837-.262 2.75 1.026a9.28 9.28 0 0 1 2.5-.338c.85 0 1.7.112 2.5.337 1.912-1.3 2.75-1.024 2.75-1.024.55 1.375.2 2.4.1 2.65.637.7 1.025 1.587 1.025 2.687 0 3.838-2.337 4.688-4.562 4.938.362.312.675.912.675 1.85 0 1.337-.013 2.412-.013 2.75 0 .262.188.574.688.474A10.016 10.016 0 0 0 22 12c0-5.525-4.475-10-10-10z\"\n                             ></path>\n                         </svg>\n                     </a>\n                     <button title=\"Close extension\" class=\"close-inspector\">\n                         <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                             <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                             <path d=\"M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z\"></path>\n                         </svg>\n                     </button>\n                 </nav>\n                 <div class=\"flex-1 py-2 my-2 overflow-auto scroll scroll-main \">\n                     <div class=\"px-4 init-config scroll data-content-tab\" data-content-tab=\"p1\">\n                         <div class=\"flex w-full px-1 py-1 bg-gray-100 rounded-full bg-opacity-5\">\n                             <button data-id=\"live\" class=\"w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class\">Live</button>\n                             <button data-id=\"preview\" class=\"w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class\">Preview</button>\n                             \n                         </div>\n                         <div class=\"overflow-auto live-editor-tw scroll\">\n                             <div data-id=\"live\" class=\"class-linear-tw tab-tw-inspect-content active-tw-content open\">\n                               <div class=\"h-full w-full flex justify-center items-center text-xs text-center pt-10 text-gray-300\">\n                                  Haz click en el elemento que quieras ver sus clases y editarlas\n                               </div>\n                             </div>\n                             <div data-id=\"preview\" class=\"tab-tw-inspect-content\">\n                                 <div class=\"search-input\">\n                                     <a href=\"\" target=\"_blank\" hidden></a>\n                                     <input type=\"text\" placeholder=\"Type to search..\" id=\"input-tw-search\"  class=\"w-full px-3 py-4 mt-5 bg-gray-900 border-0 rounded-lg input-tw-search\">\n                                     <div class=\"autocom-box\">\n                                     <!-- here list are inserted from javascript -->\n                                     </div>\n                                     <div class=\"px-3 py-3 selected-class\">\n                                     </div>\n                                     <div>\n                                         <button class=\"w-full px-5 py-4 text-white uppercase bg-blue-500 rounded copy-class text-md\">Copy class</button>\n                                     </div>\n                                     <div class=\"icon\"><i class=\"fas fa-search\"></i></div>\n                                 </div>\n                             </div>\n                         </div>\n                     </div>\n                     <div class=\"data-content-tab px-4 active\" data-content-tab=\"p2\">\n                        <h2 class=\"mb-2\">Colores pickers</h2>\n                        <div class=\"variant-pciker\">\n\n                        </div>\n                        \n                        <div class=\"content-color-app\">\n\n                        </div>\n\n                     </div>\n                     <div class=\"ContenthtmlParent\">\n                     </div>\n                 </div>\n                 <div class=\"flex items-center gap-5 flex-shrink-0 footer-gap-main w-full h-16 px-4 text-gray-300  rounded-b border-[#1d1d1d]  \">\n                     <button data-tab=\"p1\" role=\"button\" class=\"active app-buttons relative p-2 transition  rounded-lg ui-button  text-primary\" title=\"Properties\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path\n                                     d=\"M13 1l.001 3.062A8.004 8.004 0 0 1 19.938 11H23v2l-3.062.001a8.004 8.004 0 0 1-6.937 6.937L13 23h-2v-3.062a8.004 8.004 0 0 1-6.938-6.937L1 13v-2h3.062A8.004 8.004 0 0 1 11 4.062V1h2zm-1 5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4z\"\n                                 ></path>\n                             </svg>\n                         </span>\n                         \n                     </button>\n\n                     <button data-tab=\"p2\" role=\"button\" class=\"app-buttons relative p-2 transition  rounded-lg ui-button  text-primary\" title=\"Properties\">\n                         <span class=\"flex items-center justify-center h-full\">\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" class=\"w-6 h-6\">\n                                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z\" />\n                            </svg>\n                           \n                         </span>\n                         \n                     </button>\n                     \n                     <button role=\"button\" class=\"relative  p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Attributes\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\">\n                                 <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z\" />\n                                 <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                     <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Custom CSS\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path d=\"M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z\"></path>\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                     <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Graphic Assets\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path\n                                     d=\"M4.828 21l-.02.02-.021-.02H2.992A.993.993 0 0 1 2 20.007V3.993A1 1 0 0 1 2.992 3h18.016c.548 0 .992.445.992.993v16.014a1 1 0 0 1-.992.993H4.828zM20 15V5H4v14L14 9l6 6zm0 2.828l-6-6L6.828 19H20v-1.172zM8 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z\"\n                                 ></path>\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                     <button role=\"button\" class=\"relative hidden p-2 transition transition-colors rounded-lg ui-button hover:text-white\" title=\"Palettes\">\n                         <span class=\"flex items-center justify-center h-full\">\n                             <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\">\n                                 <path fill=\"none\" d=\"M0 0h24v24H0z\"></path>\n                                 <path\n                                     d=\"M12 2c5.522 0 10 3.978 10 8.889a5.558 5.558 0 0 1-5.556 5.555h-1.966c-.922 0-1.667.745-1.667 1.667 0 .422.167.811.422 1.1.267.3.434.689.434 1.122C13.667 21.256 12.9 22 12 22 6.478 22 2 17.522 2 12S6.478 2 12 2zm-1.189 16.111a3.664 3.664 0 0 1 3.667-3.667h1.966A3.558 3.558 0 0 0 20 10.89C20 7.139 16.468 4 12 4a8 8 0 0 0-.676 15.972 3.648 3.648 0 0 1-.513-1.86zM7.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm9 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM12 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z\"\n                                 ></path>\n                             </svg>\n                         </span>\n                         <!---->\n                     </button>\n                 </div>\n             </div>\n         </div>\n ";
 
 var createClassUnid = function createClassUnid(id) {
   var classUnid = document.createElement('div');
@@ -31117,7 +31208,7 @@ var createClassUnid = function createClassUnid(id) {
 };
 
 var checkClassSelected = function checkClassSelected(className) {
-  var id = (0,uuid__WEBPACK_IMPORTED_MODULE_10__["default"])();
+  var id = (0,uuid__WEBPACK_IMPORTED_MODULE_11__["default"])();
 
   if (document.querySelector('.fixed-click-element-over.click-element-over') != null) {
     var idu = document.querySelector('.fixed-click-element-over.click-element-over').getAttribute('unid');
@@ -31135,7 +31226,7 @@ var checkClassSelected = function checkClassSelected(className) {
 
     document.getElementById(idu).setAttribute('data-class', dataArrayClass);
   } else {
-    var id = (0,uuid__WEBPACK_IMPORTED_MODULE_10__["default"])();
+    var id = (0,uuid__WEBPACK_IMPORTED_MODULE_11__["default"])();
     document.querySelector('.click-element-over').setAttribute('unid', id);
     document.querySelector('.click-element-over').classList.add('fixed-click-element-over');
     var classUnid = document.createElement('div');
@@ -31167,6 +31258,7 @@ var checkClassSelected = function checkClassSelected(className) {
 
 var initTW = function initTW() {
   document.querySelector('body').insertAdjacentHTML('beforeend', html);
+  ColoresHtml();
 };
 
 if (dev) {
@@ -31247,6 +31339,71 @@ setTimeout(function () {
 function showCSS() {
   var element = document.querySelector('.class-row-tw');
 }
+
+var tabMain = document.querySelectorAll('.app-buttons');
+addEvent(document, 'click', '.app-buttons', function () {
+  var tabId = this.getAttribute('data-tab');
+  var tabMain = document.querySelectorAll('.app-buttons');
+
+  for (var i = 0; i < tabMain.length; i++) {
+    tabMain[i].classList.remove('active');
+  }
+
+  this.classList.add('active'); // data-content-tab
+
+  var tabContent = document.querySelectorAll('.data-content-tab');
+
+  for (var i = 0; i < tabContent.length; i++) {
+    tabContent[i].classList.remove('active');
+  }
+
+  document.querySelector('.data-content-tab[data-content-tab="' + tabId + '"]').classList.add('active');
+});
+addEvent(document, 'click', '.trigger-color-click', function () {
+  var dataColor = this.getAttribute('data-color');
+  setSnackBar(dataColor);
+  document.querySelector('.click-element-over').classList.add(dataColor);
+}); //show-element-hover
+
+addEvent(document, 'mouseover', '.trigger-color-click', function () {
+  var closestParent = this.closest('.container-wrapper-config-colors-opacity');
+  var dataColor = this.getAttribute('data-color');
+
+  if (closestParent.querySelector('.element-cover-color') !== null) {
+    closestParent.querySelector('.element-cover-color').style.color = dataColor;
+    closestParent.querySelector('.element-cover-color').innerHTML = dataColor;
+  } else {
+    var div = document.createElement('div');
+    div.classList.add('element-cover-color');
+    div.innerHTML = dataColor;
+    closestParent.querySelector('.show-element-hover').appendChild(div);
+  }
+});
+
+function setSnackBar(message) {
+  var container = document.querySelector('.content-color-app');
+  var footerHeight = document.querySelector('.footer-gap-main').offsetHeight;
+
+  if (container.querySelector('.snackbar') !== null) {
+    container.querySelector('.snackbar').remove();
+  }
+
+  var div = document.createElement('div');
+  div.classList.add('snackbar');
+  div.classList.add('flex');
+  div.classList.add('items-center');
+  div.classList.add('truncate');
+  div.innerHTML = '<div class="text-green-500 mr-1">Seleccionado: </div> ' + message;
+  div.classList.add('font-black');
+  container.appendChild(div);
+  setTimeout(function () {
+    div.classList.add('show');
+    div.style.bottom = footerHeight + 50 + 'px';
+  }, 1000);
+  /*setTimeout(() => {
+      div.remove()
+  }, 3000); */
+} //trigger-color-click but hover
 })();
 
 /******/ })()

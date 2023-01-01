@@ -28,13 +28,29 @@
   min-height: 500px;
   width: 310px;
   max-height: calc(100vh - 3rem);
-  background-color: #1d1d1d;
+  background: rgba(22, 22, 22, 0.8);
   border-radius: 5px;
+  border: 1px solid hsl(0 0% 100% / 0.077);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(100px) saturate(400%) brightness(80%);
   h1{
      margin: 0
   }
 }
-
+.footer-gap-main{
+  border: 1px solid hsl(0 0% 100% / 0.077);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  //backdrop-filter: blur(100px) saturate(400%) brightness(80%);
+  z-index: 999;
+  position: relative;
+  background: #1a1a1a;
+}
+.data-content-tab{
+  display: none;
+  &.active{
+    display: block;
+  }
+}
 .value-css{
   color:#7e22ce
 }
@@ -319,4 +335,74 @@
 .btn-tw-class{
   font-size: 13px;
   text-transform: uppercase;
+}
+
+.app-buttons{
+  &.active{
+    @apply bg-gray-100 bg-opacity-10
+  }
+}
+
+.container-wrapper-config-colors{
+  padding: 12px 0;
+  background: #ffffff0a;
+  color:#bfbfbf; 
+  border-radius: 5px; 
+
+}
+.content-color-app:hover .container-wrapper-config-colors-opacity{
+  opacity: 0.3;
+}
+.container-wrapper-config-colors-opacity{
+  cursor: pointer;
+  transition: all .1s ease-in-out;
+  border: 1px solid ;
+  border-color: transparent;
+  .container-wrapper-config-colors{
+    transition: all .1s ease-in-out;
+    border: 1px solid ;
+    border-color: transparent;
+  }
+}
+.container-wrapper-config-colors-opacity:hover{
+  opacity: 1 !important;
+ 
+  .container-wrapper-config-colors{
+    border-color: #323232;
+  }
+}
+.show-element-hover{
+  display:flex;
+}
+.element-cover-color{
+  margin-left: 4px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.snackbar{
+  position: absolute;
+  bottom: 0px;
+  z-index: 99;
+  background: #1a1a1a;
+  padding: 10px;
+ 
+  left:50%;
+  transform: translateX(-50%);
+  text-emphasis: none;
+  border-radius: 21px;
+  font-size: 12px;
+
+  transition: all .4s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid rgba(255, 255, 255, 0.077);
+  box-shadow: 3px -4px 20px 8px #113c144d;
+  -webkit-backdrop-filter: blur(100px) saturate(400%) brightness(80%);
+  backdrop-filter: blur(100px) saturate(400%) brightness(80%);
+  color: #adadad;
+  opacity: 1;
+   
+
+
 }

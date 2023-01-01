@@ -26,7 +26,7 @@ export const mainMasterData = (fullConfigTW, data) => {
     var fullConfigTWMain = fullConfigTW
     var fullDataMaster = data
 
-    console.log("fullConfigTWMain", fullConfigTWMain)
+
 
  
     const ObjTW = {
@@ -54,7 +54,7 @@ export const mainMasterData = (fullConfigTW, data) => {
         }
     }
  
-    
+
  
     return fullDataMaster
  }

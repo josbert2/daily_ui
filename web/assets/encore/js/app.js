@@ -15,6 +15,7 @@ import { mainMasterData } from './tailwindJSON/index'
 
 
 
+import { Colors } from './tailwindJSON/util/Colors'
 
 
 // Prefijos para la composicin del plugin
@@ -174,11 +175,82 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
  }
  
  
+function get500Colores(value){
+    var middleColor = ''
+    if (typeof value === 'string') {
+        middleColor = value
+    }
+    if (typeof value === 'object') {
+        Object.entries(value).forEach(([key, value], index) => {
+            if (key === '500') {
+                middleColor = value
+            }
+        })
+    }
+    return middleColor
+}
 
 
 
+ function ColoresHtml(){
+    var html = ''
+    var colorsSort = []
+    var container = document.querySelector('.content-color-app')
 
- 
+    Object.entries(fullConfigTW.theme.colors).forEach(([keys, valueColor]) => {
+        var middleColor = get500Colores(valueColor)
+       
+        var idContainerColores = 'container-' + keys
+
+      
+        var divContainerCategoria = document.createElement('div')
+        divContainerCategoria.setAttribute('id', idContainerColores)
+        divContainerCategoria.classList.add('container-wrapper-config-colors-opacity')
+        divContainerCategoria.innerHTML = '<div class="container-wrapper-config-colors"><div class="flex items-center px-3"><div style="background:' + middleColor + '" class=" w-4 h-4 rounded-md mr-3"></div><span class="show-element-hover">' + keys + '</span>  <div class="ml-auto">' + arrowDown  + '</div></div></div>'
+        container.appendChild(divContainerCategoria)
+
+        var divContainerContent = document.createElement('div')
+        divContainerContent.classList.add('content-config-colors')
+        divContainerContent.setAttribute('dataid', idContainerColores)
+
+        
+
+        var coloresMarker = document.createElement('div')
+        coloresMarker.classList.add('colores-marker')
+
+
+        if (typeof valueColor === 'string') {
+            coloresMarker.innerHTML = valueColor
+            document.querySelector('#' + idContainerColores).appendChild(coloresMarker)
+        }else{
+            if (typeof valueColor === 'object') {
+                var dataColor = []
+                var dataKey = []
+                Object.entries(valueColor).forEach(([key, value], index) => {
+                    dataColor.push(value)
+                    dataKey.push(keys + '-' + key)
+                })
+
+                var divColor = document.createElement('div')
+                    divColor.innerHTML = '<div class="flex items-center py-3 gap-2" id="color-main-' + idContainerColores + '"></div>'
+                    document.querySelector('#' + idContainerColores).appendChild(divColor)
+
+
+                Object.entries(dataColor).forEach(([key, value], index) => {
+                    const div = document.createElement('div');
+            
+                    div.innerHTML = '<div data-color-main="' + dataKey[index] + '" data-color="'+ value +'" class="w-5 h-5 rounded trigger-color-click scale hover:scale-110 border-2 transition-all  border-transparent hover:border-gray-500" style="background:'+ value +'"></div>'
+                    document.querySelector('#color-main-' + idContainerColores).appendChild(div)
+                })
+            }
+        }
+            /*document.querySelector('.container-wrapper-config-colors').appendChild(divContainerContent) */
+    })
+   
+    //document.querySelector('.content-color-app').innerHTML = html
+}
+
+
  
 
 
@@ -668,7 +740,7 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
  
  const html = `
  <div class="content-app-tw block-drag aspect-1" id="mydiv">
-             <div id="mydivheader" class="flex flex-col content-app-wrapper h-100">
+             <div id="mydivheader" class="flex flex-col overflow-hidden content-app-wrapper h-100">
                  <nav class="flex items-center h-16 px-4 pt-4 text-gray-300 rounded-lg">
                      <div class=" bg-gray-100 rounded-lg bg-opacity-5">
                          <button title="Move to left" data-position='left' class="p-2 rounded-lg hover:text-white move-inspect">
@@ -705,7 +777,7 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
                      </button>
                  </nav>
                  <div class="flex-1 py-2 my-2 overflow-auto scroll scroll-main ">
-                     <div class="px-4 init-config scroll">
+                     <div class="px-4 init-config scroll data-content-tab" data-content-tab="p1">
                          <div class="flex w-full px-1 py-1 bg-gray-100 rounded-full bg-opacity-5">
                              <button data-id="live" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class">Live</button>
                              <button data-id="preview" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class">Preview</button>
@@ -734,11 +806,22 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
                              </div>
                          </div>
                      </div>
+                     <div class="data-content-tab px-4 active" data-content-tab="p2">
+                        <h2 class="mb-2">Colores pickers</h2>
+                        <div class="variant-pciker">
+
+                        </div>
+                        
+                        <div class="content-color-app">
+
+                        </div>
+
+                     </div>
                      <div class="ContenthtmlParent">
                      </div>
                  </div>
-                 <div class="flex items-center justify-between flex-shrink-0 w-full h-16 px-4 text-gray-300 bg-gray-100 rounded-lg bg-opacity-5 ">
-                     <button role="button" class="relative p-2 transition transition-colors bg-gray-100 rounded-lg ui-button bg-opacity-5 text-primary" title="Properties">
+                 <div class="flex items-center gap-5 flex-shrink-0 footer-gap-main w-full h-16 px-4 text-gray-300  rounded-b border-[#1d1d1d]  ">
+                     <button data-tab="p1" role="button" class="active app-buttons relative p-2 transition  rounded-lg ui-button  text-primary" title="Properties">
                          <span class="flex items-center justify-center h-full">
                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
                                  <path fill="none" d="M0 0h24v24H0z"></path>
@@ -747,8 +830,19 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
                                  ></path>
                              </svg>
                          </span>
-                         <!---->
+                         
                      </button>
+
+                     <button data-tab="p2" role="button" class="app-buttons relative p-2 transition  rounded-lg ui-button  text-primary" title="Properties">
+                         <span class="flex items-center justify-center h-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+                            </svg>
+                           
+                         </span>
+                         
+                     </button>
+                     
                      <button role="button" class="relative  p-2 transition transition-colors rounded-lg ui-button hover:text-white" title="Attributes">
                          <span class="flex items-center justify-center h-full">
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -874,6 +968,7 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
  const initTW = () => {
    
     document.querySelector('body').insertAdjacentHTML('beforeend', html)
+    ColoresHtml()
  }
  
  if (dev) {
@@ -975,5 +1070,87 @@ Object.entries(fullConfigTW.theme.columns).forEach(([key, value]) => {
  function showCSS(){
     var element = document.querySelector('.class-row-tw')
  }
+
+
+var tabMain = document.querySelectorAll('.app-buttons')
+addEvent(document, 'click', '.app-buttons', function(){
+    
+    var tabId = this.getAttribute('data-tab')
+    var tabMain = document.querySelectorAll('.app-buttons')
+    for (var i = 0; i < tabMain.length; i++) {
+        tabMain[i].classList.remove('active')
+    }
+    this.classList.add('active')
+
+    // data-content-tab
+    var tabContent = document.querySelectorAll('.data-content-tab')
+    for (var i = 0; i < tabContent.length; i++) {
+        tabContent[i].classList.remove('active')
+    }
+    document.querySelector('.data-content-tab[data-content-tab="'+tabId+'"]').classList.add('active')
+  
+})
+
+addEvent(document, 'click', '.trigger-color-click', function(){
+    var dataColor = this.getAttribute('data-color')
+    setSnackBar(dataColor)
+    document.querySelector('.click-element-over').classList.add(dataColor)
+})
+
+
+
+//show-element-hover
+
+addEvent(document, 'mouseover', '.trigger-color-click', function(){
+    var closestParent = this.closest('.container-wrapper-config-colors-opacity')
+    var dataColor = this.getAttribute('data-color')
+    if (closestParent.querySelector('.element-cover-color') !== null){
+        closestParent.querySelector('.element-cover-color').style.color = dataColor
+        closestParent.querySelector('.element-cover-color').innerHTML = dataColor
+    }else{
+        var div = document.createElement('div')
+        div.classList.add('element-cover-color')
+        div.innerHTML = dataColor
+      
+        closestParent.querySelector('.show-element-hover').appendChild(div)
+    }
+})
+
+function setSnackBar(message){
+    var container =  document.querySelector('.content-color-app')
+    var footerHeight = document.querySelector('.footer-gap-main').offsetHeight
+    
+    if (container.querySelector('.snackbar') !== null){
+        container.querySelector('.snackbar').remove()
+    }
+    var div = document.createElement('div')
+    div.classList.add('snackbar')
+    div.classList.add('flex')
+    div.classList.add('items-center')
+    div.classList.add('truncate')
+   
+   
+    div.innerHTML = '<div class="text-green-500 mr-1">Seleccionado: </div> '+ message
+    
+    div.classList.add('font-black')
+    container.appendChild(div)
+
+    setTimeout(() => {
+        div.classList.add('show')
+        div.style.bottom = footerHeight + 50 + 'px'
+    }, 1000);
+    /*setTimeout(() => {
+        div.remove()
+    }, 3000); */
+
+}
+
+
+//trigger-color-click but hover
+
+
+
+
+
 
 

@@ -421,6 +421,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 0.75rem;
 }.ml-1 {
   margin-left: 0.25rem;
+}.mb-2 {
+  margin-bottom: 0.5rem;
+}.mr-1 {
+  margin-right: 0.25rem;
 }.box-border {
   box-sizing: border-box;
 }.box-content {
@@ -643,6 +647,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 1.25rem;
 }.gap-10 {
   gap: 2.5rem;
+}.gap-2 {
+  gap: 0.5rem;
 }.gap-x-8 {
   -moz-column-gap: 2rem;
        column-gap: 2rem;
@@ -787,6 +793,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.rounded-b-md {
   border-bottom-right-radius: 0.375rem;
   border-bottom-left-radius: 0.375rem;
+}.rounded-b {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }.rounded-tl {
   border-top-left-radius: 0.25rem;
 }.rounded-tr {
@@ -801,6 +810,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-width: 4px;
 }.border {
   border-width: 1px;
+}.border-2 {
+  border-width: 2px;
 }.border-b {
   border-bottom-width: 1px;
 }.border-l {
@@ -818,6 +829,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}.border-\[\#1d1d1d\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(29 29 29 / var(--tw-border-opacity));
 }.border-opacity-75 {
   --tw-border-opacity: 0.75;
 }.border-opacity-10 {
@@ -868,6 +882,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 0.05;
 }.bg-opacity-10 {
   --tw-bg-opacity: 0.1;
+}.bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}.from-white {
+  --tw-gradient-from: #fff;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
+}.from-slate-900 {
+  --tw-gradient-from: #0f172a;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(15 23 42 / 0));
 }.bg-repeat {
   background-repeat: repeat;
 }.fill-current {
@@ -1200,6 +1222,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }.duration-200 {
   transition-duration: 200ms;
 }.ease-in {
@@ -1231,10 +1257,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   min-height: 500px;
   width: 310px;
   max-height: calc(100vh - 3rem);
-  background-color: #1d1d1d;
+  background: rgba(22, 22, 22, 0.8);
   border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.077);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  -webkit-backdrop-filter: blur(100px) saturate(400%) brightness(80%);
+          backdrop-filter: blur(100px) saturate(400%) brightness(80%);
 }.content-app-wrapper h1 {
   margin: 0;
+}.footer-gap-main {
+  border: 1px solid rgba(255, 255, 255, 0.077);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  z-index: 999;
+  position: relative;
+  background: #1a1a1a;
+}.data-content-tab {
+  display: none;
+}.data-content-tab.active {
+  display: block;
 }.value-css {
   color: #7e22ce;
 }[active-element] {
@@ -1422,10 +1462,67 @@ Ensure the default browser behavior of the `hidden` attribute.
 }.btn-tw-class {
   font-size: 13px;
   text-transform: uppercase;
+}.app-buttons.active {
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.1;
+}.container-wrapper-config-colors {
+  padding: 12px 0;
+  background: #ffffff0a;
+  color: #bfbfbf;
+  border-radius: 5px;
+}.content-color-app:hover .container-wrapper-config-colors-opacity {
+  opacity: 0.3;
+}.container-wrapper-config-colors-opacity {
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  border: 1px solid;
+  border-color: transparent;
+}.container-wrapper-config-colors-opacity .container-wrapper-config-colors {
+  transition: all 0.1s ease-in-out;
+  border: 1px solid;
+  border-color: transparent;
+}.container-wrapper-config-colors-opacity:hover {
+  opacity: 1 !important;
+}.container-wrapper-config-colors-opacity:hover .container-wrapper-config-colors {
+  border-color: #323232;
+}.show-element-hover {
+  display: flex;
+}.element-cover-color {
+  margin-left: 4px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}.snackbar {
+  position: absolute;
+  bottom: 0px;
+  z-index: 99;
+  background: #1a1a1a;
+  padding: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-text-emphasis: none;
+          text-emphasis: none;
+  border-radius: 21px;
+  font-size: 12px;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid rgba(255, 255, 255, 0.077);
+  box-shadow: 3px -4px 20px 8px #113c144d;
+  -webkit-backdrop-filter: blur(100px) saturate(400%) brightness(80%);
+  backdrop-filter: blur(100px) saturate(400%) brightness(80%);
+  color: #adadad;
+  opacity: 1;
 }/*
 body{
     background-color: black;
-}*/.hover\:bg-indigo-700:hover {
+}*/.hover\:scale-110:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}.hover\:border-gray-500:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}.hover\:bg-indigo-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(67 56 202 / var(--tw-bg-opacity));
 }.hover\:bg-gray-800:hover {
@@ -1476,7 +1573,10 @@ body{
 }.group:hover .group-hover\:text-indigo-400 {
   --tw-text-opacity: 1;
   color: rgb(129 140 248 / var(--tw-text-opacity));
-}@media (prefers-color-scheme: dark) {.dark\:text-white {
+}@media (prefers-color-scheme: dark) {.dark\:from-slate-900 {
+    --tw-gradient-from: #0f172a;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(15 23 42 / 0));
+  }.dark\:text-white {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
