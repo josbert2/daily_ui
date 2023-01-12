@@ -406,3 +406,44 @@
 
 
 }
+
+.variant-pciker{
+ .check-radio{
+  transition: all .1s ease-in-out;
+  opacity: 0;
+ }
+  input[type="radio"] {
+    display: none;
+    &:checked + span {
+     border-color: #2563eb;
+     .check-radio  {
+        @apply  scale-100 top-2/4 left-[7px] -translate-y-2/4;
+        opacity: 1;
+      } 
+    } 
+   
+  }
+  label {
+    display: inline-block;
+    width: 100px;
+    position: relative;
+    border-radius: 9px;
+    margin-right: 10px;
+    cursor: pointer;
+    
+    span {
+      display: block;
+      border: 1px solid transparent;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: transform 0.2s ease-in-out;
+      padding: 6px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+      background: #ffffff0a;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+} 

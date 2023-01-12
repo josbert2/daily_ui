@@ -34,6 +34,10 @@ const arrayListClassTailwind = {
     'break-after': 'break-after',
 }
 
+var prefixColors = 'bg-'
+var arrayPrefixColors = [
+
+]
 
 function getObjectTailwind(arr){
     Object.entries(arr.theme).forEach(([key, value]) => {
@@ -807,10 +811,52 @@ function get500Colores(value){
                          </div>
                      </div>
                      <div class="data-content-tab px-4 active" data-content-tab="p2">
-                        <h2 class="mb-2">Colores pickers</h2>
-                        <div class="variant-pciker">
-
+                        <h2 class="mb-2"Configuración color</h2>
+                        <div class="variant-pciker flex items-center">
+                            <div>
+                                <label for="change-option-bg">
+                                    <input type="radio" id="change-option-bg" value="bg-" name="radio"  class="bg-color-picker">
+                                    <span>bg-
+                                    <div class="check-radio absolute scale-0 top-2/4 left-[7px] -translate-y-2/4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-green-500 w-4 h-4 ">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    </span>
+                                    
+                                </label>
+                            </div>
+                            <div>
+                                <label for="change-option-text">
+                                    <input type="radio" id="change-option-text" value="text-" name="radio"  class="bg-color-picker">
+                                    <span>text-
+                                        <div class="check-radio absolute scale-0 top-2/4 left-[7px] -translate-y-2/4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-green-500 w-4 h-4 ">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                    </span>
+                                    
+                                    
+                                </label>
+                            </div>
+                            <div>
+                                <label for="change-option-border">
+                                    <input type="radio" id="change-option-border" name="radio" value="border-"  class="bg-color-picker">
+                                    <span>border-
+                                        <div class="check-radio absolute scale-0 top-2/4 left-[7px] -translate-y-2/4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-green-500 w-4 h-4 ">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                    </span>
+                                    
+                                </label>
+                            </div>
+                            
                         </div>
+
+                        <h2 class="mb-2">Colores pickers</h2>
                         
                         <div class="content-color-app">
 
@@ -1090,11 +1136,16 @@ addEvent(document, 'click', '.app-buttons', function(){
     document.querySelector('.data-content-tab[data-content-tab="'+tabId+'"]').classList.add('active')
   
 })
+addEvent(document, 'change', '.variant-pciker input', function(){
+    prefixColors = this.value
+})
+
 
 addEvent(document, 'click', '.trigger-color-click', function(){
-    var dataColor = this.getAttribute('data-color')
-    setSnackBar(dataColor)
-    document.querySelector('.click-element-over').classList.add(dataColor)
+    var dataColor = this.getAttribute('data-color-main')
+    setSnackBar(prefixColors + dataColor)
+    arrayPrefixColors.push(prefixColors + dataColor)
+    document.querySelector('.click-element-over').classList.add(prefixColors + dataColor)
 })
 
 
@@ -1103,14 +1154,15 @@ addEvent(document, 'click', '.trigger-color-click', function(){
 
 addEvent(document, 'mouseover', '.trigger-color-click', function(){
     var closestParent = this.closest('.container-wrapper-config-colors-opacity')
+    var dataColorMain = this.getAttribute('data-color-main')
     var dataColor = this.getAttribute('data-color')
     if (closestParent.querySelector('.element-cover-color') !== null){
         closestParent.querySelector('.element-cover-color').style.color = dataColor
-        closestParent.querySelector('.element-cover-color').innerHTML = dataColor
+        closestParent.querySelector('.element-cover-color').innerHTML = dataColorMain
     }else{
         var div = document.createElement('div')
         div.classList.add('element-cover-color')
-        div.innerHTML = dataColor
+        div.innerHTML = prefixColors + dataColor
       
         closestParent.querySelector('.show-element-hover').appendChild(div)
     }
@@ -1138,10 +1190,10 @@ function setSnackBar(message){
     setTimeout(() => {
         div.classList.add('show')
         div.style.bottom = footerHeight + 50 + 'px'
-    }, 1000);
-    /*setTimeout(() => {
+    }, 500);
+    setTimeout(() => {
         div.remove()
-    }, 3000); */
+    }, 3000); 
 
 }
 
