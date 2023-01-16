@@ -1,6 +1,1689 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@tailwindcss/typography/src/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@tailwindcss/typography/src/index.js ***!
+  \***********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const plugin = __webpack_require__(/*! tailwindcss/plugin */ "./node_modules/tailwindcss/plugin.js")
+const merge = __webpack_require__(/*! lodash.merge */ "./node_modules/lodash.merge/index.js")
+const castArray = __webpack_require__(/*! lodash.castarray */ "./node_modules/lodash.castarray/index.js")
+const styles = __webpack_require__(/*! ./styles */ "./node_modules/@tailwindcss/typography/src/styles.js")
+const { commonTrailingPseudos } = __webpack_require__(/*! ./utils */ "./node_modules/@tailwindcss/typography/src/utils.js")
+
+const computed = {
+  // Reserved for future "magic properties", for example:
+  // bulletColor: (color) => ({ 'ul > li::before': { backgroundColor: color } }),
+}
+
+function inWhere(selector, { className, modifier, prefix }) {
+  let prefixedNot = prefix(`.not-${className}`).slice(1)
+  let selectorPrefix = selector.startsWith('>')
+    ? `${modifier === 'DEFAULT' ? `.${className}` : `.${className}-${modifier}`} `
+    : ''
+
+  // Parse the selector, if every component ends in the same pseudo element(s) then move it to the end
+  let [trailingPseudo, rebuiltSelector] = commonTrailingPseudos(selector)
+
+  if (trailingPseudo) {
+    return `:where(${selectorPrefix}${rebuiltSelector}):not(:where([class~="${prefixedNot}"] *))${trailingPseudo}`
+  }
+
+  return `:where(${selectorPrefix}${selector}):not(:where([class~="${prefixedNot}"] *))`
+}
+
+function isObject(value) {
+  return typeof value === 'object' && value !== null
+}
+
+function configToCss(config = {}, { target, className, modifier, prefix }) {
+  function updateSelector(k, v) {
+    if (target === 'legacy') {
+      return [k, v]
+    }
+
+    if (Array.isArray(v)) {
+      return [k, v]
+    }
+
+    if (isObject(v)) {
+      let nested = Object.values(v).some(isObject)
+      if (nested) {
+        return [
+          inWhere(k, { className, modifier, prefix }),
+          v,
+          Object.fromEntries(Object.entries(v).map(([k, v]) => updateSelector(k, v))),
+        ]
+      }
+
+      return [inWhere(k, { className, modifier, prefix }), v]
+    }
+
+    return [k, v]
+  }
+
+  return Object.fromEntries(
+    Object.entries(
+      merge(
+        {},
+        ...Object.keys(config)
+          .filter((key) => computed[key])
+          .map((key) => computed[key](config[key])),
+        ...castArray(config.css || {})
+      )
+    ).map(([k, v]) => updateSelector(k, v))
+  )
+}
+
+module.exports = plugin.withOptions(
+  ({ className = 'prose', target = 'modern' } = {}) => {
+    return function ({ addVariant, addComponents, theme, prefix }) {
+      let modifiers = theme('typography')
+
+      let options = { className, prefix }
+
+      for (let [name, ...selectors] of [
+        ['headings', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'th'],
+        ['h1'],
+        ['h2'],
+        ['h3'],
+        ['h4'],
+        ['h5'],
+        ['h6'],
+        ['p'],
+        ['a'],
+        ['blockquote'],
+        ['figure'],
+        ['figcaption'],
+        ['strong'],
+        ['em'],
+        ['code'],
+        ['pre'],
+        ['ol'],
+        ['ul'],
+        ['li'],
+        ['table'],
+        ['thead'],
+        ['tr'],
+        ['th'],
+        ['td'],
+        ['img'],
+        ['video'],
+        ['hr'],
+        ['lead', '[class~="lead"]'],
+      ]) {
+        selectors = selectors.length === 0 ? [name] : selectors
+
+        let selector =
+          target === 'legacy' ? selectors.map((selector) => `& ${selector}`) : selectors.join(', ')
+
+        addVariant(
+          `${className}-${name}`,
+          target === 'legacy' ? selector : `& :is(${inWhere(selector, options)})`
+        )
+      }
+
+      addComponents(
+        Object.keys(modifiers).map((modifier) => ({
+          [modifier === 'DEFAULT' ? `.${className}` : `.${className}-${modifier}`]: configToCss(
+            modifiers[modifier],
+            {
+              target,
+              className,
+              modifier,
+              prefix,
+            }
+          ),
+        }))
+      )
+    }
+  },
+  () => {
+    return {
+      theme: { typography: styles },
+    }
+  }
+)
+
+
+/***/ }),
+
+/***/ "./node_modules/@tailwindcss/typography/src/styles.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@tailwindcss/typography/src/styles.js ***!
+  \************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const colors = __webpack_require__(/*! tailwindcss/colors */ "./node_modules/tailwindcss/colors.js")
+
+const round = (num) =>
+  num
+    .toFixed(7)
+    .replace(/(\.[0-9]+?)0+$/, '$1')
+    .replace(/\.0$/, '')
+const rem = (px) => `${round(px / 16)}rem`
+const em = (px, base) => `${round(px / base)}em`
+
+let defaultModifiers = {
+  sm: {
+    css: [
+      {
+        fontSize: rem(14),
+        lineHeight: round(24 / 14),
+        p: {
+          marginTop: em(16, 14),
+          marginBottom: em(16, 14),
+        },
+        '[class~="lead"]': {
+          fontSize: em(18, 14),
+          lineHeight: round(28 / 18),
+          marginTop: em(16, 18),
+          marginBottom: em(16, 18),
+        },
+        blockquote: {
+          marginTop: em(24, 18),
+          marginBottom: em(24, 18),
+          paddingLeft: em(20, 18),
+        },
+        h1: {
+          fontSize: em(30, 14),
+          marginTop: '0',
+          marginBottom: em(24, 30),
+          lineHeight: round(36 / 30),
+        },
+        h2: {
+          fontSize: em(20, 14),
+          marginTop: em(32, 20),
+          marginBottom: em(16, 20),
+          lineHeight: round(28 / 20),
+        },
+        h3: {
+          fontSize: em(18, 14),
+          marginTop: em(28, 18),
+          marginBottom: em(8, 18),
+          lineHeight: round(28 / 18),
+        },
+        h4: {
+          marginTop: em(20, 14),
+          marginBottom: em(8, 14),
+          lineHeight: round(20 / 14),
+        },
+        img: {
+          marginTop: em(24, 14),
+          marginBottom: em(24, 14),
+        },
+        video: {
+          marginTop: em(24, 14),
+          marginBottom: em(24, 14),
+        },
+        figure: {
+          marginTop: em(24, 14),
+          marginBottom: em(24, 14),
+        },
+        'figure > *': {
+          marginTop: '0',
+          marginBottom: '0',
+        },
+        figcaption: {
+          fontSize: em(12, 14),
+          lineHeight: round(16 / 12),
+          marginTop: em(8, 12),
+        },
+        code: {
+          fontSize: em(12, 14),
+        },
+        'h2 code': {
+          fontSize: em(18, 20),
+        },
+        'h3 code': {
+          fontSize: em(16, 18),
+        },
+        pre: {
+          fontSize: em(12, 14),
+          lineHeight: round(20 / 12),
+          marginTop: em(20, 12),
+          marginBottom: em(20, 12),
+          borderRadius: rem(4),
+          paddingTop: em(8, 12),
+          paddingRight: em(12, 12),
+          paddingBottom: em(8, 12),
+          paddingLeft: em(12, 12),
+        },
+        ol: {
+          marginTop: em(16, 14),
+          marginBottom: em(16, 14),
+          paddingLeft: em(22, 14),
+        },
+        ul: {
+          marginTop: em(16, 14),
+          marginBottom: em(16, 14),
+          paddingLeft: em(22, 14),
+        },
+        li: {
+          marginTop: em(4, 14),
+          marginBottom: em(4, 14),
+        },
+        'ol > li': {
+          paddingLeft: em(6, 14),
+        },
+        'ul > li': {
+          paddingLeft: em(6, 14),
+        },
+        '> ul > li p': {
+          marginTop: em(8, 14),
+          marginBottom: em(8, 14),
+        },
+        '> ul > li > *:first-child': {
+          marginTop: em(16, 14),
+        },
+        '> ul > li > *:last-child': {
+          marginBottom: em(16, 14),
+        },
+        '> ol > li > *:first-child': {
+          marginTop: em(16, 14),
+        },
+        '> ol > li > *:last-child': {
+          marginBottom: em(16, 14),
+        },
+        'ul ul, ul ol, ol ul, ol ol': {
+          marginTop: em(8, 14),
+          marginBottom: em(8, 14),
+        },
+        hr: {
+          marginTop: em(40, 14),
+          marginBottom: em(40, 14),
+        },
+        'hr + *': {
+          marginTop: '0',
+        },
+        'h2 + *': {
+          marginTop: '0',
+        },
+        'h3 + *': {
+          marginTop: '0',
+        },
+        'h4 + *': {
+          marginTop: '0',
+        },
+        table: {
+          fontSize: em(12, 14),
+          lineHeight: round(18 / 12),
+        },
+        'thead th': {
+          paddingRight: em(12, 12),
+          paddingBottom: em(8, 12),
+          paddingLeft: em(12, 12),
+        },
+        'thead th:first-child': {
+          paddingLeft: '0',
+        },
+        'thead th:last-child': {
+          paddingRight: '0',
+        },
+        'tbody td, tfoot td': {
+          paddingTop: em(8, 12),
+          paddingRight: em(12, 12),
+          paddingBottom: em(8, 12),
+          paddingLeft: em(12, 12),
+        },
+        'tbody td:first-child, tfoot td:first-child': {
+          paddingLeft: '0',
+        },
+        'tbody td:last-child, tfoot td:last-child': {
+          paddingRight: '0',
+        },
+      },
+      {
+        '> :first-child': {
+          marginTop: '0',
+        },
+        '> :last-child': {
+          marginBottom: '0',
+        },
+      },
+    ],
+  },
+  base: {
+    css: [
+      {
+        fontSize: rem(16),
+        lineHeight: round(28 / 16),
+        p: {
+          marginTop: em(20, 16),
+          marginBottom: em(20, 16),
+        },
+        '[class~="lead"]': {
+          fontSize: em(20, 16),
+          lineHeight: round(32 / 20),
+          marginTop: em(24, 20),
+          marginBottom: em(24, 20),
+        },
+        blockquote: {
+          marginTop: em(32, 20),
+          marginBottom: em(32, 20),
+          paddingLeft: em(20, 20),
+        },
+        h1: {
+          fontSize: em(36, 16),
+          marginTop: '0',
+          marginBottom: em(32, 36),
+          lineHeight: round(40 / 36),
+        },
+        h2: {
+          fontSize: em(24, 16),
+          marginTop: em(48, 24),
+          marginBottom: em(24, 24),
+          lineHeight: round(32 / 24),
+        },
+        h3: {
+          fontSize: em(20, 16),
+          marginTop: em(32, 20),
+          marginBottom: em(12, 20),
+          lineHeight: round(32 / 20),
+        },
+        h4: {
+          marginTop: em(24, 16),
+          marginBottom: em(8, 16),
+          lineHeight: round(24 / 16),
+        },
+        img: {
+          marginTop: em(32, 16),
+          marginBottom: em(32, 16),
+        },
+        video: {
+          marginTop: em(32, 16),
+          marginBottom: em(32, 16),
+        },
+        figure: {
+          marginTop: em(32, 16),
+          marginBottom: em(32, 16),
+        },
+        'figure > *': {
+          marginTop: '0',
+          marginBottom: '0',
+        },
+        figcaption: {
+          fontSize: em(14, 16),
+          lineHeight: round(20 / 14),
+          marginTop: em(12, 14),
+        },
+        code: {
+          fontSize: em(14, 16),
+        },
+        'h2 code': {
+          fontSize: em(21, 24),
+        },
+        'h3 code': {
+          fontSize: em(18, 20),
+        },
+        pre: {
+          fontSize: em(14, 16),
+          lineHeight: round(24 / 14),
+          marginTop: em(24, 14),
+          marginBottom: em(24, 14),
+          borderRadius: rem(6),
+          paddingTop: em(12, 14),
+          paddingRight: em(16, 14),
+          paddingBottom: em(12, 14),
+          paddingLeft: em(16, 14),
+        },
+        ol: {
+          marginTop: em(20, 16),
+          marginBottom: em(20, 16),
+          paddingLeft: em(26, 16),
+        },
+        ul: {
+          marginTop: em(20, 16),
+          marginBottom: em(20, 16),
+          paddingLeft: em(26, 16),
+        },
+        li: {
+          marginTop: em(8, 16),
+          marginBottom: em(8, 16),
+        },
+        'ol > li': {
+          paddingLeft: em(6, 16),
+        },
+        'ul > li': {
+          paddingLeft: em(6, 16),
+        },
+        '> ul > li p': {
+          marginTop: em(12, 16),
+          marginBottom: em(12, 16),
+        },
+        '> ul > li > *:first-child': {
+          marginTop: em(20, 16),
+        },
+        '> ul > li > *:last-child': {
+          marginBottom: em(20, 16),
+        },
+        '> ol > li > *:first-child': {
+          marginTop: em(20, 16),
+        },
+        '> ol > li > *:last-child': {
+          marginBottom: em(20, 16),
+        },
+        'ul ul, ul ol, ol ul, ol ol': {
+          marginTop: em(12, 16),
+          marginBottom: em(12, 16),
+        },
+        hr: {
+          marginTop: em(48, 16),
+          marginBottom: em(48, 16),
+        },
+        'hr + *': {
+          marginTop: '0',
+        },
+        'h2 + *': {
+          marginTop: '0',
+        },
+        'h3 + *': {
+          marginTop: '0',
+        },
+        'h4 + *': {
+          marginTop: '0',
+        },
+        table: {
+          fontSize: em(14, 16),
+          lineHeight: round(24 / 14),
+        },
+        'thead th': {
+          paddingRight: em(8, 14),
+          paddingBottom: em(8, 14),
+          paddingLeft: em(8, 14),
+        },
+        'thead th:first-child': {
+          paddingLeft: '0',
+        },
+        'thead th:last-child': {
+          paddingRight: '0',
+        },
+        'tbody td, tfoot td': {
+          paddingTop: em(8, 14),
+          paddingRight: em(8, 14),
+          paddingBottom: em(8, 14),
+          paddingLeft: em(8, 14),
+        },
+        'tbody td:first-child, tfoot td:first-child': {
+          paddingLeft: '0',
+        },
+        'tbody td:last-child, tfoot td:last-child': {
+          paddingRight: '0',
+        },
+      },
+      {
+        '> :first-child': {
+          marginTop: '0',
+        },
+        '> :last-child': {
+          marginBottom: '0',
+        },
+      },
+    ],
+  },
+  lg: {
+    css: [
+      {
+        fontSize: rem(18),
+        lineHeight: round(32 / 18),
+        p: {
+          marginTop: em(24, 18),
+          marginBottom: em(24, 18),
+        },
+        '[class~="lead"]': {
+          fontSize: em(22, 18),
+          lineHeight: round(32 / 22),
+          marginTop: em(24, 22),
+          marginBottom: em(24, 22),
+        },
+        blockquote: {
+          marginTop: em(40, 24),
+          marginBottom: em(40, 24),
+          paddingLeft: em(24, 24),
+        },
+        h1: {
+          fontSize: em(48, 18),
+          marginTop: '0',
+          marginBottom: em(40, 48),
+          lineHeight: round(48 / 48),
+        },
+        h2: {
+          fontSize: em(30, 18),
+          marginTop: em(56, 30),
+          marginBottom: em(32, 30),
+          lineHeight: round(40 / 30),
+        },
+        h3: {
+          fontSize: em(24, 18),
+          marginTop: em(40, 24),
+          marginBottom: em(16, 24),
+          lineHeight: round(36 / 24),
+        },
+        h4: {
+          marginTop: em(32, 18),
+          marginBottom: em(8, 18),
+          lineHeight: round(28 / 18),
+        },
+        img: {
+          marginTop: em(32, 18),
+          marginBottom: em(32, 18),
+        },
+        video: {
+          marginTop: em(32, 18),
+          marginBottom: em(32, 18),
+        },
+        figure: {
+          marginTop: em(32, 18),
+          marginBottom: em(32, 18),
+        },
+        'figure > *': {
+          marginTop: '0',
+          marginBottom: '0',
+        },
+        figcaption: {
+          fontSize: em(16, 18),
+          lineHeight: round(24 / 16),
+          marginTop: em(16, 16),
+        },
+        code: {
+          fontSize: em(16, 18),
+        },
+        'h2 code': {
+          fontSize: em(26, 30),
+        },
+        'h3 code': {
+          fontSize: em(21, 24),
+        },
+        pre: {
+          fontSize: em(16, 18),
+          lineHeight: round(28 / 16),
+          marginTop: em(32, 16),
+          marginBottom: em(32, 16),
+          borderRadius: rem(6),
+          paddingTop: em(16, 16),
+          paddingRight: em(24, 16),
+          paddingBottom: em(16, 16),
+          paddingLeft: em(24, 16),
+        },
+        ol: {
+          marginTop: em(24, 18),
+          marginBottom: em(24, 18),
+          paddingLeft: em(28, 18),
+        },
+        ul: {
+          marginTop: em(24, 18),
+          marginBottom: em(24, 18),
+          paddingLeft: em(28, 18),
+        },
+        li: {
+          marginTop: em(12, 18),
+          marginBottom: em(12, 18),
+        },
+        'ol > li': {
+          paddingLeft: em(8, 18),
+        },
+        'ul > li': {
+          paddingLeft: em(8, 18),
+        },
+        '> ul > li p': {
+          marginTop: em(16, 18),
+          marginBottom: em(16, 18),
+        },
+        '> ul > li > *:first-child': {
+          marginTop: em(24, 18),
+        },
+        '> ul > li > *:last-child': {
+          marginBottom: em(24, 18),
+        },
+        '> ol > li > *:first-child': {
+          marginTop: em(24, 18),
+        },
+        '> ol > li > *:last-child': {
+          marginBottom: em(24, 18),
+        },
+        'ul ul, ul ol, ol ul, ol ol': {
+          marginTop: em(16, 18),
+          marginBottom: em(16, 18),
+        },
+        hr: {
+          marginTop: em(56, 18),
+          marginBottom: em(56, 18),
+        },
+        'hr + *': {
+          marginTop: '0',
+        },
+        'h2 + *': {
+          marginTop: '0',
+        },
+        'h3 + *': {
+          marginTop: '0',
+        },
+        'h4 + *': {
+          marginTop: '0',
+        },
+        table: {
+          fontSize: em(16, 18),
+          lineHeight: round(24 / 16),
+        },
+        'thead th': {
+          paddingRight: em(12, 16),
+          paddingBottom: em(12, 16),
+          paddingLeft: em(12, 16),
+        },
+        'thead th:first-child': {
+          paddingLeft: '0',
+        },
+        'thead th:last-child': {
+          paddingRight: '0',
+        },
+        'tbody td, tfoot td': {
+          paddingTop: em(12, 16),
+          paddingRight: em(12, 16),
+          paddingBottom: em(12, 16),
+          paddingLeft: em(12, 16),
+        },
+        'tbody td:first-child, tfoot td:first-child': {
+          paddingLeft: '0',
+        },
+        'tbody td:last-child, tfoot td:last-child': {
+          paddingRight: '0',
+        },
+      },
+      {
+        '> :first-child': {
+          marginTop: '0',
+        },
+        '> :last-child': {
+          marginBottom: '0',
+        },
+      },
+    ],
+  },
+  xl: {
+    css: [
+      {
+        fontSize: rem(20),
+        lineHeight: round(36 / 20),
+        p: {
+          marginTop: em(24, 20),
+          marginBottom: em(24, 20),
+        },
+        '[class~="lead"]': {
+          fontSize: em(24, 20),
+          lineHeight: round(36 / 24),
+          marginTop: em(24, 24),
+          marginBottom: em(24, 24),
+        },
+        blockquote: {
+          marginTop: em(48, 30),
+          marginBottom: em(48, 30),
+          paddingLeft: em(32, 30),
+        },
+        h1: {
+          fontSize: em(56, 20),
+          marginTop: '0',
+          marginBottom: em(48, 56),
+          lineHeight: round(56 / 56),
+        },
+        h2: {
+          fontSize: em(36, 20),
+          marginTop: em(56, 36),
+          marginBottom: em(32, 36),
+          lineHeight: round(40 / 36),
+        },
+        h3: {
+          fontSize: em(30, 20),
+          marginTop: em(48, 30),
+          marginBottom: em(20, 30),
+          lineHeight: round(40 / 30),
+        },
+        h4: {
+          marginTop: em(36, 20),
+          marginBottom: em(12, 20),
+          lineHeight: round(32 / 20),
+        },
+        img: {
+          marginTop: em(40, 20),
+          marginBottom: em(40, 20),
+        },
+        video: {
+          marginTop: em(40, 20),
+          marginBottom: em(40, 20),
+        },
+        figure: {
+          marginTop: em(40, 20),
+          marginBottom: em(40, 20),
+        },
+        'figure > *': {
+          marginTop: '0',
+          marginBottom: '0',
+        },
+        figcaption: {
+          fontSize: em(18, 20),
+          lineHeight: round(28 / 18),
+          marginTop: em(18, 18),
+        },
+        code: {
+          fontSize: em(18, 20),
+        },
+        'h2 code': {
+          fontSize: em(31, 36),
+        },
+        'h3 code': {
+          fontSize: em(27, 30),
+        },
+        pre: {
+          fontSize: em(18, 20),
+          lineHeight: round(32 / 18),
+          marginTop: em(36, 18),
+          marginBottom: em(36, 18),
+          borderRadius: rem(8),
+          paddingTop: em(20, 18),
+          paddingRight: em(24, 18),
+          paddingBottom: em(20, 18),
+          paddingLeft: em(24, 18),
+        },
+        ol: {
+          marginTop: em(24, 20),
+          marginBottom: em(24, 20),
+          paddingLeft: em(32, 20),
+        },
+        ul: {
+          marginTop: em(24, 20),
+          marginBottom: em(24, 20),
+          paddingLeft: em(32, 20),
+        },
+        li: {
+          marginTop: em(12, 20),
+          marginBottom: em(12, 20),
+        },
+        'ol > li': {
+          paddingLeft: em(8, 20),
+        },
+        'ul > li': {
+          paddingLeft: em(8, 20),
+        },
+        '> ul > li p': {
+          marginTop: em(16, 20),
+          marginBottom: em(16, 20),
+        },
+        '> ul > li > *:first-child': {
+          marginTop: em(24, 20),
+        },
+        '> ul > li > *:last-child': {
+          marginBottom: em(24, 20),
+        },
+        '> ol > li > *:first-child': {
+          marginTop: em(24, 20),
+        },
+        '> ol > li > *:last-child': {
+          marginBottom: em(24, 20),
+        },
+        'ul ul, ul ol, ol ul, ol ol': {
+          marginTop: em(16, 20),
+          marginBottom: em(16, 20),
+        },
+        hr: {
+          marginTop: em(56, 20),
+          marginBottom: em(56, 20),
+        },
+        'hr + *': {
+          marginTop: '0',
+        },
+        'h2 + *': {
+          marginTop: '0',
+        },
+        'h3 + *': {
+          marginTop: '0',
+        },
+        'h4 + *': {
+          marginTop: '0',
+        },
+        table: {
+          fontSize: em(18, 20),
+          lineHeight: round(28 / 18),
+        },
+        'thead th': {
+          paddingRight: em(12, 18),
+          paddingBottom: em(16, 18),
+          paddingLeft: em(12, 18),
+        },
+        'thead th:first-child': {
+          paddingLeft: '0',
+        },
+        'thead th:last-child': {
+          paddingRight: '0',
+        },
+        'tbody td, tfoot td': {
+          paddingTop: em(16, 18),
+          paddingRight: em(12, 18),
+          paddingBottom: em(16, 18),
+          paddingLeft: em(12, 18),
+        },
+        'tbody td:first-child, tfoot td:first-child': {
+          paddingLeft: '0',
+        },
+        'tbody td:last-child, tfoot td:last-child': {
+          paddingRight: '0',
+        },
+      },
+      {
+        '> :first-child': {
+          marginTop: '0',
+        },
+        '> :last-child': {
+          marginBottom: '0',
+        },
+      },
+    ],
+  },
+  '2xl': {
+    css: [
+      {
+        fontSize: rem(24),
+        lineHeight: round(40 / 24),
+        p: {
+          marginTop: em(32, 24),
+          marginBottom: em(32, 24),
+        },
+        '[class~="lead"]': {
+          fontSize: em(30, 24),
+          lineHeight: round(44 / 30),
+          marginTop: em(32, 30),
+          marginBottom: em(32, 30),
+        },
+        blockquote: {
+          marginTop: em(64, 36),
+          marginBottom: em(64, 36),
+          paddingLeft: em(40, 36),
+        },
+        h1: {
+          fontSize: em(64, 24),
+          marginTop: '0',
+          marginBottom: em(56, 64),
+          lineHeight: round(64 / 64),
+        },
+        h2: {
+          fontSize: em(48, 24),
+          marginTop: em(72, 48),
+          marginBottom: em(40, 48),
+          lineHeight: round(52 / 48),
+        },
+        h3: {
+          fontSize: em(36, 24),
+          marginTop: em(56, 36),
+          marginBottom: em(24, 36),
+          lineHeight: round(44 / 36),
+        },
+        h4: {
+          marginTop: em(40, 24),
+          marginBottom: em(16, 24),
+          lineHeight: round(36 / 24),
+        },
+        img: {
+          marginTop: em(48, 24),
+          marginBottom: em(48, 24),
+        },
+        video: {
+          marginTop: em(48, 24),
+          marginBottom: em(48, 24),
+        },
+        figure: {
+          marginTop: em(48, 24),
+          marginBottom: em(48, 24),
+        },
+        'figure > *': {
+          marginTop: '0',
+          marginBottom: '0',
+        },
+        figcaption: {
+          fontSize: em(20, 24),
+          lineHeight: round(32 / 20),
+          marginTop: em(20, 20),
+        },
+        code: {
+          fontSize: em(20, 24),
+        },
+        'h2 code': {
+          fontSize: em(42, 48),
+        },
+        'h3 code': {
+          fontSize: em(32, 36),
+        },
+        pre: {
+          fontSize: em(20, 24),
+          lineHeight: round(36 / 20),
+          marginTop: em(40, 20),
+          marginBottom: em(40, 20),
+          borderRadius: rem(8),
+          paddingTop: em(24, 20),
+          paddingRight: em(32, 20),
+          paddingBottom: em(24, 20),
+          paddingLeft: em(32, 20),
+        },
+        ol: {
+          marginTop: em(32, 24),
+          marginBottom: em(32, 24),
+          paddingLeft: em(38, 24),
+        },
+        ul: {
+          marginTop: em(32, 24),
+          marginBottom: em(32, 24),
+          paddingLeft: em(38, 24),
+        },
+        li: {
+          marginTop: em(12, 24),
+          marginBottom: em(12, 24),
+        },
+        'ol > li': {
+          paddingLeft: em(10, 24),
+        },
+        'ul > li': {
+          paddingLeft: em(10, 24),
+        },
+        '> ul > li p': {
+          marginTop: em(20, 24),
+          marginBottom: em(20, 24),
+        },
+        '> ul > li > *:first-child': {
+          marginTop: em(32, 24),
+        },
+        '> ul > li > *:last-child': {
+          marginBottom: em(32, 24),
+        },
+        '> ol > li > *:first-child': {
+          marginTop: em(32, 24),
+        },
+        '> ol > li > *:last-child': {
+          marginBottom: em(32, 24),
+        },
+        'ul ul, ul ol, ol ul, ol ol': {
+          marginTop: em(16, 24),
+          marginBottom: em(16, 24),
+        },
+        hr: {
+          marginTop: em(72, 24),
+          marginBottom: em(72, 24),
+        },
+        'hr + *': {
+          marginTop: '0',
+        },
+        'h2 + *': {
+          marginTop: '0',
+        },
+        'h3 + *': {
+          marginTop: '0',
+        },
+        'h4 + *': {
+          marginTop: '0',
+        },
+        table: {
+          fontSize: em(20, 24),
+          lineHeight: round(28 / 20),
+        },
+        'thead th': {
+          paddingRight: em(12, 20),
+          paddingBottom: em(16, 20),
+          paddingLeft: em(12, 20),
+        },
+        'thead th:first-child': {
+          paddingLeft: '0',
+        },
+        'thead th:last-child': {
+          paddingRight: '0',
+        },
+        'tbody td, tfoot td': {
+          paddingTop: em(16, 20),
+          paddingRight: em(12, 20),
+          paddingBottom: em(16, 20),
+          paddingLeft: em(12, 20),
+        },
+        'tbody td:first-child, tfoot td:first-child': {
+          paddingLeft: '0',
+        },
+        'tbody td:last-child, tfoot td:last-child': {
+          paddingRight: '0',
+        },
+      },
+      {
+        '> :first-child': {
+          marginTop: '0',
+        },
+        '> :last-child': {
+          marginBottom: '0',
+        },
+      },
+    ],
+  },
+
+  // Invert (for dark mode)
+  invert: {
+    css: {
+      '--tw-prose-body': 'var(--tw-prose-invert-body)',
+      '--tw-prose-headings': 'var(--tw-prose-invert-headings)',
+      '--tw-prose-lead': 'var(--tw-prose-invert-lead)',
+      '--tw-prose-links': 'var(--tw-prose-invert-links)',
+      '--tw-prose-bold': 'var(--tw-prose-invert-bold)',
+      '--tw-prose-counters': 'var(--tw-prose-invert-counters)',
+      '--tw-prose-bullets': 'var(--tw-prose-invert-bullets)',
+      '--tw-prose-hr': 'var(--tw-prose-invert-hr)',
+      '--tw-prose-quotes': 'var(--tw-prose-invert-quotes)',
+      '--tw-prose-quote-borders': 'var(--tw-prose-invert-quote-borders)',
+      '--tw-prose-captions': 'var(--tw-prose-invert-captions)',
+      '--tw-prose-code': 'var(--tw-prose-invert-code)',
+      '--tw-prose-pre-code': 'var(--tw-prose-invert-pre-code)',
+      '--tw-prose-pre-bg': 'var(--tw-prose-invert-pre-bg)',
+      '--tw-prose-th-borders': 'var(--tw-prose-invert-th-borders)',
+      '--tw-prose-td-borders': 'var(--tw-prose-invert-td-borders)',
+    },
+  },
+
+  // Gray color themes
+
+  slate: {
+    css: {
+      '--tw-prose-body': colors.slate[700],
+      '--tw-prose-headings': colors.slate[900],
+      '--tw-prose-lead': colors.slate[600],
+      '--tw-prose-links': colors.slate[900],
+      '--tw-prose-bold': colors.slate[900],
+      '--tw-prose-counters': colors.slate[500],
+      '--tw-prose-bullets': colors.slate[300],
+      '--tw-prose-hr': colors.slate[200],
+      '--tw-prose-quotes': colors.slate[900],
+      '--tw-prose-quote-borders': colors.slate[200],
+      '--tw-prose-captions': colors.slate[500],
+      '--tw-prose-code': colors.slate[900],
+      '--tw-prose-pre-code': colors.slate[200],
+      '--tw-prose-pre-bg': colors.slate[800],
+      '--tw-prose-th-borders': colors.slate[300],
+      '--tw-prose-td-borders': colors.slate[200],
+      '--tw-prose-invert-body': colors.slate[300],
+      '--tw-prose-invert-headings': colors.white,
+      '--tw-prose-invert-lead': colors.slate[400],
+      '--tw-prose-invert-links': colors.white,
+      '--tw-prose-invert-bold': colors.white,
+      '--tw-prose-invert-counters': colors.slate[400],
+      '--tw-prose-invert-bullets': colors.slate[600],
+      '--tw-prose-invert-hr': colors.slate[700],
+      '--tw-prose-invert-quotes': colors.slate[100],
+      '--tw-prose-invert-quote-borders': colors.slate[700],
+      '--tw-prose-invert-captions': colors.slate[400],
+      '--tw-prose-invert-code': colors.white,
+      '--tw-prose-invert-pre-code': colors.slate[300],
+      '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+      '--tw-prose-invert-th-borders': colors.slate[600],
+      '--tw-prose-invert-td-borders': colors.slate[700],
+    },
+  },
+
+  gray: {
+    css: {
+      '--tw-prose-body': colors.gray[700],
+      '--tw-prose-headings': colors.gray[900],
+      '--tw-prose-lead': colors.gray[600],
+      '--tw-prose-links': colors.gray[900],
+      '--tw-prose-bold': colors.gray[900],
+      '--tw-prose-counters': colors.gray[500],
+      '--tw-prose-bullets': colors.gray[300],
+      '--tw-prose-hr': colors.gray[200],
+      '--tw-prose-quotes': colors.gray[900],
+      '--tw-prose-quote-borders': colors.gray[200],
+      '--tw-prose-captions': colors.gray[500],
+      '--tw-prose-code': colors.gray[900],
+      '--tw-prose-pre-code': colors.gray[200],
+      '--tw-prose-pre-bg': colors.gray[800],
+      '--tw-prose-th-borders': colors.gray[300],
+      '--tw-prose-td-borders': colors.gray[200],
+      '--tw-prose-invert-body': colors.gray[300],
+      '--tw-prose-invert-headings': colors.white,
+      '--tw-prose-invert-lead': colors.gray[400],
+      '--tw-prose-invert-links': colors.white,
+      '--tw-prose-invert-bold': colors.white,
+      '--tw-prose-invert-counters': colors.gray[400],
+      '--tw-prose-invert-bullets': colors.gray[600],
+      '--tw-prose-invert-hr': colors.gray[700],
+      '--tw-prose-invert-quotes': colors.gray[100],
+      '--tw-prose-invert-quote-borders': colors.gray[700],
+      '--tw-prose-invert-captions': colors.gray[400],
+      '--tw-prose-invert-code': colors.white,
+      '--tw-prose-invert-pre-code': colors.gray[300],
+      '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+      '--tw-prose-invert-th-borders': colors.gray[600],
+      '--tw-prose-invert-td-borders': colors.gray[700],
+    },
+  },
+
+  zinc: {
+    css: {
+      '--tw-prose-body': colors.zinc[700],
+      '--tw-prose-headings': colors.zinc[900],
+      '--tw-prose-lead': colors.zinc[600],
+      '--tw-prose-links': colors.zinc[900],
+      '--tw-prose-bold': colors.zinc[900],
+      '--tw-prose-counters': colors.zinc[500],
+      '--tw-prose-bullets': colors.zinc[300],
+      '--tw-prose-hr': colors.zinc[200],
+      '--tw-prose-quotes': colors.zinc[900],
+      '--tw-prose-quote-borders': colors.zinc[200],
+      '--tw-prose-captions': colors.zinc[500],
+      '--tw-prose-code': colors.zinc[900],
+      '--tw-prose-pre-code': colors.zinc[200],
+      '--tw-prose-pre-bg': colors.zinc[800],
+      '--tw-prose-th-borders': colors.zinc[300],
+      '--tw-prose-td-borders': colors.zinc[200],
+      '--tw-prose-invert-body': colors.zinc[300],
+      '--tw-prose-invert-headings': colors.white,
+      '--tw-prose-invert-lead': colors.zinc[400],
+      '--tw-prose-invert-links': colors.white,
+      '--tw-prose-invert-bold': colors.white,
+      '--tw-prose-invert-counters': colors.zinc[400],
+      '--tw-prose-invert-bullets': colors.zinc[600],
+      '--tw-prose-invert-hr': colors.zinc[700],
+      '--tw-prose-invert-quotes': colors.zinc[100],
+      '--tw-prose-invert-quote-borders': colors.zinc[700],
+      '--tw-prose-invert-captions': colors.zinc[400],
+      '--tw-prose-invert-code': colors.white,
+      '--tw-prose-invert-pre-code': colors.zinc[300],
+      '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+      '--tw-prose-invert-th-borders': colors.zinc[600],
+      '--tw-prose-invert-td-borders': colors.zinc[700],
+    },
+  },
+
+  neutral: {
+    css: {
+      '--tw-prose-body': colors.neutral[700],
+      '--tw-prose-headings': colors.neutral[900],
+      '--tw-prose-lead': colors.neutral[600],
+      '--tw-prose-links': colors.neutral[900],
+      '--tw-prose-bold': colors.neutral[900],
+      '--tw-prose-counters': colors.neutral[500],
+      '--tw-prose-bullets': colors.neutral[300],
+      '--tw-prose-hr': colors.neutral[200],
+      '--tw-prose-quotes': colors.neutral[900],
+      '--tw-prose-quote-borders': colors.neutral[200],
+      '--tw-prose-captions': colors.neutral[500],
+      '--tw-prose-code': colors.neutral[900],
+      '--tw-prose-pre-code': colors.neutral[200],
+      '--tw-prose-pre-bg': colors.neutral[800],
+      '--tw-prose-th-borders': colors.neutral[300],
+      '--tw-prose-td-borders': colors.neutral[200],
+      '--tw-prose-invert-body': colors.neutral[300],
+      '--tw-prose-invert-headings': colors.white,
+      '--tw-prose-invert-lead': colors.neutral[400],
+      '--tw-prose-invert-links': colors.white,
+      '--tw-prose-invert-bold': colors.white,
+      '--tw-prose-invert-counters': colors.neutral[400],
+      '--tw-prose-invert-bullets': colors.neutral[600],
+      '--tw-prose-invert-hr': colors.neutral[700],
+      '--tw-prose-invert-quotes': colors.neutral[100],
+      '--tw-prose-invert-quote-borders': colors.neutral[700],
+      '--tw-prose-invert-captions': colors.neutral[400],
+      '--tw-prose-invert-code': colors.white,
+      '--tw-prose-invert-pre-code': colors.neutral[300],
+      '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+      '--tw-prose-invert-th-borders': colors.neutral[600],
+      '--tw-prose-invert-td-borders': colors.neutral[700],
+    },
+  },
+
+  stone: {
+    css: {
+      '--tw-prose-body': colors.stone[700],
+      '--tw-prose-headings': colors.stone[900],
+      '--tw-prose-lead': colors.stone[600],
+      '--tw-prose-links': colors.stone[900],
+      '--tw-prose-bold': colors.stone[900],
+      '--tw-prose-counters': colors.stone[500],
+      '--tw-prose-bullets': colors.stone[300],
+      '--tw-prose-hr': colors.stone[200],
+      '--tw-prose-quotes': colors.stone[900],
+      '--tw-prose-quote-borders': colors.stone[200],
+      '--tw-prose-captions': colors.stone[500],
+      '--tw-prose-code': colors.stone[900],
+      '--tw-prose-pre-code': colors.stone[200],
+      '--tw-prose-pre-bg': colors.stone[800],
+      '--tw-prose-th-borders': colors.stone[300],
+      '--tw-prose-td-borders': colors.stone[200],
+      '--tw-prose-invert-body': colors.stone[300],
+      '--tw-prose-invert-headings': colors.white,
+      '--tw-prose-invert-lead': colors.stone[400],
+      '--tw-prose-invert-links': colors.white,
+      '--tw-prose-invert-bold': colors.white,
+      '--tw-prose-invert-counters': colors.stone[400],
+      '--tw-prose-invert-bullets': colors.stone[600],
+      '--tw-prose-invert-hr': colors.stone[700],
+      '--tw-prose-invert-quotes': colors.stone[100],
+      '--tw-prose-invert-quote-borders': colors.stone[700],
+      '--tw-prose-invert-captions': colors.stone[400],
+      '--tw-prose-invert-code': colors.white,
+      '--tw-prose-invert-pre-code': colors.stone[300],
+      '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+      '--tw-prose-invert-th-borders': colors.stone[600],
+      '--tw-prose-invert-td-borders': colors.stone[700],
+    },
+  },
+
+  // Link-only themes (for backward compatibility)
+
+  red: {
+    css: {
+      '--tw-prose-links': colors.red[600],
+      '--tw-prose-invert-links': colors.red[500],
+    },
+  },
+
+  orange: {
+    css: {
+      '--tw-prose-links': colors.orange[600],
+      '--tw-prose-invert-links': colors.orange[500],
+    },
+  },
+
+  amber: {
+    css: {
+      '--tw-prose-links': colors.amber[600],
+      '--tw-prose-invert-links': colors.amber[500],
+    },
+  },
+
+  yellow: {
+    css: {
+      '--tw-prose-links': colors.yellow[600],
+      '--tw-prose-invert-links': colors.yellow[500],
+    },
+  },
+
+  lime: {
+    css: {
+      '--tw-prose-links': colors.lime[600],
+      '--tw-prose-invert-links': colors.lime[500],
+    },
+  },
+
+  green: {
+    css: {
+      '--tw-prose-links': colors.green[600],
+      '--tw-prose-invert-links': colors.green[500],
+    },
+  },
+
+  emerald: {
+    css: {
+      '--tw-prose-links': colors.emerald[600],
+      '--tw-prose-invert-links': colors.emerald[500],
+    },
+  },
+
+  teal: {
+    css: {
+      '--tw-prose-links': colors.teal[600],
+      '--tw-prose-invert-links': colors.teal[500],
+    },
+  },
+
+  cyan: {
+    css: {
+      '--tw-prose-links': colors.cyan[600],
+      '--tw-prose-invert-links': colors.cyan[500],
+    },
+  },
+
+  sky: {
+    css: {
+      '--tw-prose-links': colors.sky[600],
+      '--tw-prose-invert-links': colors.sky[500],
+    },
+  },
+
+  blue: {
+    css: {
+      '--tw-prose-links': colors.blue[600],
+      '--tw-prose-invert-links': colors.blue[500],
+    },
+  },
+
+  indigo: {
+    css: {
+      '--tw-prose-links': colors.indigo[600],
+      '--tw-prose-invert-links': colors.indigo[500],
+    },
+  },
+
+  violet: {
+    css: {
+      '--tw-prose-links': colors.violet[600],
+      '--tw-prose-invert-links': colors.violet[500],
+    },
+  },
+
+  purple: {
+    css: {
+      '--tw-prose-links': colors.purple[600],
+      '--tw-prose-invert-links': colors.purple[500],
+    },
+  },
+
+  fuchsia: {
+    css: {
+      '--tw-prose-links': colors.fuchsia[600],
+      '--tw-prose-invert-links': colors.fuchsia[500],
+    },
+  },
+
+  pink: {
+    css: {
+      '--tw-prose-links': colors.pink[600],
+      '--tw-prose-invert-links': colors.pink[500],
+    },
+  },
+
+  rose: {
+    css: {
+      '--tw-prose-links': colors.rose[600],
+      '--tw-prose-invert-links': colors.rose[500],
+    },
+  },
+}
+
+module.exports = {
+  DEFAULT: {
+    css: [
+      {
+        color: 'var(--tw-prose-body)',
+        maxWidth: '65ch',
+        // TODO: Figure out how to not need this, it's a merging issue
+        p: {},
+        '[class~="lead"]': {
+          color: 'var(--tw-prose-lead)',
+        },
+        a: {
+          color: 'var(--tw-prose-links)',
+          textDecoration: 'underline',
+          fontWeight: '500',
+        },
+        strong: {
+          color: 'var(--tw-prose-bold)',
+          fontWeight: '600',
+        },
+        'a strong': {
+          color: 'inherit',
+        },
+        'blockquote strong': {
+          color: 'inherit',
+        },
+        'thead th strong': {
+          color: 'inherit',
+        },
+        ol: {
+          listStyleType: 'decimal',
+        },
+        'ol[type="A"]': {
+          listStyleType: 'upper-alpha',
+        },
+        'ol[type="a"]': {
+          listStyleType: 'lower-alpha',
+        },
+        'ol[type="A" s]': {
+          listStyleType: 'upper-alpha',
+        },
+        'ol[type="a" s]': {
+          listStyleType: 'lower-alpha',
+        },
+        'ol[type="I"]': {
+          listStyleType: 'upper-roman',
+        },
+        'ol[type="i"]': {
+          listStyleType: 'lower-roman',
+        },
+        'ol[type="I" s]': {
+          listStyleType: 'upper-roman',
+        },
+        'ol[type="i" s]': {
+          listStyleType: 'lower-roman',
+        },
+        'ol[type="1"]': {
+          listStyleType: 'decimal',
+        },
+        ul: {
+          listStyleType: 'disc',
+        },
+        'ol > li::marker': {
+          fontWeight: '400',
+          color: 'var(--tw-prose-counters)',
+        },
+        'ul > li::marker': {
+          color: 'var(--tw-prose-bullets)',
+        },
+        hr: {
+          borderColor: 'var(--tw-prose-hr)',
+          borderTopWidth: 1,
+        },
+        blockquote: {
+          fontWeight: '500',
+          fontStyle: 'italic',
+          color: 'var(--tw-prose-quotes)',
+          borderLeftWidth: '0.25rem',
+          borderLeftColor: 'var(--tw-prose-quote-borders)',
+          quotes: '"\\201C""\\201D""\\2018""\\2019"',
+        },
+        'blockquote p:first-of-type::before': {
+          content: 'open-quote',
+        },
+        'blockquote p:last-of-type::after': {
+          content: 'close-quote',
+        },
+        h1: {
+          color: 'var(--tw-prose-headings)',
+          fontWeight: '800',
+        },
+        'h1 strong': {
+          fontWeight: '900',
+          color: 'inherit',
+        },
+        h2: {
+          color: 'var(--tw-prose-headings)',
+          fontWeight: '700',
+        },
+        'h2 strong': {
+          fontWeight: '800',
+          color: 'inherit',
+        },
+        h3: {
+          color: 'var(--tw-prose-headings)',
+          fontWeight: '600',
+        },
+        'h3 strong': {
+          fontWeight: '700',
+          color: 'inherit',
+        },
+        h4: {
+          color: 'var(--tw-prose-headings)',
+          fontWeight: '600',
+        },
+        'h4 strong': {
+          fontWeight: '700',
+          color: 'inherit',
+        },
+        // TODO: Figure out how to not need these, it's a merging issue
+        img: {},
+        'figure > *': {},
+        figcaption: {
+          color: 'var(--tw-prose-captions)',
+        },
+        code: {
+          color: 'var(--tw-prose-code)',
+          fontWeight: '600',
+        },
+        'code::before': {
+          content: '"`"',
+        },
+        'code::after': {
+          content: '"`"',
+        },
+        'a code': {
+          color: 'inherit',
+        },
+        'h1 code': {
+          color: 'inherit',
+        },
+        'h2 code': {
+          color: 'inherit',
+        },
+        'h3 code': {
+          color: 'inherit',
+        },
+        'h4 code': {
+          color: 'inherit',
+        },
+        'blockquote code': {
+          color: 'inherit',
+        },
+        'thead th code': {
+          color: 'inherit',
+        },
+        pre: {
+          color: 'var(--tw-prose-pre-code)',
+          backgroundColor: 'var(--tw-prose-pre-bg)',
+          overflowX: 'auto',
+          fontWeight: '400',
+        },
+        'pre code': {
+          backgroundColor: 'transparent',
+          borderWidth: '0',
+          borderRadius: '0',
+          padding: '0',
+          fontWeight: 'inherit',
+          color: 'inherit',
+          fontSize: 'inherit',
+          fontFamily: 'inherit',
+          lineHeight: 'inherit',
+        },
+        'pre code::before': {
+          content: 'none',
+        },
+        'pre code::after': {
+          content: 'none',
+        },
+        table: {
+          width: '100%',
+          tableLayout: 'auto',
+          textAlign: 'left',
+          marginTop: em(32, 16),
+          marginBottom: em(32, 16),
+        },
+        thead: {
+          borderBottomWidth: '1px',
+          borderBottomColor: 'var(--tw-prose-th-borders)',
+        },
+        'thead th': {
+          color: 'var(--tw-prose-headings)',
+          fontWeight: '600',
+          verticalAlign: 'bottom',
+        },
+        'tbody tr': {
+          borderBottomWidth: '1px',
+          borderBottomColor: 'var(--tw-prose-td-borders)',
+        },
+        'tbody tr:last-child': {
+          borderBottomWidth: '0',
+        },
+        'tbody td': {
+          verticalAlign: 'baseline',
+        },
+        tfoot: {
+          borderTopWidth: '1px',
+          borderTopColor: 'var(--tw-prose-th-borders)',
+        },
+        'tfoot td': {
+          verticalAlign: 'top',
+        },
+      },
+      defaultModifiers.gray.css,
+      ...defaultModifiers.base.css,
+    ],
+  },
+  ...defaultModifiers,
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@tailwindcss/typography/src/utils.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@tailwindcss/typography/src/utils.js ***!
+  \***********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+const isPlainObject = __webpack_require__(/*! lodash.isplainobject */ "./node_modules/lodash.isplainobject/index.js")
+
+const parser = __webpack_require__(/*! postcss-selector-parser */ "./node_modules/postcss-selector-parser/dist/index.js")
+const parseSelector = parser()
+
+module.exports = {
+  isUsableColor(color, values) {
+    return isPlainObject(values) && color !== 'gray' && values[600]
+  },
+
+  /**
+   * @param {string} selector
+   */
+  commonTrailingPseudos(selector) {
+    let ast = parseSelector.astSync(selector)
+
+    /** @type {import('postcss-selector-parser').Pseudo[][]} */
+    let matrix = []
+
+    // Put the pseudo elements in reverse order in a sparse, column-major 2D array
+    for (let [i, sel] of ast.nodes.entries()) {
+      for (const [j, child] of [...sel.nodes].reverse().entries()) {
+        // We only care about pseudo elements
+        if (child.type !== 'pseudo' || !child.value.startsWith('::')) {
+          break
+        }
+
+        matrix[j] = matrix[j] || []
+        matrix[j][i] = child
+      }
+    }
+
+    let trailingPseudos = parser.selector()
+
+    // At this point the pseudo elements are in a column-major 2D array
+    // This means each row contains one "column" of pseudo elements from each selector
+    // We can compare all the pseudo elements in a row to see if they are the same
+    for (const pseudos of matrix) {
+      // It's a sparse 2D array so there are going to be holes in the rows
+      // We skip those
+      if (!pseudos) {
+        continue
+      }
+
+      let values = new Set([...pseudos.map((p) => p.value)])
+
+      // The pseudo elements are not the same
+      if (values.size > 1) {
+        break
+      }
+
+      pseudos.forEach((pseudo) => pseudo.remove())
+      trailingPseudos.prepend(pseudos[0])
+    }
+
+    if (trailingPseudos.nodes.length) {
+      return [trailingPseudos.toString(), ast.toString()]
+    }
+
+    return [null, selector]
+  },
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/ansi-styles/index.js":
 /*!*******************************************!*\
   !*** ./node_modules/ansi-styles/index.js ***!
@@ -8925,109 +10608,437 @@ module.exports = {
 /*!****************************!*\
   !*** ./tailwind.config.js ***!
   \****************************/
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = {
   content: ['./app/Resources/views/**/*.html.twig', './web/assets/encore/**/*.js'],
   theme: {
+    fontSize: {
+      '2xs': ['0.75rem', {
+        lineHeight: '1.25rem'
+      }],
+      xs: ['0.8125rem', {
+        lineHeight: '1.5rem'
+      }],
+      sm: ['0.875rem', {
+        lineHeight: '1.5rem'
+      }],
+      base: ['1rem', {
+        lineHeight: '1.75rem'
+      }],
+      lg: ['1.125rem', {
+        lineHeight: '1.75rem'
+      }],
+      xl: ['1.25rem', {
+        lineHeight: '1.75rem'
+      }],
+      '2xl': ['1.5rem', {
+        lineHeight: '2rem'
+      }],
+      '3xl': ['1.875rem', {
+        lineHeight: '2.25rem'
+      }],
+      '4xl': ['2.25rem', {
+        lineHeight: '2.5rem'
+      }],
+      '5xl': ['3rem', {
+        lineHeight: '1'
+      }],
+      '6xl': ['3.75rem', {
+        lineHeight: '1'
+      }],
+      '7xl': ['4.5rem', {
+        lineHeight: '1'
+      }],
+      '8xl': ['6rem', {
+        lineHeight: '1'
+      }],
+      '9xl': ['8rem', {
+        lineHeight: '1'
+      }]
+    },
+    typography: __webpack_require__(/*! ./typography */ "./typography.js"),
     extend: {
-      fontFamily: {
-        'Gilroy-Bold': ['Gilroy-Bold'],
-        'Gilroy-Regular': ['Gilroy-Regular'],
-        'Gilroy-Medium': ['Gilroy-Medium'],
-        'Gilroy-Light': ['Gilroy-Light'],
-        'Gilroy-ExtraLight': ['Gilroy-ExtraLight'],
-        'Gilroy-Black': ['Gilroy-Black']
+      boxShadow: {
+        glow: '0 0 4px rgb(0 0 0 / 0.1)'
       },
-      colors: {
-        'primary-blue': {
-          '50': '#f4f9ff',
-          '100': '#e9f4ff',
-          '200': '#c7e3ff',
-          '300': '#a5d3ff',
-          '400': '#62b1ff',
-          '500': '#1e90ff',
-          '600': '#1b82e6',
-          '700': '#176cbf',
-          '800': '#125699',
-          '900': '#0f477d'
-        },
-        'primary-danger': {
-          '50': '#fff8f8',
-          '100': '#fff1f1',
-          '200': '#ffdddb',
-          '300': '#ffc8c5',
-          '400': '#ff9f9a',
-          '500': '#ff766f',
-          '600': '#e66a64',
-          '700': '#bf5953',
-          '800': '#994743',
-          '900': '#7d3a36'
-        },
-        'primary-purple': {
-          '50': '#fef9ff',
-          '100': '#fdf3ff',
-          '200': '#fae0ff',
-          '300': '#f7cdff',
-          '400': '#f0a8ff',
-          '500': '#ea82ff',
-          '600': '#d375e6',
-          '700': '#b062bf',
-          '800': '#8c4e99',
-          '900': '#73407d'
-        },
-        'primary-gray': {
-          '50': '#f5f6f7',
-          '100': '#ebecef',
-          '200': '#ccd1d8',
-          '300': '#aeb5c1',
-          '400': '#717d92',
-          '500': '#344563',
-          '600': '#2f3e59',
-          '700': '#27344a',
-          '800': '#1f293b',
-          '900': '#192231'
-        },
-        'primary-warning': {
-          '50': '#fffbf2',
-          '100': '#fff6e6',
-          '200': '#ffe9c0',
-          '300': '#ffdb9a',
-          '400': '#ffc04e',
-          '500': '#ffa502',
-          '600': '#e69502',
-          '700': '#bf7c02',
-          '800': '#996301',
-          '900': '#7d5101'
-        },
-        'primary-green': {
-          '50': '#f5fdf8',
-          '100': '#eafbf1',
-          '200': '#cbf5dc',
-          '300': '#abeec7',
-          '400': '#6de29d',
-          '500': '#2ed573',
-          '600': '#29c068',
-          '700': '#23a056',
-          '800': '#1c8045',
-          '900': '#176838'
-        },
-        'wendy-josbert': {
-          '50': '#f4fafe',
-          '100': '#e8f5fe',
-          '200': '#c6e6fb',
-          '300': '#a4d7f9',
-          '400': '#60b9f5',
-          '500': '#1c9bf0',
-          '600': '#198cd8',
-          '700': '#1574b4',
-          '800': '#115d90',
-          '900': '#0e4c76'
-        }
+      maxWidth: {
+        lg: '33rem',
+        '2xl': '40rem',
+        '3xl': '50rem',
+        '5xl': '66rem'
+      },
+      opacity: {
+        1: '0.01',
+        2.5: '0.025',
+        7.5: '0.075',
+        15: '0.15'
       }
     }
   },
-  plugins: []
+  plugins: [__webpack_require__(/*! @tailwindcss/typography */ "./node_modules/@tailwindcss/typography/src/index.js")]
+};
+
+/***/ }),
+
+/***/ "./typography.js":
+/*!***********************!*\
+  !*** ./typography.js ***!
+  \***********************/
+/***/ ((module) => {
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+module.exports = function (_ref) {
+  var theme = _ref.theme;
+  return {
+    DEFAULT: {
+      css: {
+        '--tw-prose-body': theme('colors.zinc.700'),
+        '--tw-prose-headings': theme('colors.zinc.900'),
+        '--tw-prose-links': theme('colors.emerald.500'),
+        '--tw-prose-links-hover': theme('colors.emerald.600'),
+        '--tw-prose-links-underline': theme('colors.emerald.500 / 0.3'),
+        '--tw-prose-bold': theme('colors.zinc.900'),
+        '--tw-prose-counters': theme('colors.zinc.500'),
+        '--tw-prose-bullets': theme('colors.zinc.300'),
+        '--tw-prose-hr': theme('colors.zinc.900 / 0.05'),
+        '--tw-prose-quotes': theme('colors.zinc.900'),
+        '--tw-prose-quote-borders': theme('colors.zinc.200'),
+        '--tw-prose-captions': theme('colors.zinc.500'),
+        '--tw-prose-code': theme('colors.zinc.900'),
+        '--tw-prose-code-bg': theme('colors.zinc.100'),
+        '--tw-prose-code-ring': theme('colors.zinc.300'),
+        '--tw-prose-th-borders': theme('colors.zinc.300'),
+        '--tw-prose-td-borders': theme('colors.zinc.200'),
+        '--tw-prose-invert-body': theme('colors.zinc.400'),
+        '--tw-prose-invert-headings': theme('colors.white'),
+        '--tw-prose-invert-links': theme('colors.emerald.400'),
+        '--tw-prose-invert-links-hover': theme('colors.emerald.500'),
+        '--tw-prose-invert-links-underline': theme('colors.emerald.500 / 0.3'),
+        '--tw-prose-invert-bold': theme('colors.white'),
+        '--tw-prose-invert-counters': theme('colors.zinc.400'),
+        '--tw-prose-invert-bullets': theme('colors.zinc.600'),
+        '--tw-prose-invert-hr': theme('colors.white / 0.05'),
+        '--tw-prose-invert-quotes': theme('colors.zinc.100'),
+        '--tw-prose-invert-quote-borders': theme('colors.zinc.700'),
+        '--tw-prose-invert-captions': theme('colors.zinc.400'),
+        '--tw-prose-invert-code': theme('colors.white'),
+        '--tw-prose-invert-code-bg': theme('colors.zinc.700 / 0.15'),
+        '--tw-prose-invert-code-ring': theme('colors.white / 0.1'),
+        '--tw-prose-invert-th-borders': theme('colors.zinc.600'),
+        '--tw-prose-invert-td-borders': theme('colors.zinc.700'),
+        // Base
+        color: 'var(--tw-prose-body)',
+        fontSize: theme('fontSize.sm')[0],
+        lineHeight: theme('lineHeight.7'),
+        // Layout
+        '> *': {
+          maxWidth: theme('maxWidth.2xl'),
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          '@screen lg': {
+            maxWidth: theme('maxWidth.3xl'),
+            marginLeft: "calc(50% - min(50%, ".concat(theme('maxWidth.lg'), "))"),
+            marginRight: "calc(50% - min(50%, ".concat(theme('maxWidth.lg'), "))")
+          }
+        },
+        // Text
+        p: {
+          marginTop: theme('spacing.6'),
+          marginBottom: theme('spacing.6')
+        },
+        '[class~="lead"]': _objectSpread({
+          fontSize: theme('fontSize.base')[0]
+        }, theme('fontSize.base')[1]),
+        // Lists
+        ol: {
+          listStyleType: 'decimal',
+          marginTop: theme('spacing.5'),
+          marginBottom: theme('spacing.5'),
+          paddingLeft: '1.625rem'
+        },
+        'ol[type="A"]': {
+          listStyleType: 'upper-alpha'
+        },
+        'ol[type="a"]': {
+          listStyleType: 'lower-alpha'
+        },
+        'ol[type="A" s]': {
+          listStyleType: 'upper-alpha'
+        },
+        'ol[type="a" s]': {
+          listStyleType: 'lower-alpha'
+        },
+        'ol[type="I"]': {
+          listStyleType: 'upper-roman'
+        },
+        'ol[type="i"]': {
+          listStyleType: 'lower-roman'
+        },
+        'ol[type="I" s]': {
+          listStyleType: 'upper-roman'
+        },
+        'ol[type="i" s]': {
+          listStyleType: 'lower-roman'
+        },
+        'ol[type="1"]': {
+          listStyleType: 'decimal'
+        },
+        ul: {
+          listStyleType: 'disc',
+          marginTop: theme('spacing.5'),
+          marginBottom: theme('spacing.5'),
+          paddingLeft: '1.625rem'
+        },
+        li: {
+          marginTop: theme('spacing.2'),
+          marginBottom: theme('spacing.2')
+        },
+        ':is(ol, ul) > li': {
+          paddingLeft: theme('spacing[1.5]')
+        },
+        'ol > li::marker': {
+          fontWeight: '400',
+          color: 'var(--tw-prose-counters)'
+        },
+        'ul > li::marker': {
+          color: 'var(--tw-prose-bullets)'
+        },
+        '> ul > li p': {
+          marginTop: theme('spacing.3'),
+          marginBottom: theme('spacing.3')
+        },
+        '> ul > li > *:first-child': {
+          marginTop: theme('spacing.5')
+        },
+        '> ul > li > *:last-child': {
+          marginBottom: theme('spacing.5')
+        },
+        '> ol > li > *:first-child': {
+          marginTop: theme('spacing.5')
+        },
+        '> ol > li > *:last-child': {
+          marginBottom: theme('spacing.5')
+        },
+        'ul ul, ul ol, ol ul, ol ol': {
+          marginTop: theme('spacing.3'),
+          marginBottom: theme('spacing.3')
+        },
+        // Horizontal rules
+        hr: {
+          borderColor: 'var(--tw-prose-hr)',
+          borderTopWidth: 1,
+          marginTop: theme('spacing.16'),
+          marginBottom: theme('spacing.16'),
+          maxWidth: 'none',
+          marginLeft: "calc(-1 * ".concat(theme('spacing.4'), ")"),
+          marginRight: "calc(-1 * ".concat(theme('spacing.4'), ")"),
+          '@screen sm': {
+            marginLeft: "calc(-1 * ".concat(theme('spacing.6'), ")"),
+            marginRight: "calc(-1 * ".concat(theme('spacing.6'), ")")
+          },
+          '@screen lg': {
+            marginLeft: "calc(-1 * ".concat(theme('spacing.8'), ")"),
+            marginRight: "calc(-1 * ".concat(theme('spacing.8'), ")")
+          }
+        },
+        // Quotes
+        blockquote: {
+          fontWeight: '500',
+          fontStyle: 'italic',
+          color: 'var(--tw-prose-quotes)',
+          borderLeftWidth: '0.25rem',
+          borderLeftColor: 'var(--tw-prose-quote-borders)',
+          quotes: '"\\201C""\\201D""\\2018""\\2019"',
+          marginTop: theme('spacing.8'),
+          marginBottom: theme('spacing.8'),
+          paddingLeft: theme('spacing.5')
+        },
+        'blockquote p:first-of-type::before': {
+          content: 'open-quote'
+        },
+        'blockquote p:last-of-type::after': {
+          content: 'close-quote'
+        },
+        // Headings
+        h1: _objectSpread(_objectSpread({
+          color: 'var(--tw-prose-headings)',
+          fontWeight: '700',
+          fontSize: theme('fontSize.2xl')[0]
+        }, theme('fontSize.2xl')[1]), {}, {
+          marginBottom: theme('spacing.2')
+        }),
+        h2: _objectSpread(_objectSpread({
+          color: 'var(--tw-prose-headings)',
+          fontWeight: '600',
+          fontSize: theme('fontSize.lg')[0]
+        }, theme('fontSize.lg')[1]), {}, {
+          marginTop: theme('spacing.16'),
+          marginBottom: theme('spacing.2')
+        }),
+        h3: _objectSpread(_objectSpread({
+          color: 'var(--tw-prose-headings)',
+          fontSize: theme('fontSize.base')[0]
+        }, theme('fontSize.base')[1]), {}, {
+          fontWeight: '600',
+          marginTop: theme('spacing.10'),
+          marginBottom: theme('spacing.2')
+        }),
+        // Media
+        'img, video, figure': {
+          marginTop: theme('spacing.8'),
+          marginBottom: theme('spacing.8')
+        },
+        'figure > *': {
+          marginTop: '0',
+          marginBottom: '0'
+        },
+        figcaption: _objectSpread(_objectSpread({
+          color: 'var(--tw-prose-captions)',
+          fontSize: theme('fontSize.xs')[0]
+        }, theme('fontSize.xs')[1]), {}, {
+          marginTop: theme('spacing.2')
+        }),
+        // Tables
+        table: {
+          width: '100%',
+          tableLayout: 'auto',
+          textAlign: 'left',
+          marginTop: theme('spacing.8'),
+          marginBottom: theme('spacing.8'),
+          lineHeight: theme('lineHeight.6')
+        },
+        thead: {
+          borderBottomWidth: '1px',
+          borderBottomColor: 'var(--tw-prose-th-borders)'
+        },
+        'thead th': {
+          color: 'var(--tw-prose-headings)',
+          fontWeight: '600',
+          verticalAlign: 'bottom',
+          paddingRight: theme('spacing.2'),
+          paddingBottom: theme('spacing.2'),
+          paddingLeft: theme('spacing.2')
+        },
+        'thead th:first-child': {
+          paddingLeft: '0'
+        },
+        'thead th:last-child': {
+          paddingRight: '0'
+        },
+        'tbody tr': {
+          borderBottomWidth: '1px',
+          borderBottomColor: 'var(--tw-prose-td-borders)'
+        },
+        'tbody tr:last-child': {
+          borderBottomWidth: '0'
+        },
+        'tbody td': {
+          verticalAlign: 'baseline'
+        },
+        tfoot: {
+          borderTopWidth: '1px',
+          borderTopColor: 'var(--tw-prose-th-borders)'
+        },
+        'tfoot td': {
+          verticalAlign: 'top'
+        },
+        ':is(tbody, tfoot) td': {
+          paddingTop: theme('spacing.2'),
+          paddingRight: theme('spacing.2'),
+          paddingBottom: theme('spacing.2'),
+          paddingLeft: theme('spacing.2')
+        },
+        ':is(tbody, tfoot) td:first-child': {
+          paddingLeft: '0'
+        },
+        ':is(tbody, tfoot) td:last-child': {
+          paddingRight: '0'
+        },
+        // Inline elements
+        a: {
+          color: 'var(--tw-prose-links)',
+          textDecoration: 'underline transparent',
+          fontWeight: '500',
+          transitionProperty: 'color, text-decoration-color',
+          transitionDuration: theme('transitionDuration.DEFAULT'),
+          transitionTimingFunction: theme('transitionTimingFunction.DEFAULT'),
+          '&:hover': {
+            color: 'var(--tw-prose-links-hover)',
+            textDecorationColor: 'var(--tw-prose-links-underline)'
+          }
+        },
+        ':is(h1, h2, h3) a': {
+          fontWeight: 'inherit'
+        },
+        strong: {
+          color: 'var(--tw-prose-bold)',
+          fontWeight: '600'
+        },
+        ':is(a, blockquote, thead th) strong': {
+          color: 'inherit'
+        },
+        code: {
+          color: 'var(--tw-prose-code)',
+          borderRadius: theme('borderRadius.lg'),
+          paddingTop: theme('padding.1'),
+          paddingRight: theme('padding[1.5]'),
+          paddingBottom: theme('padding.1'),
+          paddingLeft: theme('padding[1.5]'),
+          boxShadow: 'inset 0 0 0 1px var(--tw-prose-code-ring)',
+          backgroundColor: 'var(--tw-prose-code-bg)',
+          fontSize: theme('fontSize.2xs')
+        },
+        ':is(a, h1, h2, h3, blockquote, thead th) code': {
+          color: 'inherit'
+        },
+        'h2 code': {
+          fontSize: theme('fontSize.base')[0],
+          fontWeight: 'inherit'
+        },
+        'h3 code': {
+          fontSize: theme('fontSize.sm')[0],
+          fontWeight: 'inherit'
+        },
+        // Overrides
+        ':is(h1, h2, h3) + *': {
+          marginTop: '0'
+        },
+        '> :first-child': {
+          marginTop: '0 !important'
+        },
+        '> :last-child': {
+          marginBottom: '0 !important'
+        }
+      }
+    },
+    invert: {
+      css: {
+        '--tw-prose-body': 'var(--tw-prose-invert-body)',
+        '--tw-prose-headings': 'var(--tw-prose-invert-headings)',
+        '--tw-prose-links': 'var(--tw-prose-invert-links)',
+        '--tw-prose-links-hover': 'var(--tw-prose-invert-links-hover)',
+        '--tw-prose-links-underline': 'var(--tw-prose-invert-links-underline)',
+        '--tw-prose-bold': 'var(--tw-prose-invert-bold)',
+        '--tw-prose-counters': 'var(--tw-prose-invert-counters)',
+        '--tw-prose-bullets': 'var(--tw-prose-invert-bullets)',
+        '--tw-prose-hr': 'var(--tw-prose-invert-hr)',
+        '--tw-prose-quotes': 'var(--tw-prose-invert-quotes)',
+        '--tw-prose-quote-borders': 'var(--tw-prose-invert-quote-borders)',
+        '--tw-prose-captions': 'var(--tw-prose-invert-captions)',
+        '--tw-prose-code': 'var(--tw-prose-invert-code)',
+        '--tw-prose-code-bg': 'var(--tw-prose-invert-code-bg)',
+        '--tw-prose-code-ring': 'var(--tw-prose-invert-code-ring)',
+        '--tw-prose-th-borders': 'var(--tw-prose-invert-th-borders)',
+        '--tw-prose-td-borders': 'var(--tw-prose-invert-td-borders)'
+      }
+    }
+  };
 };
 
 /***/ }),
@@ -21634,6 +23645,127 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/cssesc/cssesc.js":
+/*!***************************************!*\
+  !*** ./node_modules/cssesc/cssesc.js ***!
+  \***************************************/
+/***/ ((module) => {
+
+"use strict";
+/*! https://mths.be/cssesc v3.0.0 by @mathias */
+
+
+var object = {};
+var hasOwnProperty = object.hasOwnProperty;
+var merge = function merge(options, defaults) {
+	if (!options) {
+		return defaults;
+	}
+	var result = {};
+	for (var key in defaults) {
+		// `if (defaults.hasOwnProperty(key) { … }` is not needed here, since
+		// only recognized option names are used.
+		result[key] = hasOwnProperty.call(options, key) ? options[key] : defaults[key];
+	}
+	return result;
+};
+
+var regexAnySingleEscape = /[ -,\.\/:-@\[-\^`\{-~]/;
+var regexSingleEscape = /[ -,\.\/:-@\[\]\^`\{-~]/;
+var regexAlwaysEscape = /['"\\]/;
+var regexExcessiveSpaces = /(^|\\+)?(\\[A-F0-9]{1,6})\x20(?![a-fA-F0-9\x20])/g;
+
+// https://mathiasbynens.be/notes/css-escapes#css
+var cssesc = function cssesc(string, options) {
+	options = merge(options, cssesc.options);
+	if (options.quotes != 'single' && options.quotes != 'double') {
+		options.quotes = 'single';
+	}
+	var quote = options.quotes == 'double' ? '"' : '\'';
+	var isIdentifier = options.isIdentifier;
+
+	var firstChar = string.charAt(0);
+	var output = '';
+	var counter = 0;
+	var length = string.length;
+	while (counter < length) {
+		var character = string.charAt(counter++);
+		var codePoint = character.charCodeAt();
+		var value = void 0;
+		// If it’s not a printable ASCII character…
+		if (codePoint < 0x20 || codePoint > 0x7E) {
+			if (codePoint >= 0xD800 && codePoint <= 0xDBFF && counter < length) {
+				// It’s a high surrogate, and there is a next character.
+				var extra = string.charCodeAt(counter++);
+				if ((extra & 0xFC00) == 0xDC00) {
+					// next character is low surrogate
+					codePoint = ((codePoint & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000;
+				} else {
+					// It’s an unmatched surrogate; only append this code unit, in case
+					// the next code unit is the high surrogate of a surrogate pair.
+					counter--;
+				}
+			}
+			value = '\\' + codePoint.toString(16).toUpperCase() + ' ';
+		} else {
+			if (options.escapeEverything) {
+				if (regexAnySingleEscape.test(character)) {
+					value = '\\' + character;
+				} else {
+					value = '\\' + codePoint.toString(16).toUpperCase() + ' ';
+				}
+			} else if (/[\t\n\f\r\x0B]/.test(character)) {
+				value = '\\' + codePoint.toString(16).toUpperCase() + ' ';
+			} else if (character == '\\' || !isIdentifier && (character == '"' && quote == character || character == '\'' && quote == character) || isIdentifier && regexSingleEscape.test(character)) {
+				value = '\\' + character;
+			} else {
+				value = character;
+			}
+		}
+		output += value;
+	}
+
+	if (isIdentifier) {
+		if (/^-[-\d]/.test(output)) {
+			output = '\\-' + output.slice(1);
+		} else if (/\d/.test(firstChar)) {
+			output = '\\3' + firstChar + ' ' + output.slice(1);
+		}
+	}
+
+	// Remove spaces after `\HEX` escapes that are not followed by a hex digit,
+	// since they’re redundant. Note that this is only possible if the escape
+	// sequence isn’t preceded by an odd number of backslashes.
+	output = output.replace(regexExcessiveSpaces, function ($0, $1, $2) {
+		if ($1 && $1.length % 2) {
+			// It’s not safe to remove the space, so don’t.
+			return $0;
+		}
+		// Strip the space.
+		return ($1 || '') + $2;
+	});
+
+	if (!isIdentifier && options.wrap) {
+		return quote + output + quote;
+	}
+	return output;
+};
+
+// Expose default options (so they can be overridden globally).
+cssesc.options = {
+	'escapeEverything': false,
+	'isIdentifier': false,
+	'quotes': 'single',
+	'wrap': false
+};
+
+cssesc.version = '3.0.0';
+
+module.exports = cssesc;
+
+
+/***/ }),
+
 /***/ "./node_modules/electron-to-chromium/versions.js":
 /*!*******************************************************!*\
   !*** ./node_modules/electron-to-chromium/versions.js ***!
@@ -22626,6 +24758,2228 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ "./node_modules/lodash.castarray/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash.castarray/index.js ***!
+  \************************************************/
+/***/ ((module) => {
+
+/**
+ * lodash 4.4.0 (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ * Available under MIT license <https://lodash.com/license>
+ */
+
+/**
+ * Casts `value` as an array if it's not one.
+ *
+ * @static
+ * @memberOf _
+ * @category Lang
+ * @param {*} value The value to inspect.
+ * @returns {Array} Returns the cast array.
+ * @example
+ *
+ * _.castArray(1);
+ * // => [1]
+ *
+ * _.castArray({ 'a': 1 });
+ * // => [{ 'a': 1 }]
+ *
+ * _.castArray('abc');
+ * // => ['abc']
+ *
+ * _.castArray(null);
+ * // => [null]
+ *
+ * _.castArray(undefined);
+ * // => [undefined]
+ *
+ * _.castArray();
+ * // => []
+ *
+ * var array = [1, 2, 3];
+ * console.log(_.castArray(array) === array);
+ * // => true
+ */
+function castArray() {
+  if (!arguments.length) {
+    return [];
+  }
+  var value = arguments[0];
+  return isArray(value) ? value : [value];
+}
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @type {Function}
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+module.exports = castArray;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash.isplainobject/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/lodash.isplainobject/index.js ***!
+  \****************************************************/
+/***/ ((module) => {
+
+/**
+ * lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** `Object#toString` result references. */
+var objectTag = '[object Object]';
+
+/**
+ * Checks if `value` is a host object in IE < 9.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+ */
+function isHostObject(value) {
+  // Many host objects are `Object` objects that can coerce to strings
+  // despite having improperly defined `toString` methods.
+  var result = false;
+  if (value != null && typeof value.toString != 'function') {
+    try {
+      result = !!(value + '');
+    } catch (e) {}
+  }
+  return result;
+}
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var objectToString = objectProto.toString;
+
+/** Built-in value references. */
+var getPrototype = overArg(Object.getPrototypeOf, Object);
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return !!value && typeof value == 'object';
+}
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) ||
+      objectToString.call(value) != objectTag || isHostObject(value)) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return (typeof Ctor == 'function' &&
+    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+}
+
+module.exports = isPlainObject;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash.merge/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash.merge/index.js ***!
+  \********************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+/* module decorator */ module = __webpack_require__.nmd(module);
+/**
+ * Lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used to detect hot functions by number of calls within a span of milliseconds. */
+var HOT_COUNT = 800,
+    HOT_SPAN = 16;
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    asyncTag = '[object AsyncFunction]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    nullTag = '[object Null]',
+    objectTag = '[object Object]',
+    proxyTag = '[object Proxy]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    undefinedTag = '[object Undefined]',
+    weakMapTag = '[object WeakMap]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = false;
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+/** Detect free variable `exports`. */
+var freeExports =  true && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && "object" == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = (function() {
+  try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+    if (types) {
+      return types;
+    }
+
+    // Legacy `process.binding('util')` for Node.js < 10.
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}());
+
+/* Node.js helper references. */
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+/**
+ * A faster alternative to `Function#apply`, this function invokes `func`
+ * with the `this` binding of `thisArg` and the arguments of `args`.
+ *
+ * @private
+ * @param {Function} func The function to invoke.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} args The arguments to invoke `func` with.
+ * @returns {*} Returns the result of `func`.
+ */
+function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0: return func.call(thisArg);
+    case 1: return func.call(thisArg, args[0]);
+    case 2: return func.call(thisArg, args[0], args[1]);
+    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype,
+    funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = (function() {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? ('Symbol(src)_1.' + uid) : '';
+}());
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined,
+    Symbol = root.Symbol,
+    Uint8Array = root.Uint8Array,
+    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined,
+    getPrototype = overArg(Object.getPrototypeOf, Object),
+    objectCreate = Object.create,
+    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+    splice = arrayProto.splice,
+    symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+var defineProperty = (function() {
+  try {
+    var func = getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}());
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+    nativeMax = Math.max,
+    nativeNow = Date.now;
+
+/* Built-in method references that are verified to be native. */
+var Map = getNative(root, 'Map'),
+    nativeCreate = getNative(Object, 'create');
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} proto The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+var baseCreate = (function() {
+  function object() {}
+  return function(proto) {
+    if (!isObject(proto)) {
+      return {};
+    }
+    if (objectCreate) {
+      return objectCreate(proto);
+    }
+    object.prototype = proto;
+    var result = new object;
+    object.prototype = undefined;
+    return result;
+  };
+}());
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.size = 0;
+}
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
+}
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  return this;
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new Hash,
+    'map': new (Map || ListCache),
+    'string': new Hash
+  };
+}
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  var result = getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  var data = getMapData(this, key),
+      size = data.size;
+
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  var data = this.__data__ = new ListCache(entries);
+  this.size = data.size;
+}
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new ListCache;
+  this.size = 0;
+}
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  var data = this.__data__,
+      result = data['delete'](key);
+
+  this.size = data.size;
+  return result;
+}
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var data = this.__data__;
+  if (data instanceof ListCache) {
+    var pairs = data.__data__;
+    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+    data = this.__data__ = new MapCache(pairs);
+  }
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = stackClear;
+Stack.prototype['delete'] = stackDelete;
+Stack.prototype.get = stackGet;
+Stack.prototype.has = stackHas;
+Stack.prototype.set = stackSet;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray(value),
+      isArg = !isArr && isArguments(value),
+      isBuff = !isArr && !isArg && isBuffer(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) &&
+        !(skipIndexes && (
+           // Safari 9 has enumerable `arguments.length` in strict mode.
+           key == 'length' ||
+           // Node.js 0.10 has enumerable non-index properties on buffers.
+           (isBuff && (key == 'offset' || key == 'parent')) ||
+           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+           // Skip index properties.
+           isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * This function is like `assignValue` except that it doesn't assign
+ * `undefined` values.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignMergeValue(object, key, value) {
+  if ((value !== undefined && !eq(object[key], value)) ||
+      (value === undefined && !(key in object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+/**
+ * Assigns `value` to `key` of `object` if the existing value is not equivalent
+ * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignValue(object, key, value) {
+  var objValue = object[key];
+  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+      (value === undefined && !(key in object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+/**
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && defineProperty) {
+    defineProperty(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
+  }
+}
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = createBaseFor();
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike(value) &&
+    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+
+/**
+ * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeysIn(object) {
+  if (!isObject(object)) {
+    return nativeKeysIn(object);
+  }
+  var isProto = isPrototype(object),
+      result = [];
+
+  for (var key in object) {
+    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.merge` without support for multiple sources.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} [customizer] The function to customize merged values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMerge(object, source, srcIndex, customizer, stack) {
+  if (object === source) {
+    return;
+  }
+  baseFor(source, function(srcValue, key) {
+    stack || (stack = new Stack);
+    if (isObject(srcValue)) {
+      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+    }
+    else {
+      var newValue = customizer
+        ? customizer(safeGet(object, key), srcValue, (key + ''), object, source, stack)
+        : undefined;
+
+      if (newValue === undefined) {
+        newValue = srcValue;
+      }
+      assignMergeValue(object, key, newValue);
+    }
+  }, keysIn);
+}
+
+/**
+ * A specialized version of `baseMerge` for arrays and objects which performs
+ * deep merges and tracks traversed objects enabling objects with circular
+ * references to be merged.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {string} key The key of the value to merge.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} mergeFunc The function to merge values.
+ * @param {Function} [customizer] The function to customize assigned values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+  var objValue = safeGet(object, key),
+      srcValue = safeGet(source, key),
+      stacked = stack.get(srcValue);
+
+  if (stacked) {
+    assignMergeValue(object, key, stacked);
+    return;
+  }
+  var newValue = customizer
+    ? customizer(objValue, srcValue, (key + ''), object, source, stack)
+    : undefined;
+
+  var isCommon = newValue === undefined;
+
+  if (isCommon) {
+    var isArr = isArray(srcValue),
+        isBuff = !isArr && isBuffer(srcValue),
+        isTyped = !isArr && !isBuff && isTypedArray(srcValue);
+
+    newValue = srcValue;
+    if (isArr || isBuff || isTyped) {
+      if (isArray(objValue)) {
+        newValue = objValue;
+      }
+      else if (isArrayLikeObject(objValue)) {
+        newValue = copyArray(objValue);
+      }
+      else if (isBuff) {
+        isCommon = false;
+        newValue = cloneBuffer(srcValue, true);
+      }
+      else if (isTyped) {
+        isCommon = false;
+        newValue = cloneTypedArray(srcValue, true);
+      }
+      else {
+        newValue = [];
+      }
+    }
+    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+      newValue = objValue;
+      if (isArguments(objValue)) {
+        newValue = toPlainObject(objValue);
+      }
+      else if (!isObject(objValue) || isFunction(objValue)) {
+        newValue = initCloneObject(srcValue);
+      }
+    }
+    else {
+      isCommon = false;
+    }
+  }
+  if (isCommon) {
+    // Recursively merge objects and arrays (susceptible to call stack limits).
+    stack.set(srcValue, newValue);
+    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
+    stack['delete'](srcValue);
+  }
+  assignMergeValue(object, key, newValue);
+}
+
+/**
+ * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ */
+function baseRest(func, start) {
+  return setToString(overRest(func, start, identity), func + '');
+}
+
+/**
+ * The base implementation of `setToString` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var baseSetToString = !defineProperty ? identity : function(func, string) {
+  return defineProperty(func, 'toString', {
+    'configurable': true,
+    'enumerable': false,
+    'value': constant(string),
+    'writable': true
+  });
+};
+
+/**
+ * Creates a clone of  `buffer`.
+ *
+ * @private
+ * @param {Buffer} buffer The buffer to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Buffer} Returns the cloned buffer.
+ */
+function cloneBuffer(buffer, isDeep) {
+  if (isDeep) {
+    return buffer.slice();
+  }
+  var length = buffer.length,
+      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+
+  buffer.copy(result);
+  return result;
+}
+
+/**
+ * Creates a clone of `arrayBuffer`.
+ *
+ * @private
+ * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+ * @returns {ArrayBuffer} Returns the cloned array buffer.
+ */
+function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+  return result;
+}
+
+/**
+ * Creates a clone of `typedArray`.
+ *
+ * @private
+ * @param {Object} typedArray The typed array to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned typed array.
+ */
+function cloneTypedArray(typedArray, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+}
+
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+
+  var index = -1,
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index];
+
+    var newValue = customizer
+      ? customizer(object[key], source[key], key, object, source)
+      : undefined;
+
+    if (newValue === undefined) {
+      newValue = source[key];
+    }
+    if (isNew) {
+      baseAssignValue(object, key, newValue);
+    } else {
+      assignValue(object, key, newValue);
+    }
+  }
+  return object;
+}
+
+/**
+ * Creates a function like `_.assign`.
+ *
+ * @private
+ * @param {Function} assigner The function to assign values.
+ * @returns {Function} Returns the new assigner function.
+ */
+function createAssigner(assigner) {
+  return baseRest(function(object, sources) {
+    var index = -1,
+        length = sources.length,
+        customizer = length > 1 ? sources[length - 1] : undefined,
+        guard = length > 2 ? sources[2] : undefined;
+
+    customizer = (assigner.length > 3 && typeof customizer == 'function')
+      ? (length--, customizer)
+      : undefined;
+
+    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+      customizer = length < 3 ? undefined : customizer;
+      length = 1;
+    }
+    object = Object(object);
+    while (++index < length) {
+      var source = sources[index];
+      if (source) {
+        assigner(object, source, index, customizer);
+      }
+    }
+    return object;
+  });
+}
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+/**
+ * Initializes an object clone.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+function initCloneObject(object) {
+  return (typeof object.constructor == 'function' && !isPrototype(object))
+    ? baseCreate(getPrototype(object))
+    : {};
+}
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+
+  return !!length &&
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
+}
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!isObject(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number'
+        ? (isArrayLike(object) && isIndex(index, object.length))
+        : (type == 'string' && index in object)
+      ) {
+    return eq(object[index], value);
+  }
+  return false;
+}
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && (maskSrcKey in func);
+}
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+  return value === proto;
+}
+
+/**
+ * This function is like
+ * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * except that it includes inherited enumerable properties.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function nativeKeysIn(object) {
+  var result = [];
+  if (object != null) {
+    for (var key in Object(object)) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+/**
+ * A specialized version of `baseRest` which transforms the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @param {Function} transform The rest array transform.
+ * @returns {Function} Returns the new function.
+ */
+function overRest(func, start, transform) {
+  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+  return function() {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        array = Array(length);
+
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    return apply(func, this, otherArgs);
+  };
+}
+
+/**
+ * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function safeGet(object, key) {
+  if (key === 'constructor' && typeof object[key] === 'function') {
+    return;
+  }
+
+  if (key == '__proto__') {
+    return;
+  }
+
+  return object[key];
+}
+
+/**
+ * Sets the `toString` method of `func` to return `string`.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var setToString = shortOut(baseSetToString);
+
+/**
+ * Creates a function that'll short out and invoke `identity` instead
+ * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+ * milliseconds.
+ *
+ * @private
+ * @param {Function} func The function to restrict.
+ * @returns {Function} Returns the new shortable function.
+ */
+function shortOut(func) {
+  var count = 0,
+      lastCalled = 0;
+
+  return function() {
+    var stamp = nativeNow(),
+        remaining = HOT_SPAN - (stamp - lastCalled);
+
+    lastCalled = stamp;
+    if (remaining > 0) {
+      if (++count >= HOT_COUNT) {
+        return arguments[0];
+      }
+    } else {
+      count = 0;
+    }
+    return func.apply(undefined, arguments);
+  };
+}
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to convert.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return (func + '');
+    } catch (e) {}
+  }
+  return '';
+}
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
+    !propertyIsEnumerable.call(value, 'callee');
+};
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+/**
+ * This method is like `_.isArrayLike` except that it also checks if `value`
+ * is an object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArrayLikeObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLikeObject(document.body.children);
+ * // => true
+ *
+ * _.isArrayLikeObject('abc');
+ * // => false
+ *
+ * _.isArrayLikeObject(_.noop);
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value);
+}
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse;
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
+  }
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+    funcToString.call(Ctor) == objectCtorString;
+}
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+/**
+ * Converts `value` to a plain object flattening inherited enumerable string
+ * keyed properties of `value` to own properties of the plain object.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {Object} Returns the converted plain object.
+ * @example
+ *
+ * function Foo() {
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.assign({ 'a': 1 }, new Foo);
+ * // => { 'a': 1, 'b': 2 }
+ *
+ * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+ * // => { 'a': 1, 'b': 2, 'c': 3 }
+ */
+function toPlainObject(value) {
+  return copyObject(value, keysIn(value));
+}
+
+/**
+ * Creates an array of the own and inherited enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keysIn(new Foo);
+ * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+ */
+function keysIn(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+}
+
+/**
+ * This method is like `_.assign` except that it recursively merges own and
+ * inherited enumerable string keyed properties of source objects into the
+ * destination object. Source properties that resolve to `undefined` are
+ * skipped if a destination value exists. Array and plain object properties
+ * are merged recursively. Other objects and value types are overridden by
+ * assignment. Source objects are applied from left to right. Subsequent
+ * sources overwrite property assignments of previous sources.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.5.0
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var object = {
+ *   'a': [{ 'b': 2 }, { 'd': 4 }]
+ * };
+ *
+ * var other = {
+ *   'a': [{ 'c': 3 }, { 'e': 5 }]
+ * };
+ *
+ * _.merge(object, other);
+ * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
+ */
+var merge = createAssigner(function(object, source, srcIndex) {
+  baseMerge(object, source, srcIndex);
+});
+
+/**
+ * Creates a function that returns `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {*} value The value to return from the new function.
+ * @returns {Function} Returns the new constant function.
+ * @example
+ *
+ * var objects = _.times(2, _.constant({ 'a': 1 }));
+ *
+ * console.log(objects);
+ * // => [{ 'a': 1 }, { 'a': 1 }]
+ *
+ * console.log(objects[0] === objects[1]);
+ * // => true
+ */
+function constant(value) {
+  return function() {
+    return value;
+  };
+}
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+module.exports = merge;
+
+
+/***/ }),
+
 /***/ "./node_modules/normalize-range/index.js":
 /*!***********************************************!*\
   !*** ./node_modules/normalize-range/index.js ***!
@@ -22702,6 +27056,4240 @@ var create=function() {return {isColorSupported:false,reset:x,bold:x,dim:x,itali
 module.exports=create();
 module.exports.createColors = create;
 
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/index.js ***!
+  \************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _processor = _interopRequireDefault(__webpack_require__(/*! ./processor */ "./node_modules/postcss-selector-parser/dist/processor.js"));
+
+var selectors = _interopRequireWildcard(__webpack_require__(/*! ./selectors */ "./node_modules/postcss-selector-parser/dist/selectors/index.js"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var parser = function parser(processor) {
+  return new _processor["default"](processor);
+};
+
+Object.assign(parser, selectors);
+delete parser.__esModule;
+var _default = parser;
+exports["default"] = _default;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/parser.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/parser.js ***!
+  \*************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _root = _interopRequireDefault(__webpack_require__(/*! ./selectors/root */ "./node_modules/postcss-selector-parser/dist/selectors/root.js"));
+
+var _selector = _interopRequireDefault(__webpack_require__(/*! ./selectors/selector */ "./node_modules/postcss-selector-parser/dist/selectors/selector.js"));
+
+var _className = _interopRequireDefault(__webpack_require__(/*! ./selectors/className */ "./node_modules/postcss-selector-parser/dist/selectors/className.js"));
+
+var _comment = _interopRequireDefault(__webpack_require__(/*! ./selectors/comment */ "./node_modules/postcss-selector-parser/dist/selectors/comment.js"));
+
+var _id = _interopRequireDefault(__webpack_require__(/*! ./selectors/id */ "./node_modules/postcss-selector-parser/dist/selectors/id.js"));
+
+var _tag = _interopRequireDefault(__webpack_require__(/*! ./selectors/tag */ "./node_modules/postcss-selector-parser/dist/selectors/tag.js"));
+
+var _string = _interopRequireDefault(__webpack_require__(/*! ./selectors/string */ "./node_modules/postcss-selector-parser/dist/selectors/string.js"));
+
+var _pseudo = _interopRequireDefault(__webpack_require__(/*! ./selectors/pseudo */ "./node_modules/postcss-selector-parser/dist/selectors/pseudo.js"));
+
+var _attribute = _interopRequireWildcard(__webpack_require__(/*! ./selectors/attribute */ "./node_modules/postcss-selector-parser/dist/selectors/attribute.js"));
+
+var _universal = _interopRequireDefault(__webpack_require__(/*! ./selectors/universal */ "./node_modules/postcss-selector-parser/dist/selectors/universal.js"));
+
+var _combinator = _interopRequireDefault(__webpack_require__(/*! ./selectors/combinator */ "./node_modules/postcss-selector-parser/dist/selectors/combinator.js"));
+
+var _nesting = _interopRequireDefault(__webpack_require__(/*! ./selectors/nesting */ "./node_modules/postcss-selector-parser/dist/selectors/nesting.js"));
+
+var _sortAscending = _interopRequireDefault(__webpack_require__(/*! ./sortAscending */ "./node_modules/postcss-selector-parser/dist/sortAscending.js"));
+
+var _tokenize = _interopRequireWildcard(__webpack_require__(/*! ./tokenize */ "./node_modules/postcss-selector-parser/dist/tokenize.js"));
+
+var tokens = _interopRequireWildcard(__webpack_require__(/*! ./tokenTypes */ "./node_modules/postcss-selector-parser/dist/tokenTypes.js"));
+
+var types = _interopRequireWildcard(__webpack_require__(/*! ./selectors/types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js"));
+
+var _util = __webpack_require__(/*! ./util */ "./node_modules/postcss-selector-parser/dist/util/index.js");
+
+var _WHITESPACE_TOKENS, _Object$assign;
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var WHITESPACE_TOKENS = (_WHITESPACE_TOKENS = {}, _WHITESPACE_TOKENS[tokens.space] = true, _WHITESPACE_TOKENS[tokens.cr] = true, _WHITESPACE_TOKENS[tokens.feed] = true, _WHITESPACE_TOKENS[tokens.newline] = true, _WHITESPACE_TOKENS[tokens.tab] = true, _WHITESPACE_TOKENS);
+var WHITESPACE_EQUIV_TOKENS = Object.assign({}, WHITESPACE_TOKENS, (_Object$assign = {}, _Object$assign[tokens.comment] = true, _Object$assign));
+
+function tokenStart(token) {
+  return {
+    line: token[_tokenize.FIELDS.START_LINE],
+    column: token[_tokenize.FIELDS.START_COL]
+  };
+}
+
+function tokenEnd(token) {
+  return {
+    line: token[_tokenize.FIELDS.END_LINE],
+    column: token[_tokenize.FIELDS.END_COL]
+  };
+}
+
+function getSource(startLine, startColumn, endLine, endColumn) {
+  return {
+    start: {
+      line: startLine,
+      column: startColumn
+    },
+    end: {
+      line: endLine,
+      column: endColumn
+    }
+  };
+}
+
+function getTokenSource(token) {
+  return getSource(token[_tokenize.FIELDS.START_LINE], token[_tokenize.FIELDS.START_COL], token[_tokenize.FIELDS.END_LINE], token[_tokenize.FIELDS.END_COL]);
+}
+
+function getTokenSourceSpan(startToken, endToken) {
+  if (!startToken) {
+    return undefined;
+  }
+
+  return getSource(startToken[_tokenize.FIELDS.START_LINE], startToken[_tokenize.FIELDS.START_COL], endToken[_tokenize.FIELDS.END_LINE], endToken[_tokenize.FIELDS.END_COL]);
+}
+
+function unescapeProp(node, prop) {
+  var value = node[prop];
+
+  if (typeof value !== "string") {
+    return;
+  }
+
+  if (value.indexOf("\\") !== -1) {
+    (0, _util.ensureObject)(node, 'raws');
+    node[prop] = (0, _util.unesc)(value);
+
+    if (node.raws[prop] === undefined) {
+      node.raws[prop] = value;
+    }
+  }
+
+  return node;
+}
+
+function indexesOf(array, item) {
+  var i = -1;
+  var indexes = [];
+
+  while ((i = array.indexOf(item, i + 1)) !== -1) {
+    indexes.push(i);
+  }
+
+  return indexes;
+}
+
+function uniqs() {
+  var list = Array.prototype.concat.apply([], arguments);
+  return list.filter(function (item, i) {
+    return i === list.indexOf(item);
+  });
+}
+
+var Parser = /*#__PURE__*/function () {
+  function Parser(rule, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    this.rule = rule;
+    this.options = Object.assign({
+      lossy: false,
+      safe: false
+    }, options);
+    this.position = 0;
+    this.css = typeof this.rule === 'string' ? this.rule : this.rule.selector;
+    this.tokens = (0, _tokenize["default"])({
+      css: this.css,
+      error: this._errorGenerator(),
+      safe: this.options.safe
+    });
+    var rootSource = getTokenSourceSpan(this.tokens[0], this.tokens[this.tokens.length - 1]);
+    this.root = new _root["default"]({
+      source: rootSource
+    });
+    this.root.errorGenerator = this._errorGenerator();
+    var selector = new _selector["default"]({
+      source: {
+        start: {
+          line: 1,
+          column: 1
+        }
+      }
+    });
+    this.root.append(selector);
+    this.current = selector;
+    this.loop();
+  }
+
+  var _proto = Parser.prototype;
+
+  _proto._errorGenerator = function _errorGenerator() {
+    var _this = this;
+
+    return function (message, errorOptions) {
+      if (typeof _this.rule === 'string') {
+        return new Error(message);
+      }
+
+      return _this.rule.error(message, errorOptions);
+    };
+  };
+
+  _proto.attribute = function attribute() {
+    var attr = [];
+    var startingToken = this.currToken;
+    this.position++;
+
+    while (this.position < this.tokens.length && this.currToken[_tokenize.FIELDS.TYPE] !== tokens.closeSquare) {
+      attr.push(this.currToken);
+      this.position++;
+    }
+
+    if (this.currToken[_tokenize.FIELDS.TYPE] !== tokens.closeSquare) {
+      return this.expected('closing square bracket', this.currToken[_tokenize.FIELDS.START_POS]);
+    }
+
+    var len = attr.length;
+    var node = {
+      source: getSource(startingToken[1], startingToken[2], this.currToken[3], this.currToken[4]),
+      sourceIndex: startingToken[_tokenize.FIELDS.START_POS]
+    };
+
+    if (len === 1 && !~[tokens.word].indexOf(attr[0][_tokenize.FIELDS.TYPE])) {
+      return this.expected('attribute', attr[0][_tokenize.FIELDS.START_POS]);
+    }
+
+    var pos = 0;
+    var spaceBefore = '';
+    var commentBefore = '';
+    var lastAdded = null;
+    var spaceAfterMeaningfulToken = false;
+
+    while (pos < len) {
+      var token = attr[pos];
+      var content = this.content(token);
+      var next = attr[pos + 1];
+
+      switch (token[_tokenize.FIELDS.TYPE]) {
+        case tokens.space:
+          // if (
+          //     len === 1 ||
+          //     pos === 0 && this.content(next) === '|'
+          // ) {
+          //     return this.expected('attribute', token[TOKEN.START_POS], content);
+          // }
+          spaceAfterMeaningfulToken = true;
+
+          if (this.options.lossy) {
+            break;
+          }
+
+          if (lastAdded) {
+            (0, _util.ensureObject)(node, 'spaces', lastAdded);
+            var prevContent = node.spaces[lastAdded].after || '';
+            node.spaces[lastAdded].after = prevContent + content;
+            var existingComment = (0, _util.getProp)(node, 'raws', 'spaces', lastAdded, 'after') || null;
+
+            if (existingComment) {
+              node.raws.spaces[lastAdded].after = existingComment + content;
+            }
+          } else {
+            spaceBefore = spaceBefore + content;
+            commentBefore = commentBefore + content;
+          }
+
+          break;
+
+        case tokens.asterisk:
+          if (next[_tokenize.FIELDS.TYPE] === tokens.equals) {
+            node.operator = content;
+            lastAdded = 'operator';
+          } else if ((!node.namespace || lastAdded === "namespace" && !spaceAfterMeaningfulToken) && next) {
+            if (spaceBefore) {
+              (0, _util.ensureObject)(node, 'spaces', 'attribute');
+              node.spaces.attribute.before = spaceBefore;
+              spaceBefore = '';
+            }
+
+            if (commentBefore) {
+              (0, _util.ensureObject)(node, 'raws', 'spaces', 'attribute');
+              node.raws.spaces.attribute.before = spaceBefore;
+              commentBefore = '';
+            }
+
+            node.namespace = (node.namespace || "") + content;
+            var rawValue = (0, _util.getProp)(node, 'raws', 'namespace') || null;
+
+            if (rawValue) {
+              node.raws.namespace += content;
+            }
+
+            lastAdded = 'namespace';
+          }
+
+          spaceAfterMeaningfulToken = false;
+          break;
+
+        case tokens.dollar:
+          if (lastAdded === "value") {
+            var oldRawValue = (0, _util.getProp)(node, 'raws', 'value');
+            node.value += "$";
+
+            if (oldRawValue) {
+              node.raws.value = oldRawValue + "$";
+            }
+
+            break;
+          }
+
+        // Falls through
+
+        case tokens.caret:
+          if (next[_tokenize.FIELDS.TYPE] === tokens.equals) {
+            node.operator = content;
+            lastAdded = 'operator';
+          }
+
+          spaceAfterMeaningfulToken = false;
+          break;
+
+        case tokens.combinator:
+          if (content === '~' && next[_tokenize.FIELDS.TYPE] === tokens.equals) {
+            node.operator = content;
+            lastAdded = 'operator';
+          }
+
+          if (content !== '|') {
+            spaceAfterMeaningfulToken = false;
+            break;
+          }
+
+          if (next[_tokenize.FIELDS.TYPE] === tokens.equals) {
+            node.operator = content;
+            lastAdded = 'operator';
+          } else if (!node.namespace && !node.attribute) {
+            node.namespace = true;
+          }
+
+          spaceAfterMeaningfulToken = false;
+          break;
+
+        case tokens.word:
+          if (next && this.content(next) === '|' && attr[pos + 2] && attr[pos + 2][_tokenize.FIELDS.TYPE] !== tokens.equals && // this look-ahead probably fails with comment nodes involved.
+          !node.operator && !node.namespace) {
+            node.namespace = content;
+            lastAdded = 'namespace';
+          } else if (!node.attribute || lastAdded === "attribute" && !spaceAfterMeaningfulToken) {
+            if (spaceBefore) {
+              (0, _util.ensureObject)(node, 'spaces', 'attribute');
+              node.spaces.attribute.before = spaceBefore;
+              spaceBefore = '';
+            }
+
+            if (commentBefore) {
+              (0, _util.ensureObject)(node, 'raws', 'spaces', 'attribute');
+              node.raws.spaces.attribute.before = commentBefore;
+              commentBefore = '';
+            }
+
+            node.attribute = (node.attribute || "") + content;
+
+            var _rawValue = (0, _util.getProp)(node, 'raws', 'attribute') || null;
+
+            if (_rawValue) {
+              node.raws.attribute += content;
+            }
+
+            lastAdded = 'attribute';
+          } else if (!node.value && node.value !== "" || lastAdded === "value" && !spaceAfterMeaningfulToken) {
+            var _unescaped = (0, _util.unesc)(content);
+
+            var _oldRawValue = (0, _util.getProp)(node, 'raws', 'value') || '';
+
+            var oldValue = node.value || '';
+            node.value = oldValue + _unescaped;
+            node.quoteMark = null;
+
+            if (_unescaped !== content || _oldRawValue) {
+              (0, _util.ensureObject)(node, 'raws');
+              node.raws.value = (_oldRawValue || oldValue) + content;
+            }
+
+            lastAdded = 'value';
+          } else {
+            var insensitive = content === 'i' || content === "I";
+
+            if ((node.value || node.value === '') && (node.quoteMark || spaceAfterMeaningfulToken)) {
+              node.insensitive = insensitive;
+
+              if (!insensitive || content === "I") {
+                (0, _util.ensureObject)(node, 'raws');
+                node.raws.insensitiveFlag = content;
+              }
+
+              lastAdded = 'insensitive';
+
+              if (spaceBefore) {
+                (0, _util.ensureObject)(node, 'spaces', 'insensitive');
+                node.spaces.insensitive.before = spaceBefore;
+                spaceBefore = '';
+              }
+
+              if (commentBefore) {
+                (0, _util.ensureObject)(node, 'raws', 'spaces', 'insensitive');
+                node.raws.spaces.insensitive.before = commentBefore;
+                commentBefore = '';
+              }
+            } else if (node.value || node.value === '') {
+              lastAdded = 'value';
+              node.value += content;
+
+              if (node.raws.value) {
+                node.raws.value += content;
+              }
+            }
+          }
+
+          spaceAfterMeaningfulToken = false;
+          break;
+
+        case tokens.str:
+          if (!node.attribute || !node.operator) {
+            return this.error("Expected an attribute followed by an operator preceding the string.", {
+              index: token[_tokenize.FIELDS.START_POS]
+            });
+          }
+
+          var _unescapeValue = (0, _attribute.unescapeValue)(content),
+              unescaped = _unescapeValue.unescaped,
+              quoteMark = _unescapeValue.quoteMark;
+
+          node.value = unescaped;
+          node.quoteMark = quoteMark;
+          lastAdded = 'value';
+          (0, _util.ensureObject)(node, 'raws');
+          node.raws.value = content;
+          spaceAfterMeaningfulToken = false;
+          break;
+
+        case tokens.equals:
+          if (!node.attribute) {
+            return this.expected('attribute', token[_tokenize.FIELDS.START_POS], content);
+          }
+
+          if (node.value) {
+            return this.error('Unexpected "=" found; an operator was already defined.', {
+              index: token[_tokenize.FIELDS.START_POS]
+            });
+          }
+
+          node.operator = node.operator ? node.operator + content : content;
+          lastAdded = 'operator';
+          spaceAfterMeaningfulToken = false;
+          break;
+
+        case tokens.comment:
+          if (lastAdded) {
+            if (spaceAfterMeaningfulToken || next && next[_tokenize.FIELDS.TYPE] === tokens.space || lastAdded === 'insensitive') {
+              var lastComment = (0, _util.getProp)(node, 'spaces', lastAdded, 'after') || '';
+              var rawLastComment = (0, _util.getProp)(node, 'raws', 'spaces', lastAdded, 'after') || lastComment;
+              (0, _util.ensureObject)(node, 'raws', 'spaces', lastAdded);
+              node.raws.spaces[lastAdded].after = rawLastComment + content;
+            } else {
+              var lastValue = node[lastAdded] || '';
+              var rawLastValue = (0, _util.getProp)(node, 'raws', lastAdded) || lastValue;
+              (0, _util.ensureObject)(node, 'raws');
+              node.raws[lastAdded] = rawLastValue + content;
+            }
+          } else {
+            commentBefore = commentBefore + content;
+          }
+
+          break;
+
+        default:
+          return this.error("Unexpected \"" + content + "\" found.", {
+            index: token[_tokenize.FIELDS.START_POS]
+          });
+      }
+
+      pos++;
+    }
+
+    unescapeProp(node, "attribute");
+    unescapeProp(node, "namespace");
+    this.newNode(new _attribute["default"](node));
+    this.position++;
+  }
+  /**
+   * return a node containing meaningless garbage up to (but not including) the specified token position.
+   * if the token position is negative, all remaining tokens are consumed.
+   *
+   * This returns an array containing a single string node if all whitespace,
+   * otherwise an array of comment nodes with space before and after.
+   *
+   * These tokens are not added to the current selector, the caller can add them or use them to amend
+   * a previous node's space metadata.
+   *
+   * In lossy mode, this returns only comments.
+   */
+  ;
+
+  _proto.parseWhitespaceEquivalentTokens = function parseWhitespaceEquivalentTokens(stopPosition) {
+    if (stopPosition < 0) {
+      stopPosition = this.tokens.length;
+    }
+
+    var startPosition = this.position;
+    var nodes = [];
+    var space = "";
+    var lastComment = undefined;
+
+    do {
+      if (WHITESPACE_TOKENS[this.currToken[_tokenize.FIELDS.TYPE]]) {
+        if (!this.options.lossy) {
+          space += this.content();
+        }
+      } else if (this.currToken[_tokenize.FIELDS.TYPE] === tokens.comment) {
+        var spaces = {};
+
+        if (space) {
+          spaces.before = space;
+          space = "";
+        }
+
+        lastComment = new _comment["default"]({
+          value: this.content(),
+          source: getTokenSource(this.currToken),
+          sourceIndex: this.currToken[_tokenize.FIELDS.START_POS],
+          spaces: spaces
+        });
+        nodes.push(lastComment);
+      }
+    } while (++this.position < stopPosition);
+
+    if (space) {
+      if (lastComment) {
+        lastComment.spaces.after = space;
+      } else if (!this.options.lossy) {
+        var firstToken = this.tokens[startPosition];
+        var lastToken = this.tokens[this.position - 1];
+        nodes.push(new _string["default"]({
+          value: '',
+          source: getSource(firstToken[_tokenize.FIELDS.START_LINE], firstToken[_tokenize.FIELDS.START_COL], lastToken[_tokenize.FIELDS.END_LINE], lastToken[_tokenize.FIELDS.END_COL]),
+          sourceIndex: firstToken[_tokenize.FIELDS.START_POS],
+          spaces: {
+            before: space,
+            after: ''
+          }
+        }));
+      }
+    }
+
+    return nodes;
+  }
+  /**
+   * 
+   * @param {*} nodes 
+   */
+  ;
+
+  _proto.convertWhitespaceNodesToSpace = function convertWhitespaceNodesToSpace(nodes, requiredSpace) {
+    var _this2 = this;
+
+    if (requiredSpace === void 0) {
+      requiredSpace = false;
+    }
+
+    var space = "";
+    var rawSpace = "";
+    nodes.forEach(function (n) {
+      var spaceBefore = _this2.lossySpace(n.spaces.before, requiredSpace);
+
+      var rawSpaceBefore = _this2.lossySpace(n.rawSpaceBefore, requiredSpace);
+
+      space += spaceBefore + _this2.lossySpace(n.spaces.after, requiredSpace && spaceBefore.length === 0);
+      rawSpace += spaceBefore + n.value + _this2.lossySpace(n.rawSpaceAfter, requiredSpace && rawSpaceBefore.length === 0);
+    });
+
+    if (rawSpace === space) {
+      rawSpace = undefined;
+    }
+
+    var result = {
+      space: space,
+      rawSpace: rawSpace
+    };
+    return result;
+  };
+
+  _proto.isNamedCombinator = function isNamedCombinator(position) {
+    if (position === void 0) {
+      position = this.position;
+    }
+
+    return this.tokens[position + 0] && this.tokens[position + 0][_tokenize.FIELDS.TYPE] === tokens.slash && this.tokens[position + 1] && this.tokens[position + 1][_tokenize.FIELDS.TYPE] === tokens.word && this.tokens[position + 2] && this.tokens[position + 2][_tokenize.FIELDS.TYPE] === tokens.slash;
+  };
+
+  _proto.namedCombinator = function namedCombinator() {
+    if (this.isNamedCombinator()) {
+      var nameRaw = this.content(this.tokens[this.position + 1]);
+      var name = (0, _util.unesc)(nameRaw).toLowerCase();
+      var raws = {};
+
+      if (name !== nameRaw) {
+        raws.value = "/" + nameRaw + "/";
+      }
+
+      var node = new _combinator["default"]({
+        value: "/" + name + "/",
+        source: getSource(this.currToken[_tokenize.FIELDS.START_LINE], this.currToken[_tokenize.FIELDS.START_COL], this.tokens[this.position + 2][_tokenize.FIELDS.END_LINE], this.tokens[this.position + 2][_tokenize.FIELDS.END_COL]),
+        sourceIndex: this.currToken[_tokenize.FIELDS.START_POS],
+        raws: raws
+      });
+      this.position = this.position + 3;
+      return node;
+    } else {
+      this.unexpected();
+    }
+  };
+
+  _proto.combinator = function combinator() {
+    var _this3 = this;
+
+    if (this.content() === '|') {
+      return this.namespace();
+    } // We need to decide between a space that's a descendant combinator and meaningless whitespace at the end of a selector.
+
+
+    var nextSigTokenPos = this.locateNextMeaningfulToken(this.position);
+
+    if (nextSigTokenPos < 0 || this.tokens[nextSigTokenPos][_tokenize.FIELDS.TYPE] === tokens.comma) {
+      var nodes = this.parseWhitespaceEquivalentTokens(nextSigTokenPos);
+
+      if (nodes.length > 0) {
+        var last = this.current.last;
+
+        if (last) {
+          var _this$convertWhitespa = this.convertWhitespaceNodesToSpace(nodes),
+              space = _this$convertWhitespa.space,
+              rawSpace = _this$convertWhitespa.rawSpace;
+
+          if (rawSpace !== undefined) {
+            last.rawSpaceAfter += rawSpace;
+          }
+
+          last.spaces.after += space;
+        } else {
+          nodes.forEach(function (n) {
+            return _this3.newNode(n);
+          });
+        }
+      }
+
+      return;
+    }
+
+    var firstToken = this.currToken;
+    var spaceOrDescendantSelectorNodes = undefined;
+
+    if (nextSigTokenPos > this.position) {
+      spaceOrDescendantSelectorNodes = this.parseWhitespaceEquivalentTokens(nextSigTokenPos);
+    }
+
+    var node;
+
+    if (this.isNamedCombinator()) {
+      node = this.namedCombinator();
+    } else if (this.currToken[_tokenize.FIELDS.TYPE] === tokens.combinator) {
+      node = new _combinator["default"]({
+        value: this.content(),
+        source: getTokenSource(this.currToken),
+        sourceIndex: this.currToken[_tokenize.FIELDS.START_POS]
+      });
+      this.position++;
+    } else if (WHITESPACE_TOKENS[this.currToken[_tokenize.FIELDS.TYPE]]) {// pass
+    } else if (!spaceOrDescendantSelectorNodes) {
+      this.unexpected();
+    }
+
+    if (node) {
+      if (spaceOrDescendantSelectorNodes) {
+        var _this$convertWhitespa2 = this.convertWhitespaceNodesToSpace(spaceOrDescendantSelectorNodes),
+            _space = _this$convertWhitespa2.space,
+            _rawSpace = _this$convertWhitespa2.rawSpace;
+
+        node.spaces.before = _space;
+        node.rawSpaceBefore = _rawSpace;
+      }
+    } else {
+      // descendant combinator
+      var _this$convertWhitespa3 = this.convertWhitespaceNodesToSpace(spaceOrDescendantSelectorNodes, true),
+          _space2 = _this$convertWhitespa3.space,
+          _rawSpace2 = _this$convertWhitespa3.rawSpace;
+
+      if (!_rawSpace2) {
+        _rawSpace2 = _space2;
+      }
+
+      var spaces = {};
+      var raws = {
+        spaces: {}
+      };
+
+      if (_space2.endsWith(' ') && _rawSpace2.endsWith(' ')) {
+        spaces.before = _space2.slice(0, _space2.length - 1);
+        raws.spaces.before = _rawSpace2.slice(0, _rawSpace2.length - 1);
+      } else if (_space2.startsWith(' ') && _rawSpace2.startsWith(' ')) {
+        spaces.after = _space2.slice(1);
+        raws.spaces.after = _rawSpace2.slice(1);
+      } else {
+        raws.value = _rawSpace2;
+      }
+
+      node = new _combinator["default"]({
+        value: ' ',
+        source: getTokenSourceSpan(firstToken, this.tokens[this.position - 1]),
+        sourceIndex: firstToken[_tokenize.FIELDS.START_POS],
+        spaces: spaces,
+        raws: raws
+      });
+    }
+
+    if (this.currToken && this.currToken[_tokenize.FIELDS.TYPE] === tokens.space) {
+      node.spaces.after = this.optionalSpace(this.content());
+      this.position++;
+    }
+
+    return this.newNode(node);
+  };
+
+  _proto.comma = function comma() {
+    if (this.position === this.tokens.length - 1) {
+      this.root.trailingComma = true;
+      this.position++;
+      return;
+    }
+
+    this.current._inferEndPosition();
+
+    var selector = new _selector["default"]({
+      source: {
+        start: tokenStart(this.tokens[this.position + 1])
+      }
+    });
+    this.current.parent.append(selector);
+    this.current = selector;
+    this.position++;
+  };
+
+  _proto.comment = function comment() {
+    var current = this.currToken;
+    this.newNode(new _comment["default"]({
+      value: this.content(),
+      source: getTokenSource(current),
+      sourceIndex: current[_tokenize.FIELDS.START_POS]
+    }));
+    this.position++;
+  };
+
+  _proto.error = function error(message, opts) {
+    throw this.root.error(message, opts);
+  };
+
+  _proto.missingBackslash = function missingBackslash() {
+    return this.error('Expected a backslash preceding the semicolon.', {
+      index: this.currToken[_tokenize.FIELDS.START_POS]
+    });
+  };
+
+  _proto.missingParenthesis = function missingParenthesis() {
+    return this.expected('opening parenthesis', this.currToken[_tokenize.FIELDS.START_POS]);
+  };
+
+  _proto.missingSquareBracket = function missingSquareBracket() {
+    return this.expected('opening square bracket', this.currToken[_tokenize.FIELDS.START_POS]);
+  };
+
+  _proto.unexpected = function unexpected() {
+    return this.error("Unexpected '" + this.content() + "'. Escaping special characters with \\ may help.", this.currToken[_tokenize.FIELDS.START_POS]);
+  };
+
+  _proto.namespace = function namespace() {
+    var before = this.prevToken && this.content(this.prevToken) || true;
+
+    if (this.nextToken[_tokenize.FIELDS.TYPE] === tokens.word) {
+      this.position++;
+      return this.word(before);
+    } else if (this.nextToken[_tokenize.FIELDS.TYPE] === tokens.asterisk) {
+      this.position++;
+      return this.universal(before);
+    }
+  };
+
+  _proto.nesting = function nesting() {
+    if (this.nextToken) {
+      var nextContent = this.content(this.nextToken);
+
+      if (nextContent === "|") {
+        this.position++;
+        return;
+      }
+    }
+
+    var current = this.currToken;
+    this.newNode(new _nesting["default"]({
+      value: this.content(),
+      source: getTokenSource(current),
+      sourceIndex: current[_tokenize.FIELDS.START_POS]
+    }));
+    this.position++;
+  };
+
+  _proto.parentheses = function parentheses() {
+    var last = this.current.last;
+    var unbalanced = 1;
+    this.position++;
+
+    if (last && last.type === types.PSEUDO) {
+      var selector = new _selector["default"]({
+        source: {
+          start: tokenStart(this.tokens[this.position - 1])
+        }
+      });
+      var cache = this.current;
+      last.append(selector);
+      this.current = selector;
+
+      while (this.position < this.tokens.length && unbalanced) {
+        if (this.currToken[_tokenize.FIELDS.TYPE] === tokens.openParenthesis) {
+          unbalanced++;
+        }
+
+        if (this.currToken[_tokenize.FIELDS.TYPE] === tokens.closeParenthesis) {
+          unbalanced--;
+        }
+
+        if (unbalanced) {
+          this.parse();
+        } else {
+          this.current.source.end = tokenEnd(this.currToken);
+          this.current.parent.source.end = tokenEnd(this.currToken);
+          this.position++;
+        }
+      }
+
+      this.current = cache;
+    } else {
+      // I think this case should be an error. It's used to implement a basic parse of media queries
+      // but I don't think it's a good idea.
+      var parenStart = this.currToken;
+      var parenValue = "(";
+      var parenEnd;
+
+      while (this.position < this.tokens.length && unbalanced) {
+        if (this.currToken[_tokenize.FIELDS.TYPE] === tokens.openParenthesis) {
+          unbalanced++;
+        }
+
+        if (this.currToken[_tokenize.FIELDS.TYPE] === tokens.closeParenthesis) {
+          unbalanced--;
+        }
+
+        parenEnd = this.currToken;
+        parenValue += this.parseParenthesisToken(this.currToken);
+        this.position++;
+      }
+
+      if (last) {
+        last.appendToPropertyAndEscape("value", parenValue, parenValue);
+      } else {
+        this.newNode(new _string["default"]({
+          value: parenValue,
+          source: getSource(parenStart[_tokenize.FIELDS.START_LINE], parenStart[_tokenize.FIELDS.START_COL], parenEnd[_tokenize.FIELDS.END_LINE], parenEnd[_tokenize.FIELDS.END_COL]),
+          sourceIndex: parenStart[_tokenize.FIELDS.START_POS]
+        }));
+      }
+    }
+
+    if (unbalanced) {
+      return this.expected('closing parenthesis', this.currToken[_tokenize.FIELDS.START_POS]);
+    }
+  };
+
+  _proto.pseudo = function pseudo() {
+    var _this4 = this;
+
+    var pseudoStr = '';
+    var startingToken = this.currToken;
+
+    while (this.currToken && this.currToken[_tokenize.FIELDS.TYPE] === tokens.colon) {
+      pseudoStr += this.content();
+      this.position++;
+    }
+
+    if (!this.currToken) {
+      return this.expected(['pseudo-class', 'pseudo-element'], this.position - 1);
+    }
+
+    if (this.currToken[_tokenize.FIELDS.TYPE] === tokens.word) {
+      this.splitWord(false, function (first, length) {
+        pseudoStr += first;
+
+        _this4.newNode(new _pseudo["default"]({
+          value: pseudoStr,
+          source: getTokenSourceSpan(startingToken, _this4.currToken),
+          sourceIndex: startingToken[_tokenize.FIELDS.START_POS]
+        }));
+
+        if (length > 1 && _this4.nextToken && _this4.nextToken[_tokenize.FIELDS.TYPE] === tokens.openParenthesis) {
+          _this4.error('Misplaced parenthesis.', {
+            index: _this4.nextToken[_tokenize.FIELDS.START_POS]
+          });
+        }
+      });
+    } else {
+      return this.expected(['pseudo-class', 'pseudo-element'], this.currToken[_tokenize.FIELDS.START_POS]);
+    }
+  };
+
+  _proto.space = function space() {
+    var content = this.content(); // Handle space before and after the selector
+
+    if (this.position === 0 || this.prevToken[_tokenize.FIELDS.TYPE] === tokens.comma || this.prevToken[_tokenize.FIELDS.TYPE] === tokens.openParenthesis || this.current.nodes.every(function (node) {
+      return node.type === 'comment';
+    })) {
+      this.spaces = this.optionalSpace(content);
+      this.position++;
+    } else if (this.position === this.tokens.length - 1 || this.nextToken[_tokenize.FIELDS.TYPE] === tokens.comma || this.nextToken[_tokenize.FIELDS.TYPE] === tokens.closeParenthesis) {
+      this.current.last.spaces.after = this.optionalSpace(content);
+      this.position++;
+    } else {
+      this.combinator();
+    }
+  };
+
+  _proto.string = function string() {
+    var current = this.currToken;
+    this.newNode(new _string["default"]({
+      value: this.content(),
+      source: getTokenSource(current),
+      sourceIndex: current[_tokenize.FIELDS.START_POS]
+    }));
+    this.position++;
+  };
+
+  _proto.universal = function universal(namespace) {
+    var nextToken = this.nextToken;
+
+    if (nextToken && this.content(nextToken) === '|') {
+      this.position++;
+      return this.namespace();
+    }
+
+    var current = this.currToken;
+    this.newNode(new _universal["default"]({
+      value: this.content(),
+      source: getTokenSource(current),
+      sourceIndex: current[_tokenize.FIELDS.START_POS]
+    }), namespace);
+    this.position++;
+  };
+
+  _proto.splitWord = function splitWord(namespace, firstCallback) {
+    var _this5 = this;
+
+    var nextToken = this.nextToken;
+    var word = this.content();
+
+    while (nextToken && ~[tokens.dollar, tokens.caret, tokens.equals, tokens.word].indexOf(nextToken[_tokenize.FIELDS.TYPE])) {
+      this.position++;
+      var current = this.content();
+      word += current;
+
+      if (current.lastIndexOf('\\') === current.length - 1) {
+        var next = this.nextToken;
+
+        if (next && next[_tokenize.FIELDS.TYPE] === tokens.space) {
+          word += this.requiredSpace(this.content(next));
+          this.position++;
+        }
+      }
+
+      nextToken = this.nextToken;
+    }
+
+    var hasClass = indexesOf(word, '.').filter(function (i) {
+      // Allow escaped dot within class name
+      var escapedDot = word[i - 1] === '\\'; // Allow decimal numbers percent in @keyframes
+
+      var isKeyframesPercent = /^\d+\.\d+%$/.test(word);
+      return !escapedDot && !isKeyframesPercent;
+    });
+    var hasId = indexesOf(word, '#').filter(function (i) {
+      return word[i - 1] !== '\\';
+    }); // Eliminate Sass interpolations from the list of id indexes
+
+    var interpolations = indexesOf(word, '#{');
+
+    if (interpolations.length) {
+      hasId = hasId.filter(function (hashIndex) {
+        return !~interpolations.indexOf(hashIndex);
+      });
+    }
+
+    var indices = (0, _sortAscending["default"])(uniqs([0].concat(hasClass, hasId)));
+    indices.forEach(function (ind, i) {
+      var index = indices[i + 1] || word.length;
+      var value = word.slice(ind, index);
+
+      if (i === 0 && firstCallback) {
+        return firstCallback.call(_this5, value, indices.length);
+      }
+
+      var node;
+      var current = _this5.currToken;
+      var sourceIndex = current[_tokenize.FIELDS.START_POS] + indices[i];
+      var source = getSource(current[1], current[2] + ind, current[3], current[2] + (index - 1));
+
+      if (~hasClass.indexOf(ind)) {
+        var classNameOpts = {
+          value: value.slice(1),
+          source: source,
+          sourceIndex: sourceIndex
+        };
+        node = new _className["default"](unescapeProp(classNameOpts, "value"));
+      } else if (~hasId.indexOf(ind)) {
+        var idOpts = {
+          value: value.slice(1),
+          source: source,
+          sourceIndex: sourceIndex
+        };
+        node = new _id["default"](unescapeProp(idOpts, "value"));
+      } else {
+        var tagOpts = {
+          value: value,
+          source: source,
+          sourceIndex: sourceIndex
+        };
+        unescapeProp(tagOpts, "value");
+        node = new _tag["default"](tagOpts);
+      }
+
+      _this5.newNode(node, namespace); // Ensure that the namespace is used only once
+
+
+      namespace = null;
+    });
+    this.position++;
+  };
+
+  _proto.word = function word(namespace) {
+    var nextToken = this.nextToken;
+
+    if (nextToken && this.content(nextToken) === '|') {
+      this.position++;
+      return this.namespace();
+    }
+
+    return this.splitWord(namespace);
+  };
+
+  _proto.loop = function loop() {
+    while (this.position < this.tokens.length) {
+      this.parse(true);
+    }
+
+    this.current._inferEndPosition();
+
+    return this.root;
+  };
+
+  _proto.parse = function parse(throwOnParenthesis) {
+    switch (this.currToken[_tokenize.FIELDS.TYPE]) {
+      case tokens.space:
+        this.space();
+        break;
+
+      case tokens.comment:
+        this.comment();
+        break;
+
+      case tokens.openParenthesis:
+        this.parentheses();
+        break;
+
+      case tokens.closeParenthesis:
+        if (throwOnParenthesis) {
+          this.missingParenthesis();
+        }
+
+        break;
+
+      case tokens.openSquare:
+        this.attribute();
+        break;
+
+      case tokens.dollar:
+      case tokens.caret:
+      case tokens.equals:
+      case tokens.word:
+        this.word();
+        break;
+
+      case tokens.colon:
+        this.pseudo();
+        break;
+
+      case tokens.comma:
+        this.comma();
+        break;
+
+      case tokens.asterisk:
+        this.universal();
+        break;
+
+      case tokens.ampersand:
+        this.nesting();
+        break;
+
+      case tokens.slash:
+      case tokens.combinator:
+        this.combinator();
+        break;
+
+      case tokens.str:
+        this.string();
+        break;
+      // These cases throw; no break needed.
+
+      case tokens.closeSquare:
+        this.missingSquareBracket();
+
+      case tokens.semicolon:
+        this.missingBackslash();
+
+      default:
+        this.unexpected();
+    }
+  }
+  /**
+   * Helpers
+   */
+  ;
+
+  _proto.expected = function expected(description, index, found) {
+    if (Array.isArray(description)) {
+      var last = description.pop();
+      description = description.join(', ') + " or " + last;
+    }
+
+    var an = /^[aeiou]/.test(description[0]) ? 'an' : 'a';
+
+    if (!found) {
+      return this.error("Expected " + an + " " + description + ".", {
+        index: index
+      });
+    }
+
+    return this.error("Expected " + an + " " + description + ", found \"" + found + "\" instead.", {
+      index: index
+    });
+  };
+
+  _proto.requiredSpace = function requiredSpace(space) {
+    return this.options.lossy ? ' ' : space;
+  };
+
+  _proto.optionalSpace = function optionalSpace(space) {
+    return this.options.lossy ? '' : space;
+  };
+
+  _proto.lossySpace = function lossySpace(space, required) {
+    if (this.options.lossy) {
+      return required ? ' ' : '';
+    } else {
+      return space;
+    }
+  };
+
+  _proto.parseParenthesisToken = function parseParenthesisToken(token) {
+    var content = this.content(token);
+
+    if (token[_tokenize.FIELDS.TYPE] === tokens.space) {
+      return this.requiredSpace(content);
+    } else {
+      return content;
+    }
+  };
+
+  _proto.newNode = function newNode(node, namespace) {
+    if (namespace) {
+      if (/^ +$/.test(namespace)) {
+        if (!this.options.lossy) {
+          this.spaces = (this.spaces || '') + namespace;
+        }
+
+        namespace = true;
+      }
+
+      node.namespace = namespace;
+      unescapeProp(node, "namespace");
+    }
+
+    if (this.spaces) {
+      node.spaces.before = this.spaces;
+      this.spaces = '';
+    }
+
+    return this.current.append(node);
+  };
+
+  _proto.content = function content(token) {
+    if (token === void 0) {
+      token = this.currToken;
+    }
+
+    return this.css.slice(token[_tokenize.FIELDS.START_POS], token[_tokenize.FIELDS.END_POS]);
+  };
+
+  /**
+   * returns the index of the next non-whitespace, non-comment token.
+   * returns -1 if no meaningful token is found.
+   */
+  _proto.locateNextMeaningfulToken = function locateNextMeaningfulToken(startPosition) {
+    if (startPosition === void 0) {
+      startPosition = this.position + 1;
+    }
+
+    var searchPosition = startPosition;
+
+    while (searchPosition < this.tokens.length) {
+      if (WHITESPACE_EQUIV_TOKENS[this.tokens[searchPosition][_tokenize.FIELDS.TYPE]]) {
+        searchPosition++;
+        continue;
+      } else {
+        return searchPosition;
+      }
+    }
+
+    return -1;
+  };
+
+  _createClass(Parser, [{
+    key: "currToken",
+    get: function get() {
+      return this.tokens[this.position];
+    }
+  }, {
+    key: "nextToken",
+    get: function get() {
+      return this.tokens[this.position + 1];
+    }
+  }, {
+    key: "prevToken",
+    get: function get() {
+      return this.tokens[this.position - 1];
+    }
+  }]);
+
+  return Parser;
+}();
+
+exports["default"] = Parser;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/processor.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/processor.js ***!
+  \****************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _parser = _interopRequireDefault(__webpack_require__(/*! ./parser */ "./node_modules/postcss-selector-parser/dist/parser.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var Processor = /*#__PURE__*/function () {
+  function Processor(func, options) {
+    this.func = func || function noop() {};
+
+    this.funcRes = null;
+    this.options = options;
+  }
+
+  var _proto = Processor.prototype;
+
+  _proto._shouldUpdateSelector = function _shouldUpdateSelector(rule, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var merged = Object.assign({}, this.options, options);
+
+    if (merged.updateSelector === false) {
+      return false;
+    } else {
+      return typeof rule !== "string";
+    }
+  };
+
+  _proto._isLossy = function _isLossy(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var merged = Object.assign({}, this.options, options);
+
+    if (merged.lossless === false) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  _proto._root = function _root(rule, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var parser = new _parser["default"](rule, this._parseOptions(options));
+    return parser.root;
+  };
+
+  _proto._parseOptions = function _parseOptions(options) {
+    return {
+      lossy: this._isLossy(options)
+    };
+  };
+
+  _proto._run = function _run(rule, options) {
+    var _this = this;
+
+    if (options === void 0) {
+      options = {};
+    }
+
+    return new Promise(function (resolve, reject) {
+      try {
+        var root = _this._root(rule, options);
+
+        Promise.resolve(_this.func(root)).then(function (transform) {
+          var string = undefined;
+
+          if (_this._shouldUpdateSelector(rule, options)) {
+            string = root.toString();
+            rule.selector = string;
+          }
+
+          return {
+            transform: transform,
+            root: root,
+            string: string
+          };
+        }).then(resolve, reject);
+      } catch (e) {
+        reject(e);
+        return;
+      }
+    });
+  };
+
+  _proto._runSync = function _runSync(rule, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var root = this._root(rule, options);
+
+    var transform = this.func(root);
+
+    if (transform && typeof transform.then === "function") {
+      throw new Error("Selector processor returned a promise to a synchronous call.");
+    }
+
+    var string = undefined;
+
+    if (options.updateSelector && typeof rule !== "string") {
+      string = root.toString();
+      rule.selector = string;
+    }
+
+    return {
+      transform: transform,
+      root: root,
+      string: string
+    };
+  }
+  /**
+   * Process rule into a selector AST.
+   *
+   * @param rule {postcss.Rule | string} The css selector to be processed
+   * @param options The options for processing
+   * @returns {Promise<parser.Root>} The AST of the selector after processing it.
+   */
+  ;
+
+  _proto.ast = function ast(rule, options) {
+    return this._run(rule, options).then(function (result) {
+      return result.root;
+    });
+  }
+  /**
+   * Process rule into a selector AST synchronously.
+   *
+   * @param rule {postcss.Rule | string} The css selector to be processed
+   * @param options The options for processing
+   * @returns {parser.Root} The AST of the selector after processing it.
+   */
+  ;
+
+  _proto.astSync = function astSync(rule, options) {
+    return this._runSync(rule, options).root;
+  }
+  /**
+   * Process a selector into a transformed value asynchronously
+   *
+   * @param rule {postcss.Rule | string} The css selector to be processed
+   * @param options The options for processing
+   * @returns {Promise<any>} The value returned by the processor.
+   */
+  ;
+
+  _proto.transform = function transform(rule, options) {
+    return this._run(rule, options).then(function (result) {
+      return result.transform;
+    });
+  }
+  /**
+   * Process a selector into a transformed value synchronously.
+   *
+   * @param rule {postcss.Rule | string} The css selector to be processed
+   * @param options The options for processing
+   * @returns {any} The value returned by the processor.
+   */
+  ;
+
+  _proto.transformSync = function transformSync(rule, options) {
+    return this._runSync(rule, options).transform;
+  }
+  /**
+   * Process a selector into a new selector string asynchronously.
+   *
+   * @param rule {postcss.Rule | string} The css selector to be processed
+   * @param options The options for processing
+   * @returns {string} the selector after processing.
+   */
+  ;
+
+  _proto.process = function process(rule, options) {
+    return this._run(rule, options).then(function (result) {
+      return result.string || result.root.toString();
+    });
+  }
+  /**
+   * Process a selector into a new selector string synchronously.
+   *
+   * @param rule {postcss.Rule | string} The css selector to be processed
+   * @param options The options for processing
+   * @returns {string} the selector after processing.
+   */
+  ;
+
+  _proto.processSync = function processSync(rule, options) {
+    var result = this._runSync(rule, options);
+
+    return result.string || result.root.toString();
+  };
+
+  return Processor;
+}();
+
+exports["default"] = Processor;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/attribute.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/attribute.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.unescapeValue = unescapeValue;
+exports["default"] = void 0;
+
+var _cssesc = _interopRequireDefault(__webpack_require__(/*! cssesc */ "./node_modules/cssesc/cssesc.js"));
+
+var _unesc = _interopRequireDefault(__webpack_require__(/*! ../util/unesc */ "./node_modules/postcss-selector-parser/dist/util/unesc.js"));
+
+var _namespace = _interopRequireDefault(__webpack_require__(/*! ./namespace */ "./node_modules/postcss-selector-parser/dist/selectors/namespace.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+var _CSSESC_QUOTE_OPTIONS;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var deprecate = __webpack_require__(/*! util-deprecate */ "./node_modules/util-deprecate/browser.js");
+
+var WRAPPED_IN_QUOTES = /^('|")([^]*)\1$/;
+var warnOfDeprecatedValueAssignment = deprecate(function () {}, "Assigning an attribute a value containing characters that might need to be escaped is deprecated. " + "Call attribute.setValue() instead.");
+var warnOfDeprecatedQuotedAssignment = deprecate(function () {}, "Assigning attr.quoted is deprecated and has no effect. Assign to attr.quoteMark instead.");
+var warnOfDeprecatedConstructor = deprecate(function () {}, "Constructing an Attribute selector with a value without specifying quoteMark is deprecated. Note: The value should be unescaped now.");
+
+function unescapeValue(value) {
+  var deprecatedUsage = false;
+  var quoteMark = null;
+  var unescaped = value;
+  var m = unescaped.match(WRAPPED_IN_QUOTES);
+
+  if (m) {
+    quoteMark = m[1];
+    unescaped = m[2];
+  }
+
+  unescaped = (0, _unesc["default"])(unescaped);
+
+  if (unescaped !== value) {
+    deprecatedUsage = true;
+  }
+
+  return {
+    deprecatedUsage: deprecatedUsage,
+    unescaped: unescaped,
+    quoteMark: quoteMark
+  };
+}
+
+function handleDeprecatedContructorOpts(opts) {
+  if (opts.quoteMark !== undefined) {
+    return opts;
+  }
+
+  if (opts.value === undefined) {
+    return opts;
+  }
+
+  warnOfDeprecatedConstructor();
+
+  var _unescapeValue = unescapeValue(opts.value),
+      quoteMark = _unescapeValue.quoteMark,
+      unescaped = _unescapeValue.unescaped;
+
+  if (!opts.raws) {
+    opts.raws = {};
+  }
+
+  if (opts.raws.value === undefined) {
+    opts.raws.value = opts.value;
+  }
+
+  opts.value = unescaped;
+  opts.quoteMark = quoteMark;
+  return opts;
+}
+
+var Attribute = /*#__PURE__*/function (_Namespace) {
+  _inheritsLoose(Attribute, _Namespace);
+
+  function Attribute(opts) {
+    var _this;
+
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    _this = _Namespace.call(this, handleDeprecatedContructorOpts(opts)) || this;
+    _this.type = _types.ATTRIBUTE;
+    _this.raws = _this.raws || {};
+    Object.defineProperty(_this.raws, 'unquoted', {
+      get: deprecate(function () {
+        return _this.value;
+      }, "attr.raws.unquoted is deprecated. Call attr.value instead."),
+      set: deprecate(function () {
+        return _this.value;
+      }, "Setting attr.raws.unquoted is deprecated and has no effect. attr.value is unescaped by default now.")
+    });
+    _this._constructed = true;
+    return _this;
+  }
+  /**
+   * Returns the Attribute's value quoted such that it would be legal to use
+   * in the value of a css file. The original value's quotation setting
+   * used for stringification is left unchanged. See `setValue(value, options)`
+   * if you want to control the quote settings of a new value for the attribute.
+   *
+   * You can also change the quotation used for the current value by setting quoteMark.
+   *
+   * Options:
+   *   * quoteMark {'"' | "'" | null} - Use this value to quote the value. If this
+   *     option is not set, the original value for quoteMark will be used. If
+   *     indeterminate, a double quote is used. The legal values are:
+   *     * `null` - the value will be unquoted and characters will be escaped as necessary.
+   *     * `'` - the value will be quoted with a single quote and single quotes are escaped.
+   *     * `"` - the value will be quoted with a double quote and double quotes are escaped.
+   *   * preferCurrentQuoteMark {boolean} - if true, prefer the source quote mark
+   *     over the quoteMark option value.
+   *   * smart {boolean} - if true, will select a quote mark based on the value
+   *     and the other options specified here. See the `smartQuoteMark()`
+   *     method.
+   **/
+
+
+  var _proto = Attribute.prototype;
+
+  _proto.getQuotedValue = function getQuotedValue(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var quoteMark = this._determineQuoteMark(options);
+
+    var cssescopts = CSSESC_QUOTE_OPTIONS[quoteMark];
+    var escaped = (0, _cssesc["default"])(this._value, cssescopts);
+    return escaped;
+  };
+
+  _proto._determineQuoteMark = function _determineQuoteMark(options) {
+    return options.smart ? this.smartQuoteMark(options) : this.preferredQuoteMark(options);
+  }
+  /**
+   * Set the unescaped value with the specified quotation options. The value
+   * provided must not include any wrapping quote marks -- those quotes will
+   * be interpreted as part of the value and escaped accordingly.
+   */
+  ;
+
+  _proto.setValue = function setValue(value, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    this._value = value;
+    this._quoteMark = this._determineQuoteMark(options);
+
+    this._syncRawValue();
+  }
+  /**
+   * Intelligently select a quoteMark value based on the value's contents. If
+   * the value is a legal CSS ident, it will not be quoted. Otherwise a quote
+   * mark will be picked that minimizes the number of escapes.
+   *
+   * If there's no clear winner, the quote mark from these options is used,
+   * then the source quote mark (this is inverted if `preferCurrentQuoteMark` is
+   * true). If the quoteMark is unspecified, a double quote is used.
+   *
+   * @param options This takes the quoteMark and preferCurrentQuoteMark options
+   * from the quoteValue method.
+   */
+  ;
+
+  _proto.smartQuoteMark = function smartQuoteMark(options) {
+    var v = this.value;
+    var numSingleQuotes = v.replace(/[^']/g, '').length;
+    var numDoubleQuotes = v.replace(/[^"]/g, '').length;
+
+    if (numSingleQuotes + numDoubleQuotes === 0) {
+      var escaped = (0, _cssesc["default"])(v, {
+        isIdentifier: true
+      });
+
+      if (escaped === v) {
+        return Attribute.NO_QUOTE;
+      } else {
+        var pref = this.preferredQuoteMark(options);
+
+        if (pref === Attribute.NO_QUOTE) {
+          // pick a quote mark that isn't none and see if it's smaller
+          var quote = this.quoteMark || options.quoteMark || Attribute.DOUBLE_QUOTE;
+          var opts = CSSESC_QUOTE_OPTIONS[quote];
+          var quoteValue = (0, _cssesc["default"])(v, opts);
+
+          if (quoteValue.length < escaped.length) {
+            return quote;
+          }
+        }
+
+        return pref;
+      }
+    } else if (numDoubleQuotes === numSingleQuotes) {
+      return this.preferredQuoteMark(options);
+    } else if (numDoubleQuotes < numSingleQuotes) {
+      return Attribute.DOUBLE_QUOTE;
+    } else {
+      return Attribute.SINGLE_QUOTE;
+    }
+  }
+  /**
+   * Selects the preferred quote mark based on the options and the current quote mark value.
+   * If you want the quote mark to depend on the attribute value, call `smartQuoteMark(opts)`
+   * instead.
+   */
+  ;
+
+  _proto.preferredQuoteMark = function preferredQuoteMark(options) {
+    var quoteMark = options.preferCurrentQuoteMark ? this.quoteMark : options.quoteMark;
+
+    if (quoteMark === undefined) {
+      quoteMark = options.preferCurrentQuoteMark ? options.quoteMark : this.quoteMark;
+    }
+
+    if (quoteMark === undefined) {
+      quoteMark = Attribute.DOUBLE_QUOTE;
+    }
+
+    return quoteMark;
+  };
+
+  _proto._syncRawValue = function _syncRawValue() {
+    var rawValue = (0, _cssesc["default"])(this._value, CSSESC_QUOTE_OPTIONS[this.quoteMark]);
+
+    if (rawValue === this._value) {
+      if (this.raws) {
+        delete this.raws.value;
+      }
+    } else {
+      this.raws.value = rawValue;
+    }
+  };
+
+  _proto._handleEscapes = function _handleEscapes(prop, value) {
+    if (this._constructed) {
+      var escaped = (0, _cssesc["default"])(value, {
+        isIdentifier: true
+      });
+
+      if (escaped !== value) {
+        this.raws[prop] = escaped;
+      } else {
+        delete this.raws[prop];
+      }
+    }
+  };
+
+  _proto._spacesFor = function _spacesFor(name) {
+    var attrSpaces = {
+      before: '',
+      after: ''
+    };
+    var spaces = this.spaces[name] || {};
+    var rawSpaces = this.raws.spaces && this.raws.spaces[name] || {};
+    return Object.assign(attrSpaces, spaces, rawSpaces);
+  };
+
+  _proto._stringFor = function _stringFor(name, spaceName, concat) {
+    if (spaceName === void 0) {
+      spaceName = name;
+    }
+
+    if (concat === void 0) {
+      concat = defaultAttrConcat;
+    }
+
+    var attrSpaces = this._spacesFor(spaceName);
+
+    return concat(this.stringifyProperty(name), attrSpaces);
+  }
+  /**
+   * returns the offset of the attribute part specified relative to the
+   * start of the node of the output string.
+   *
+   * * "ns" - alias for "namespace"
+   * * "namespace" - the namespace if it exists.
+   * * "attribute" - the attribute name
+   * * "attributeNS" - the start of the attribute or its namespace
+   * * "operator" - the match operator of the attribute
+   * * "value" - The value (string or identifier)
+   * * "insensitive" - the case insensitivity flag;
+   * @param part One of the possible values inside an attribute.
+   * @returns -1 if the name is invalid or the value doesn't exist in this attribute.
+   */
+  ;
+
+  _proto.offsetOf = function offsetOf(name) {
+    var count = 1;
+
+    var attributeSpaces = this._spacesFor("attribute");
+
+    count += attributeSpaces.before.length;
+
+    if (name === "namespace" || name === "ns") {
+      return this.namespace ? count : -1;
+    }
+
+    if (name === "attributeNS") {
+      return count;
+    }
+
+    count += this.namespaceString.length;
+
+    if (this.namespace) {
+      count += 1;
+    }
+
+    if (name === "attribute") {
+      return count;
+    }
+
+    count += this.stringifyProperty("attribute").length;
+    count += attributeSpaces.after.length;
+
+    var operatorSpaces = this._spacesFor("operator");
+
+    count += operatorSpaces.before.length;
+    var operator = this.stringifyProperty("operator");
+
+    if (name === "operator") {
+      return operator ? count : -1;
+    }
+
+    count += operator.length;
+    count += operatorSpaces.after.length;
+
+    var valueSpaces = this._spacesFor("value");
+
+    count += valueSpaces.before.length;
+    var value = this.stringifyProperty("value");
+
+    if (name === "value") {
+      return value ? count : -1;
+    }
+
+    count += value.length;
+    count += valueSpaces.after.length;
+
+    var insensitiveSpaces = this._spacesFor("insensitive");
+
+    count += insensitiveSpaces.before.length;
+
+    if (name === "insensitive") {
+      return this.insensitive ? count : -1;
+    }
+
+    return -1;
+  };
+
+  _proto.toString = function toString() {
+    var _this2 = this;
+
+    var selector = [this.rawSpaceBefore, '['];
+    selector.push(this._stringFor('qualifiedAttribute', 'attribute'));
+
+    if (this.operator && (this.value || this.value === '')) {
+      selector.push(this._stringFor('operator'));
+      selector.push(this._stringFor('value'));
+      selector.push(this._stringFor('insensitiveFlag', 'insensitive', function (attrValue, attrSpaces) {
+        if (attrValue.length > 0 && !_this2.quoted && attrSpaces.before.length === 0 && !(_this2.spaces.value && _this2.spaces.value.after)) {
+          attrSpaces.before = " ";
+        }
+
+        return defaultAttrConcat(attrValue, attrSpaces);
+      }));
+    }
+
+    selector.push(']');
+    selector.push(this.rawSpaceAfter);
+    return selector.join('');
+  };
+
+  _createClass(Attribute, [{
+    key: "quoted",
+    get: function get() {
+      var qm = this.quoteMark;
+      return qm === "'" || qm === '"';
+    },
+    set: function set(value) {
+      warnOfDeprecatedQuotedAssignment();
+    }
+    /**
+     * returns a single (`'`) or double (`"`) quote character if the value is quoted.
+     * returns `null` if the value is not quoted.
+     * returns `undefined` if the quotation state is unknown (this can happen when
+     * the attribute is constructed without specifying a quote mark.)
+     */
+
+  }, {
+    key: "quoteMark",
+    get: function get() {
+      return this._quoteMark;
+    }
+    /**
+     * Set the quote mark to be used by this attribute's value.
+     * If the quote mark changes, the raw (escaped) value at `attr.raws.value` of the attribute
+     * value is updated accordingly.
+     *
+     * @param {"'" | '"' | null} quoteMark The quote mark or `null` if the value should be unquoted.
+     */
+    ,
+    set: function set(quoteMark) {
+      if (!this._constructed) {
+        this._quoteMark = quoteMark;
+        return;
+      }
+
+      if (this._quoteMark !== quoteMark) {
+        this._quoteMark = quoteMark;
+
+        this._syncRawValue();
+      }
+    }
+  }, {
+    key: "qualifiedAttribute",
+    get: function get() {
+      return this.qualifiedName(this.raws.attribute || this.attribute);
+    }
+  }, {
+    key: "insensitiveFlag",
+    get: function get() {
+      return this.insensitive ? 'i' : '';
+    }
+  }, {
+    key: "value",
+    get: function get() {
+      return this._value;
+    }
+    /**
+     * Before 3.0, the value had to be set to an escaped value including any wrapped
+     * quote marks. In 3.0, the semantics of `Attribute.value` changed so that the value
+     * is unescaped during parsing and any quote marks are removed.
+     *
+     * Because the ambiguity of this semantic change, if you set `attr.value = newValue`,
+     * a deprecation warning is raised when the new value contains any characters that would
+     * require escaping (including if it contains wrapped quotes).
+     *
+     * Instead, you should call `attr.setValue(newValue, opts)` and pass options that describe
+     * how the new value is quoted.
+     */
+    ,
+    set: function set(v) {
+      if (this._constructed) {
+        var _unescapeValue2 = unescapeValue(v),
+            deprecatedUsage = _unescapeValue2.deprecatedUsage,
+            unescaped = _unescapeValue2.unescaped,
+            quoteMark = _unescapeValue2.quoteMark;
+
+        if (deprecatedUsage) {
+          warnOfDeprecatedValueAssignment();
+        }
+
+        if (unescaped === this._value && quoteMark === this._quoteMark) {
+          return;
+        }
+
+        this._value = unescaped;
+        this._quoteMark = quoteMark;
+
+        this._syncRawValue();
+      } else {
+        this._value = v;
+      }
+    }
+  }, {
+    key: "attribute",
+    get: function get() {
+      return this._attribute;
+    },
+    set: function set(name) {
+      this._handleEscapes("attribute", name);
+
+      this._attribute = name;
+    }
+  }]);
+
+  return Attribute;
+}(_namespace["default"]);
+
+exports["default"] = Attribute;
+Attribute.NO_QUOTE = null;
+Attribute.SINGLE_QUOTE = "'";
+Attribute.DOUBLE_QUOTE = '"';
+var CSSESC_QUOTE_OPTIONS = (_CSSESC_QUOTE_OPTIONS = {
+  "'": {
+    quotes: 'single',
+    wrap: true
+  },
+  '"': {
+    quotes: 'double',
+    wrap: true
+  }
+}, _CSSESC_QUOTE_OPTIONS[null] = {
+  isIdentifier: true
+}, _CSSESC_QUOTE_OPTIONS);
+
+function defaultAttrConcat(attrValue, attrSpaces) {
+  return "" + attrSpaces.before + attrValue + attrSpaces.after;
+}
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/className.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/className.js ***!
+  \**************************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _cssesc = _interopRequireDefault(__webpack_require__(/*! cssesc */ "./node_modules/cssesc/cssesc.js"));
+
+var _util = __webpack_require__(/*! ../util */ "./node_modules/postcss-selector-parser/dist/util/index.js");
+
+var _node = _interopRequireDefault(__webpack_require__(/*! ./node */ "./node_modules/postcss-selector-parser/dist/selectors/node.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var ClassName = /*#__PURE__*/function (_Node) {
+  _inheritsLoose(ClassName, _Node);
+
+  function ClassName(opts) {
+    var _this;
+
+    _this = _Node.call(this, opts) || this;
+    _this.type = _types.CLASS;
+    _this._constructed = true;
+    return _this;
+  }
+
+  var _proto = ClassName.prototype;
+
+  _proto.valueToString = function valueToString() {
+    return '.' + _Node.prototype.valueToString.call(this);
+  };
+
+  _createClass(ClassName, [{
+    key: "value",
+    get: function get() {
+      return this._value;
+    },
+    set: function set(v) {
+      if (this._constructed) {
+        var escaped = (0, _cssesc["default"])(v, {
+          isIdentifier: true
+        });
+
+        if (escaped !== v) {
+          (0, _util.ensureObject)(this, "raws");
+          this.raws.value = escaped;
+        } else if (this.raws) {
+          delete this.raws.value;
+        }
+      }
+
+      this._value = v;
+    }
+  }]);
+
+  return ClassName;
+}(_node["default"]);
+
+exports["default"] = ClassName;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/combinator.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/combinator.js ***!
+  \***************************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _node = _interopRequireDefault(__webpack_require__(/*! ./node */ "./node_modules/postcss-selector-parser/dist/selectors/node.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Combinator = /*#__PURE__*/function (_Node) {
+  _inheritsLoose(Combinator, _Node);
+
+  function Combinator(opts) {
+    var _this;
+
+    _this = _Node.call(this, opts) || this;
+    _this.type = _types.COMBINATOR;
+    return _this;
+  }
+
+  return Combinator;
+}(_node["default"]);
+
+exports["default"] = Combinator;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/comment.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/comment.js ***!
+  \************************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _node = _interopRequireDefault(__webpack_require__(/*! ./node */ "./node_modules/postcss-selector-parser/dist/selectors/node.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Comment = /*#__PURE__*/function (_Node) {
+  _inheritsLoose(Comment, _Node);
+
+  function Comment(opts) {
+    var _this;
+
+    _this = _Node.call(this, opts) || this;
+    _this.type = _types.COMMENT;
+    return _this;
+  }
+
+  return Comment;
+}(_node["default"]);
+
+exports["default"] = Comment;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/constructors.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/constructors.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.universal = exports.tag = exports.string = exports.selector = exports.root = exports.pseudo = exports.nesting = exports.id = exports.comment = exports.combinator = exports.className = exports.attribute = void 0;
+
+var _attribute = _interopRequireDefault(__webpack_require__(/*! ./attribute */ "./node_modules/postcss-selector-parser/dist/selectors/attribute.js"));
+
+var _className = _interopRequireDefault(__webpack_require__(/*! ./className */ "./node_modules/postcss-selector-parser/dist/selectors/className.js"));
+
+var _combinator = _interopRequireDefault(__webpack_require__(/*! ./combinator */ "./node_modules/postcss-selector-parser/dist/selectors/combinator.js"));
+
+var _comment = _interopRequireDefault(__webpack_require__(/*! ./comment */ "./node_modules/postcss-selector-parser/dist/selectors/comment.js"));
+
+var _id = _interopRequireDefault(__webpack_require__(/*! ./id */ "./node_modules/postcss-selector-parser/dist/selectors/id.js"));
+
+var _nesting = _interopRequireDefault(__webpack_require__(/*! ./nesting */ "./node_modules/postcss-selector-parser/dist/selectors/nesting.js"));
+
+var _pseudo = _interopRequireDefault(__webpack_require__(/*! ./pseudo */ "./node_modules/postcss-selector-parser/dist/selectors/pseudo.js"));
+
+var _root = _interopRequireDefault(__webpack_require__(/*! ./root */ "./node_modules/postcss-selector-parser/dist/selectors/root.js"));
+
+var _selector = _interopRequireDefault(__webpack_require__(/*! ./selector */ "./node_modules/postcss-selector-parser/dist/selectors/selector.js"));
+
+var _string = _interopRequireDefault(__webpack_require__(/*! ./string */ "./node_modules/postcss-selector-parser/dist/selectors/string.js"));
+
+var _tag = _interopRequireDefault(__webpack_require__(/*! ./tag */ "./node_modules/postcss-selector-parser/dist/selectors/tag.js"));
+
+var _universal = _interopRequireDefault(__webpack_require__(/*! ./universal */ "./node_modules/postcss-selector-parser/dist/selectors/universal.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var attribute = function attribute(opts) {
+  return new _attribute["default"](opts);
+};
+
+exports.attribute = attribute;
+
+var className = function className(opts) {
+  return new _className["default"](opts);
+};
+
+exports.className = className;
+
+var combinator = function combinator(opts) {
+  return new _combinator["default"](opts);
+};
+
+exports.combinator = combinator;
+
+var comment = function comment(opts) {
+  return new _comment["default"](opts);
+};
+
+exports.comment = comment;
+
+var id = function id(opts) {
+  return new _id["default"](opts);
+};
+
+exports.id = id;
+
+var nesting = function nesting(opts) {
+  return new _nesting["default"](opts);
+};
+
+exports.nesting = nesting;
+
+var pseudo = function pseudo(opts) {
+  return new _pseudo["default"](opts);
+};
+
+exports.pseudo = pseudo;
+
+var root = function root(opts) {
+  return new _root["default"](opts);
+};
+
+exports.root = root;
+
+var selector = function selector(opts) {
+  return new _selector["default"](opts);
+};
+
+exports.selector = selector;
+
+var string = function string(opts) {
+  return new _string["default"](opts);
+};
+
+exports.string = string;
+
+var tag = function tag(opts) {
+  return new _tag["default"](opts);
+};
+
+exports.tag = tag;
+
+var universal = function universal(opts) {
+  return new _universal["default"](opts);
+};
+
+exports.universal = universal;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/container.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/container.js ***!
+  \**************************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _node = _interopRequireDefault(__webpack_require__(/*! ./node */ "./node_modules/postcss-selector-parser/dist/selectors/node.js"));
+
+var types = _interopRequireWildcard(__webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Container = /*#__PURE__*/function (_Node) {
+  _inheritsLoose(Container, _Node);
+
+  function Container(opts) {
+    var _this;
+
+    _this = _Node.call(this, opts) || this;
+
+    if (!_this.nodes) {
+      _this.nodes = [];
+    }
+
+    return _this;
+  }
+
+  var _proto = Container.prototype;
+
+  _proto.append = function append(selector) {
+    selector.parent = this;
+    this.nodes.push(selector);
+    return this;
+  };
+
+  _proto.prepend = function prepend(selector) {
+    selector.parent = this;
+    this.nodes.unshift(selector);
+    return this;
+  };
+
+  _proto.at = function at(index) {
+    return this.nodes[index];
+  };
+
+  _proto.index = function index(child) {
+    if (typeof child === 'number') {
+      return child;
+    }
+
+    return this.nodes.indexOf(child);
+  };
+
+  _proto.removeChild = function removeChild(child) {
+    child = this.index(child);
+    this.at(child).parent = undefined;
+    this.nodes.splice(child, 1);
+    var index;
+
+    for (var id in this.indexes) {
+      index = this.indexes[id];
+
+      if (index >= child) {
+        this.indexes[id] = index - 1;
+      }
+    }
+
+    return this;
+  };
+
+  _proto.removeAll = function removeAll() {
+    for (var _iterator = _createForOfIteratorHelperLoose(this.nodes), _step; !(_step = _iterator()).done;) {
+      var node = _step.value;
+      node.parent = undefined;
+    }
+
+    this.nodes = [];
+    return this;
+  };
+
+  _proto.empty = function empty() {
+    return this.removeAll();
+  };
+
+  _proto.insertAfter = function insertAfter(oldNode, newNode) {
+    newNode.parent = this;
+    var oldIndex = this.index(oldNode);
+    this.nodes.splice(oldIndex + 1, 0, newNode);
+    newNode.parent = this;
+    var index;
+
+    for (var id in this.indexes) {
+      index = this.indexes[id];
+
+      if (oldIndex <= index) {
+        this.indexes[id] = index + 1;
+      }
+    }
+
+    return this;
+  };
+
+  _proto.insertBefore = function insertBefore(oldNode, newNode) {
+    newNode.parent = this;
+    var oldIndex = this.index(oldNode);
+    this.nodes.splice(oldIndex, 0, newNode);
+    newNode.parent = this;
+    var index;
+
+    for (var id in this.indexes) {
+      index = this.indexes[id];
+
+      if (index <= oldIndex) {
+        this.indexes[id] = index + 1;
+      }
+    }
+
+    return this;
+  };
+
+  _proto._findChildAtPosition = function _findChildAtPosition(line, col) {
+    var found = undefined;
+    this.each(function (node) {
+      if (node.atPosition) {
+        var foundChild = node.atPosition(line, col);
+
+        if (foundChild) {
+          found = foundChild;
+          return false;
+        }
+      } else if (node.isAtPosition(line, col)) {
+        found = node;
+        return false;
+      }
+    });
+    return found;
+  }
+  /**
+   * Return the most specific node at the line and column number given.
+   * The source location is based on the original parsed location, locations aren't
+   * updated as selector nodes are mutated.
+   * 
+   * Note that this location is relative to the location of the first character
+   * of the selector, and not the location of the selector in the overall document
+   * when used in conjunction with postcss.
+   *
+   * If not found, returns undefined.
+   * @param {number} line The line number of the node to find. (1-based index)
+   * @param {number} col  The column number of the node to find. (1-based index)
+   */
+  ;
+
+  _proto.atPosition = function atPosition(line, col) {
+    if (this.isAtPosition(line, col)) {
+      return this._findChildAtPosition(line, col) || this;
+    } else {
+      return undefined;
+    }
+  };
+
+  _proto._inferEndPosition = function _inferEndPosition() {
+    if (this.last && this.last.source && this.last.source.end) {
+      this.source = this.source || {};
+      this.source.end = this.source.end || {};
+      Object.assign(this.source.end, this.last.source.end);
+    }
+  };
+
+  _proto.each = function each(callback) {
+    if (!this.lastEach) {
+      this.lastEach = 0;
+    }
+
+    if (!this.indexes) {
+      this.indexes = {};
+    }
+
+    this.lastEach++;
+    var id = this.lastEach;
+    this.indexes[id] = 0;
+
+    if (!this.length) {
+      return undefined;
+    }
+
+    var index, result;
+
+    while (this.indexes[id] < this.length) {
+      index = this.indexes[id];
+      result = callback(this.at(index), index);
+
+      if (result === false) {
+        break;
+      }
+
+      this.indexes[id] += 1;
+    }
+
+    delete this.indexes[id];
+
+    if (result === false) {
+      return false;
+    }
+  };
+
+  _proto.walk = function walk(callback) {
+    return this.each(function (node, i) {
+      var result = callback(node, i);
+
+      if (result !== false && node.length) {
+        result = node.walk(callback);
+      }
+
+      if (result === false) {
+        return false;
+      }
+    });
+  };
+
+  _proto.walkAttributes = function walkAttributes(callback) {
+    var _this2 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.ATTRIBUTE) {
+        return callback.call(_this2, selector);
+      }
+    });
+  };
+
+  _proto.walkClasses = function walkClasses(callback) {
+    var _this3 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.CLASS) {
+        return callback.call(_this3, selector);
+      }
+    });
+  };
+
+  _proto.walkCombinators = function walkCombinators(callback) {
+    var _this4 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.COMBINATOR) {
+        return callback.call(_this4, selector);
+      }
+    });
+  };
+
+  _proto.walkComments = function walkComments(callback) {
+    var _this5 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.COMMENT) {
+        return callback.call(_this5, selector);
+      }
+    });
+  };
+
+  _proto.walkIds = function walkIds(callback) {
+    var _this6 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.ID) {
+        return callback.call(_this6, selector);
+      }
+    });
+  };
+
+  _proto.walkNesting = function walkNesting(callback) {
+    var _this7 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.NESTING) {
+        return callback.call(_this7, selector);
+      }
+    });
+  };
+
+  _proto.walkPseudos = function walkPseudos(callback) {
+    var _this8 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.PSEUDO) {
+        return callback.call(_this8, selector);
+      }
+    });
+  };
+
+  _proto.walkTags = function walkTags(callback) {
+    var _this9 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.TAG) {
+        return callback.call(_this9, selector);
+      }
+    });
+  };
+
+  _proto.walkUniversals = function walkUniversals(callback) {
+    var _this10 = this;
+
+    return this.walk(function (selector) {
+      if (selector.type === types.UNIVERSAL) {
+        return callback.call(_this10, selector);
+      }
+    });
+  };
+
+  _proto.split = function split(callback) {
+    var _this11 = this;
+
+    var current = [];
+    return this.reduce(function (memo, node, index) {
+      var split = callback.call(_this11, node);
+      current.push(node);
+
+      if (split) {
+        memo.push(current);
+        current = [];
+      } else if (index === _this11.length - 1) {
+        memo.push(current);
+      }
+
+      return memo;
+    }, []);
+  };
+
+  _proto.map = function map(callback) {
+    return this.nodes.map(callback);
+  };
+
+  _proto.reduce = function reduce(callback, memo) {
+    return this.nodes.reduce(callback, memo);
+  };
+
+  _proto.every = function every(callback) {
+    return this.nodes.every(callback);
+  };
+
+  _proto.some = function some(callback) {
+    return this.nodes.some(callback);
+  };
+
+  _proto.filter = function filter(callback) {
+    return this.nodes.filter(callback);
+  };
+
+  _proto.sort = function sort(callback) {
+    return this.nodes.sort(callback);
+  };
+
+  _proto.toString = function toString() {
+    return this.map(String).join('');
+  };
+
+  _createClass(Container, [{
+    key: "first",
+    get: function get() {
+      return this.at(0);
+    }
+  }, {
+    key: "last",
+    get: function get() {
+      return this.at(this.length - 1);
+    }
+  }, {
+    key: "length",
+    get: function get() {
+      return this.nodes.length;
+    }
+  }]);
+
+  return Container;
+}(_node["default"]);
+
+exports["default"] = Container;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/guards.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/guards.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.isNode = isNode;
+exports.isPseudoElement = isPseudoElement;
+exports.isPseudoClass = isPseudoClass;
+exports.isContainer = isContainer;
+exports.isNamespace = isNamespace;
+exports.isUniversal = exports.isTag = exports.isString = exports.isSelector = exports.isRoot = exports.isPseudo = exports.isNesting = exports.isIdentifier = exports.isComment = exports.isCombinator = exports.isClassName = exports.isAttribute = void 0;
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+var _IS_TYPE;
+
+var IS_TYPE = (_IS_TYPE = {}, _IS_TYPE[_types.ATTRIBUTE] = true, _IS_TYPE[_types.CLASS] = true, _IS_TYPE[_types.COMBINATOR] = true, _IS_TYPE[_types.COMMENT] = true, _IS_TYPE[_types.ID] = true, _IS_TYPE[_types.NESTING] = true, _IS_TYPE[_types.PSEUDO] = true, _IS_TYPE[_types.ROOT] = true, _IS_TYPE[_types.SELECTOR] = true, _IS_TYPE[_types.STRING] = true, _IS_TYPE[_types.TAG] = true, _IS_TYPE[_types.UNIVERSAL] = true, _IS_TYPE);
+
+function isNode(node) {
+  return typeof node === "object" && IS_TYPE[node.type];
+}
+
+function isNodeType(type, node) {
+  return isNode(node) && node.type === type;
+}
+
+var isAttribute = isNodeType.bind(null, _types.ATTRIBUTE);
+exports.isAttribute = isAttribute;
+var isClassName = isNodeType.bind(null, _types.CLASS);
+exports.isClassName = isClassName;
+var isCombinator = isNodeType.bind(null, _types.COMBINATOR);
+exports.isCombinator = isCombinator;
+var isComment = isNodeType.bind(null, _types.COMMENT);
+exports.isComment = isComment;
+var isIdentifier = isNodeType.bind(null, _types.ID);
+exports.isIdentifier = isIdentifier;
+var isNesting = isNodeType.bind(null, _types.NESTING);
+exports.isNesting = isNesting;
+var isPseudo = isNodeType.bind(null, _types.PSEUDO);
+exports.isPseudo = isPseudo;
+var isRoot = isNodeType.bind(null, _types.ROOT);
+exports.isRoot = isRoot;
+var isSelector = isNodeType.bind(null, _types.SELECTOR);
+exports.isSelector = isSelector;
+var isString = isNodeType.bind(null, _types.STRING);
+exports.isString = isString;
+var isTag = isNodeType.bind(null, _types.TAG);
+exports.isTag = isTag;
+var isUniversal = isNodeType.bind(null, _types.UNIVERSAL);
+exports.isUniversal = isUniversal;
+
+function isPseudoElement(node) {
+  return isPseudo(node) && node.value && (node.value.startsWith("::") || node.value.toLowerCase() === ":before" || node.value.toLowerCase() === ":after" || node.value.toLowerCase() === ":first-letter" || node.value.toLowerCase() === ":first-line");
+}
+
+function isPseudoClass(node) {
+  return isPseudo(node) && !isPseudoElement(node);
+}
+
+function isContainer(node) {
+  return !!(isNode(node) && node.walk);
+}
+
+function isNamespace(node) {
+  return isAttribute(node) || isTag(node);
+}
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/id.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/id.js ***!
+  \*******************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _node = _interopRequireDefault(__webpack_require__(/*! ./node */ "./node_modules/postcss-selector-parser/dist/selectors/node.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var ID = /*#__PURE__*/function (_Node) {
+  _inheritsLoose(ID, _Node);
+
+  function ID(opts) {
+    var _this;
+
+    _this = _Node.call(this, opts) || this;
+    _this.type = _types.ID;
+    return _this;
+  }
+
+  var _proto = ID.prototype;
+
+  _proto.valueToString = function valueToString() {
+    return '#' + _Node.prototype.valueToString.call(this);
+  };
+
+  return ID;
+}(_node["default"]);
+
+exports["default"] = ID;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/index.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/index.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+Object.keys(_types).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _types[key]) return;
+  exports[key] = _types[key];
+});
+
+var _constructors = __webpack_require__(/*! ./constructors */ "./node_modules/postcss-selector-parser/dist/selectors/constructors.js");
+
+Object.keys(_constructors).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _constructors[key]) return;
+  exports[key] = _constructors[key];
+});
+
+var _guards = __webpack_require__(/*! ./guards */ "./node_modules/postcss-selector-parser/dist/selectors/guards.js");
+
+Object.keys(_guards).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _guards[key]) return;
+  exports[key] = _guards[key];
+});
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/namespace.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/namespace.js ***!
+  \**************************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _cssesc = _interopRequireDefault(__webpack_require__(/*! cssesc */ "./node_modules/cssesc/cssesc.js"));
+
+var _util = __webpack_require__(/*! ../util */ "./node_modules/postcss-selector-parser/dist/util/index.js");
+
+var _node = _interopRequireDefault(__webpack_require__(/*! ./node */ "./node_modules/postcss-selector-parser/dist/selectors/node.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Namespace = /*#__PURE__*/function (_Node) {
+  _inheritsLoose(Namespace, _Node);
+
+  function Namespace() {
+    return _Node.apply(this, arguments) || this;
+  }
+
+  var _proto = Namespace.prototype;
+
+  _proto.qualifiedName = function qualifiedName(value) {
+    if (this.namespace) {
+      return this.namespaceString + "|" + value;
+    } else {
+      return value;
+    }
+  };
+
+  _proto.valueToString = function valueToString() {
+    return this.qualifiedName(_Node.prototype.valueToString.call(this));
+  };
+
+  _createClass(Namespace, [{
+    key: "namespace",
+    get: function get() {
+      return this._namespace;
+    },
+    set: function set(namespace) {
+      if (namespace === true || namespace === "*" || namespace === "&") {
+        this._namespace = namespace;
+
+        if (this.raws) {
+          delete this.raws.namespace;
+        }
+
+        return;
+      }
+
+      var escaped = (0, _cssesc["default"])(namespace, {
+        isIdentifier: true
+      });
+      this._namespace = namespace;
+
+      if (escaped !== namespace) {
+        (0, _util.ensureObject)(this, "raws");
+        this.raws.namespace = escaped;
+      } else if (this.raws) {
+        delete this.raws.namespace;
+      }
+    }
+  }, {
+    key: "ns",
+    get: function get() {
+      return this._namespace;
+    },
+    set: function set(namespace) {
+      this.namespace = namespace;
+    }
+  }, {
+    key: "namespaceString",
+    get: function get() {
+      if (this.namespace) {
+        var ns = this.stringifyProperty("namespace");
+
+        if (ns === true) {
+          return '';
+        } else {
+          return ns;
+        }
+      } else {
+        return '';
+      }
+    }
+  }]);
+
+  return Namespace;
+}(_node["default"]);
+
+exports["default"] = Namespace;
+;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/nesting.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/nesting.js ***!
+  \************************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _node = _interopRequireDefault(__webpack_require__(/*! ./node */ "./node_modules/postcss-selector-parser/dist/selectors/node.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Nesting = /*#__PURE__*/function (_Node) {
+  _inheritsLoose(Nesting, _Node);
+
+  function Nesting(opts) {
+    var _this;
+
+    _this = _Node.call(this, opts) || this;
+    _this.type = _types.NESTING;
+    _this.value = '&';
+    return _this;
+  }
+
+  return Nesting;
+}(_node["default"]);
+
+exports["default"] = Nesting;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/node.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/node.js ***!
+  \*********************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _util = __webpack_require__(/*! ../util */ "./node_modules/postcss-selector-parser/dist/util/index.js");
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var cloneNode = function cloneNode(obj, parent) {
+  if (typeof obj !== 'object' || obj === null) {
+    return obj;
+  }
+
+  var cloned = new obj.constructor();
+
+  for (var i in obj) {
+    if (!obj.hasOwnProperty(i)) {
+      continue;
+    }
+
+    var value = obj[i];
+    var type = typeof value;
+
+    if (i === 'parent' && type === 'object') {
+      if (parent) {
+        cloned[i] = parent;
+      }
+    } else if (value instanceof Array) {
+      cloned[i] = value.map(function (j) {
+        return cloneNode(j, cloned);
+      });
+    } else {
+      cloned[i] = cloneNode(value, cloned);
+    }
+  }
+
+  return cloned;
+};
+
+var Node = /*#__PURE__*/function () {
+  function Node(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    Object.assign(this, opts);
+    this.spaces = this.spaces || {};
+    this.spaces.before = this.spaces.before || '';
+    this.spaces.after = this.spaces.after || '';
+  }
+
+  var _proto = Node.prototype;
+
+  _proto.remove = function remove() {
+    if (this.parent) {
+      this.parent.removeChild(this);
+    }
+
+    this.parent = undefined;
+    return this;
+  };
+
+  _proto.replaceWith = function replaceWith() {
+    if (this.parent) {
+      for (var index in arguments) {
+        this.parent.insertBefore(this, arguments[index]);
+      }
+
+      this.remove();
+    }
+
+    return this;
+  };
+
+  _proto.next = function next() {
+    return this.parent.at(this.parent.index(this) + 1);
+  };
+
+  _proto.prev = function prev() {
+    return this.parent.at(this.parent.index(this) - 1);
+  };
+
+  _proto.clone = function clone(overrides) {
+    if (overrides === void 0) {
+      overrides = {};
+    }
+
+    var cloned = cloneNode(this);
+
+    for (var name in overrides) {
+      cloned[name] = overrides[name];
+    }
+
+    return cloned;
+  }
+  /**
+   * Some non-standard syntax doesn't follow normal escaping rules for css.
+   * This allows non standard syntax to be appended to an existing property
+   * by specifying the escaped value. By specifying the escaped value,
+   * illegal characters are allowed to be directly inserted into css output.
+   * @param {string} name the property to set
+   * @param {any} value the unescaped value of the property
+   * @param {string} valueEscaped optional. the escaped value of the property.
+   */
+  ;
+
+  _proto.appendToPropertyAndEscape = function appendToPropertyAndEscape(name, value, valueEscaped) {
+    if (!this.raws) {
+      this.raws = {};
+    }
+
+    var originalValue = this[name];
+    var originalEscaped = this.raws[name];
+    this[name] = originalValue + value; // this may trigger a setter that updates raws, so it has to be set first.
+
+    if (originalEscaped || valueEscaped !== value) {
+      this.raws[name] = (originalEscaped || originalValue) + valueEscaped;
+    } else {
+      delete this.raws[name]; // delete any escaped value that was created by the setter.
+    }
+  }
+  /**
+   * Some non-standard syntax doesn't follow normal escaping rules for css.
+   * This allows the escaped value to be specified directly, allowing illegal
+   * characters to be directly inserted into css output.
+   * @param {string} name the property to set
+   * @param {any} value the unescaped value of the property
+   * @param {string} valueEscaped the escaped value of the property.
+   */
+  ;
+
+  _proto.setPropertyAndEscape = function setPropertyAndEscape(name, value, valueEscaped) {
+    if (!this.raws) {
+      this.raws = {};
+    }
+
+    this[name] = value; // this may trigger a setter that updates raws, so it has to be set first.
+
+    this.raws[name] = valueEscaped;
+  }
+  /**
+   * When you want a value to passed through to CSS directly. This method
+   * deletes the corresponding raw value causing the stringifier to fallback
+   * to the unescaped value.
+   * @param {string} name the property to set.
+   * @param {any} value The value that is both escaped and unescaped.
+   */
+  ;
+
+  _proto.setPropertyWithoutEscape = function setPropertyWithoutEscape(name, value) {
+    this[name] = value; // this may trigger a setter that updates raws, so it has to be set first.
+
+    if (this.raws) {
+      delete this.raws[name];
+    }
+  }
+  /**
+   *
+   * @param {number} line The number (starting with 1)
+   * @param {number} column The column number (starting with 1)
+   */
+  ;
+
+  _proto.isAtPosition = function isAtPosition(line, column) {
+    if (this.source && this.source.start && this.source.end) {
+      if (this.source.start.line > line) {
+        return false;
+      }
+
+      if (this.source.end.line < line) {
+        return false;
+      }
+
+      if (this.source.start.line === line && this.source.start.column > column) {
+        return false;
+      }
+
+      if (this.source.end.line === line && this.source.end.column < column) {
+        return false;
+      }
+
+      return true;
+    }
+
+    return undefined;
+  };
+
+  _proto.stringifyProperty = function stringifyProperty(name) {
+    return this.raws && this.raws[name] || this[name];
+  };
+
+  _proto.valueToString = function valueToString() {
+    return String(this.stringifyProperty("value"));
+  };
+
+  _proto.toString = function toString() {
+    return [this.rawSpaceBefore, this.valueToString(), this.rawSpaceAfter].join('');
+  };
+
+  _createClass(Node, [{
+    key: "rawSpaceBefore",
+    get: function get() {
+      var rawSpace = this.raws && this.raws.spaces && this.raws.spaces.before;
+
+      if (rawSpace === undefined) {
+        rawSpace = this.spaces && this.spaces.before;
+      }
+
+      return rawSpace || "";
+    },
+    set: function set(raw) {
+      (0, _util.ensureObject)(this, "raws", "spaces");
+      this.raws.spaces.before = raw;
+    }
+  }, {
+    key: "rawSpaceAfter",
+    get: function get() {
+      var rawSpace = this.raws && this.raws.spaces && this.raws.spaces.after;
+
+      if (rawSpace === undefined) {
+        rawSpace = this.spaces.after;
+      }
+
+      return rawSpace || "";
+    },
+    set: function set(raw) {
+      (0, _util.ensureObject)(this, "raws", "spaces");
+      this.raws.spaces.after = raw;
+    }
+  }]);
+
+  return Node;
+}();
+
+exports["default"] = Node;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/pseudo.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/pseudo.js ***!
+  \***********************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _container = _interopRequireDefault(__webpack_require__(/*! ./container */ "./node_modules/postcss-selector-parser/dist/selectors/container.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Pseudo = /*#__PURE__*/function (_Container) {
+  _inheritsLoose(Pseudo, _Container);
+
+  function Pseudo(opts) {
+    var _this;
+
+    _this = _Container.call(this, opts) || this;
+    _this.type = _types.PSEUDO;
+    return _this;
+  }
+
+  var _proto = Pseudo.prototype;
+
+  _proto.toString = function toString() {
+    var params = this.length ? '(' + this.map(String).join(',') + ')' : '';
+    return [this.rawSpaceBefore, this.stringifyProperty("value"), params, this.rawSpaceAfter].join('');
+  };
+
+  return Pseudo;
+}(_container["default"]);
+
+exports["default"] = Pseudo;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/root.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/root.js ***!
+  \*********************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _container = _interopRequireDefault(__webpack_require__(/*! ./container */ "./node_modules/postcss-selector-parser/dist/selectors/container.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Root = /*#__PURE__*/function (_Container) {
+  _inheritsLoose(Root, _Container);
+
+  function Root(opts) {
+    var _this;
+
+    _this = _Container.call(this, opts) || this;
+    _this.type = _types.ROOT;
+    return _this;
+  }
+
+  var _proto = Root.prototype;
+
+  _proto.toString = function toString() {
+    var str = this.reduce(function (memo, selector) {
+      memo.push(String(selector));
+      return memo;
+    }, []).join(',');
+    return this.trailingComma ? str + ',' : str;
+  };
+
+  _proto.error = function error(message, options) {
+    if (this._error) {
+      return this._error(message, options);
+    } else {
+      return new Error(message);
+    }
+  };
+
+  _createClass(Root, [{
+    key: "errorGenerator",
+    set: function set(handler) {
+      this._error = handler;
+    }
+  }]);
+
+  return Root;
+}(_container["default"]);
+
+exports["default"] = Root;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/selector.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/selector.js ***!
+  \*************************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _container = _interopRequireDefault(__webpack_require__(/*! ./container */ "./node_modules/postcss-selector-parser/dist/selectors/container.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Selector = /*#__PURE__*/function (_Container) {
+  _inheritsLoose(Selector, _Container);
+
+  function Selector(opts) {
+    var _this;
+
+    _this = _Container.call(this, opts) || this;
+    _this.type = _types.SELECTOR;
+    return _this;
+  }
+
+  return Selector;
+}(_container["default"]);
+
+exports["default"] = Selector;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/string.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/string.js ***!
+  \***********************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _node = _interopRequireDefault(__webpack_require__(/*! ./node */ "./node_modules/postcss-selector-parser/dist/selectors/node.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var String = /*#__PURE__*/function (_Node) {
+  _inheritsLoose(String, _Node);
+
+  function String(opts) {
+    var _this;
+
+    _this = _Node.call(this, opts) || this;
+    _this.type = _types.STRING;
+    return _this;
+  }
+
+  return String;
+}(_node["default"]);
+
+exports["default"] = String;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/tag.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/tag.js ***!
+  \********************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _namespace = _interopRequireDefault(__webpack_require__(/*! ./namespace */ "./node_modules/postcss-selector-parser/dist/selectors/namespace.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Tag = /*#__PURE__*/function (_Namespace) {
+  _inheritsLoose(Tag, _Namespace);
+
+  function Tag(opts) {
+    var _this;
+
+    _this = _Namespace.call(this, opts) || this;
+    _this.type = _types.TAG;
+    return _this;
+  }
+
+  return Tag;
+}(_namespace["default"]);
+
+exports["default"] = Tag;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/types.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/types.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.UNIVERSAL = exports.ATTRIBUTE = exports.CLASS = exports.COMBINATOR = exports.COMMENT = exports.ID = exports.NESTING = exports.PSEUDO = exports.ROOT = exports.SELECTOR = exports.STRING = exports.TAG = void 0;
+var TAG = 'tag';
+exports.TAG = TAG;
+var STRING = 'string';
+exports.STRING = STRING;
+var SELECTOR = 'selector';
+exports.SELECTOR = SELECTOR;
+var ROOT = 'root';
+exports.ROOT = ROOT;
+var PSEUDO = 'pseudo';
+exports.PSEUDO = PSEUDO;
+var NESTING = 'nesting';
+exports.NESTING = NESTING;
+var ID = 'id';
+exports.ID = ID;
+var COMMENT = 'comment';
+exports.COMMENT = COMMENT;
+var COMBINATOR = 'combinator';
+exports.COMBINATOR = COMBINATOR;
+var CLASS = 'class';
+exports.CLASS = CLASS;
+var ATTRIBUTE = 'attribute';
+exports.ATTRIBUTE = ATTRIBUTE;
+var UNIVERSAL = 'universal';
+exports.UNIVERSAL = UNIVERSAL;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/selectors/universal.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/selectors/universal.js ***!
+  \**************************************************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+
+var _namespace = _interopRequireDefault(__webpack_require__(/*! ./namespace */ "./node_modules/postcss-selector-parser/dist/selectors/namespace.js"));
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/postcss-selector-parser/dist/selectors/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Universal = /*#__PURE__*/function (_Namespace) {
+  _inheritsLoose(Universal, _Namespace);
+
+  function Universal(opts) {
+    var _this;
+
+    _this = _Namespace.call(this, opts) || this;
+    _this.type = _types.UNIVERSAL;
+    _this.value = '*';
+    return _this;
+  }
+
+  return Universal;
+}(_namespace["default"]);
+
+exports["default"] = Universal;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/sortAscending.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/sortAscending.js ***!
+  \********************************************************************/
+/***/ ((module, exports) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = sortAscending;
+
+function sortAscending(list) {
+  return list.sort(function (a, b) {
+    return a - b;
+  });
+}
+
+;
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/tokenTypes.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/tokenTypes.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.combinator = exports.word = exports.comment = exports.str = exports.tab = exports.newline = exports.feed = exports.cr = exports.backslash = exports.bang = exports.slash = exports.doubleQuote = exports.singleQuote = exports.space = exports.greaterThan = exports.pipe = exports.equals = exports.plus = exports.caret = exports.tilde = exports.dollar = exports.closeSquare = exports.openSquare = exports.closeParenthesis = exports.openParenthesis = exports.semicolon = exports.colon = exports.comma = exports.at = exports.asterisk = exports.ampersand = void 0;
+var ampersand = 38; // `&`.charCodeAt(0);
+
+exports.ampersand = ampersand;
+var asterisk = 42; // `*`.charCodeAt(0);
+
+exports.asterisk = asterisk;
+var at = 64; // `@`.charCodeAt(0);
+
+exports.at = at;
+var comma = 44; // `,`.charCodeAt(0);
+
+exports.comma = comma;
+var colon = 58; // `:`.charCodeAt(0);
+
+exports.colon = colon;
+var semicolon = 59; // `;`.charCodeAt(0);
+
+exports.semicolon = semicolon;
+var openParenthesis = 40; // `(`.charCodeAt(0);
+
+exports.openParenthesis = openParenthesis;
+var closeParenthesis = 41; // `)`.charCodeAt(0);
+
+exports.closeParenthesis = closeParenthesis;
+var openSquare = 91; // `[`.charCodeAt(0);
+
+exports.openSquare = openSquare;
+var closeSquare = 93; // `]`.charCodeAt(0);
+
+exports.closeSquare = closeSquare;
+var dollar = 36; // `$`.charCodeAt(0);
+
+exports.dollar = dollar;
+var tilde = 126; // `~`.charCodeAt(0);
+
+exports.tilde = tilde;
+var caret = 94; // `^`.charCodeAt(0);
+
+exports.caret = caret;
+var plus = 43; // `+`.charCodeAt(0);
+
+exports.plus = plus;
+var equals = 61; // `=`.charCodeAt(0);
+
+exports.equals = equals;
+var pipe = 124; // `|`.charCodeAt(0);
+
+exports.pipe = pipe;
+var greaterThan = 62; // `>`.charCodeAt(0);
+
+exports.greaterThan = greaterThan;
+var space = 32; // ` `.charCodeAt(0);
+
+exports.space = space;
+var singleQuote = 39; // `'`.charCodeAt(0);
+
+exports.singleQuote = singleQuote;
+var doubleQuote = 34; // `"`.charCodeAt(0);
+
+exports.doubleQuote = doubleQuote;
+var slash = 47; // `/`.charCodeAt(0);
+
+exports.slash = slash;
+var bang = 33; // `!`.charCodeAt(0);
+
+exports.bang = bang;
+var backslash = 92; // '\\'.charCodeAt(0);
+
+exports.backslash = backslash;
+var cr = 13; // '\r'.charCodeAt(0);
+
+exports.cr = cr;
+var feed = 12; // '\f'.charCodeAt(0);
+
+exports.feed = feed;
+var newline = 10; // '\n'.charCodeAt(0);
+
+exports.newline = newline;
+var tab = 9; // '\t'.charCodeAt(0);
+// Expose aliases primarily for readability.
+
+exports.tab = tab;
+var str = singleQuote; // No good single character representation!
+
+exports.str = str;
+var comment = -1;
+exports.comment = comment;
+var word = -2;
+exports.word = word;
+var combinator = -3;
+exports.combinator = combinator;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/tokenize.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/tokenize.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = tokenize;
+exports.FIELDS = void 0;
+
+var t = _interopRequireWildcard(__webpack_require__(/*! ./tokenTypes */ "./node_modules/postcss-selector-parser/dist/tokenTypes.js"));
+
+var _unescapable, _wordDelimiters;
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var unescapable = (_unescapable = {}, _unescapable[t.tab] = true, _unescapable[t.newline] = true, _unescapable[t.cr] = true, _unescapable[t.feed] = true, _unescapable);
+var wordDelimiters = (_wordDelimiters = {}, _wordDelimiters[t.space] = true, _wordDelimiters[t.tab] = true, _wordDelimiters[t.newline] = true, _wordDelimiters[t.cr] = true, _wordDelimiters[t.feed] = true, _wordDelimiters[t.ampersand] = true, _wordDelimiters[t.asterisk] = true, _wordDelimiters[t.bang] = true, _wordDelimiters[t.comma] = true, _wordDelimiters[t.colon] = true, _wordDelimiters[t.semicolon] = true, _wordDelimiters[t.openParenthesis] = true, _wordDelimiters[t.closeParenthesis] = true, _wordDelimiters[t.openSquare] = true, _wordDelimiters[t.closeSquare] = true, _wordDelimiters[t.singleQuote] = true, _wordDelimiters[t.doubleQuote] = true, _wordDelimiters[t.plus] = true, _wordDelimiters[t.pipe] = true, _wordDelimiters[t.tilde] = true, _wordDelimiters[t.greaterThan] = true, _wordDelimiters[t.equals] = true, _wordDelimiters[t.dollar] = true, _wordDelimiters[t.caret] = true, _wordDelimiters[t.slash] = true, _wordDelimiters);
+var hex = {};
+var hexChars = "0123456789abcdefABCDEF";
+
+for (var i = 0; i < hexChars.length; i++) {
+  hex[hexChars.charCodeAt(i)] = true;
+}
+/**
+ *  Returns the last index of the bar css word
+ * @param {string} css The string in which the word begins
+ * @param {number} start The index into the string where word's first letter occurs
+ */
+
+
+function consumeWord(css, start) {
+  var next = start;
+  var code;
+
+  do {
+    code = css.charCodeAt(next);
+
+    if (wordDelimiters[code]) {
+      return next - 1;
+    } else if (code === t.backslash) {
+      next = consumeEscape(css, next) + 1;
+    } else {
+      // All other characters are part of the word
+      next++;
+    }
+  } while (next < css.length);
+
+  return next - 1;
+}
+/**
+ *  Returns the last index of the escape sequence
+ * @param {string} css The string in which the sequence begins
+ * @param {number} start The index into the string where escape character (`\`) occurs.
+ */
+
+
+function consumeEscape(css, start) {
+  var next = start;
+  var code = css.charCodeAt(next + 1);
+
+  if (unescapable[code]) {// just consume the escape char
+  } else if (hex[code]) {
+    var hexDigits = 0; // consume up to 6 hex chars
+
+    do {
+      next++;
+      hexDigits++;
+      code = css.charCodeAt(next + 1);
+    } while (hex[code] && hexDigits < 6); // if fewer than 6 hex chars, a trailing space ends the escape
+
+
+    if (hexDigits < 6 && code === t.space) {
+      next++;
+    }
+  } else {
+    // the next char is part of the current word
+    next++;
+  }
+
+  return next;
+}
+
+var FIELDS = {
+  TYPE: 0,
+  START_LINE: 1,
+  START_COL: 2,
+  END_LINE: 3,
+  END_COL: 4,
+  START_POS: 5,
+  END_POS: 6
+};
+exports.FIELDS = FIELDS;
+
+function tokenize(input) {
+  var tokens = [];
+  var css = input.css.valueOf();
+  var _css = css,
+      length = _css.length;
+  var offset = -1;
+  var line = 1;
+  var start = 0;
+  var end = 0;
+  var code, content, endColumn, endLine, escaped, escapePos, last, lines, next, nextLine, nextOffset, quote, tokenType;
+
+  function unclosed(what, fix) {
+    if (input.safe) {
+      // fyi: this is never set to true.
+      css += fix;
+      next = css.length - 1;
+    } else {
+      throw input.error('Unclosed ' + what, line, start - offset, start);
+    }
+  }
+
+  while (start < length) {
+    code = css.charCodeAt(start);
+
+    if (code === t.newline) {
+      offset = start;
+      line += 1;
+    }
+
+    switch (code) {
+      case t.space:
+      case t.tab:
+      case t.newline:
+      case t.cr:
+      case t.feed:
+        next = start;
+
+        do {
+          next += 1;
+          code = css.charCodeAt(next);
+
+          if (code === t.newline) {
+            offset = next;
+            line += 1;
+          }
+        } while (code === t.space || code === t.newline || code === t.tab || code === t.cr || code === t.feed);
+
+        tokenType = t.space;
+        endLine = line;
+        endColumn = next - offset - 1;
+        end = next;
+        break;
+
+      case t.plus:
+      case t.greaterThan:
+      case t.tilde:
+      case t.pipe:
+        next = start;
+
+        do {
+          next += 1;
+          code = css.charCodeAt(next);
+        } while (code === t.plus || code === t.greaterThan || code === t.tilde || code === t.pipe);
+
+        tokenType = t.combinator;
+        endLine = line;
+        endColumn = start - offset;
+        end = next;
+        break;
+      // Consume these characters as single tokens.
+
+      case t.asterisk:
+      case t.ampersand:
+      case t.bang:
+      case t.comma:
+      case t.equals:
+      case t.dollar:
+      case t.caret:
+      case t.openSquare:
+      case t.closeSquare:
+      case t.colon:
+      case t.semicolon:
+      case t.openParenthesis:
+      case t.closeParenthesis:
+        next = start;
+        tokenType = code;
+        endLine = line;
+        endColumn = start - offset;
+        end = next + 1;
+        break;
+
+      case t.singleQuote:
+      case t.doubleQuote:
+        quote = code === t.singleQuote ? "'" : '"';
+        next = start;
+
+        do {
+          escaped = false;
+          next = css.indexOf(quote, next + 1);
+
+          if (next === -1) {
+            unclosed('quote', quote);
+          }
+
+          escapePos = next;
+
+          while (css.charCodeAt(escapePos - 1) === t.backslash) {
+            escapePos -= 1;
+            escaped = !escaped;
+          }
+        } while (escaped);
+
+        tokenType = t.str;
+        endLine = line;
+        endColumn = start - offset;
+        end = next + 1;
+        break;
+
+      default:
+        if (code === t.slash && css.charCodeAt(start + 1) === t.asterisk) {
+          next = css.indexOf('*/', start + 2) + 1;
+
+          if (next === 0) {
+            unclosed('comment', '*/');
+          }
+
+          content = css.slice(start, next + 1);
+          lines = content.split('\n');
+          last = lines.length - 1;
+
+          if (last > 0) {
+            nextLine = line + last;
+            nextOffset = next - lines[last].length;
+          } else {
+            nextLine = line;
+            nextOffset = offset;
+          }
+
+          tokenType = t.comment;
+          line = nextLine;
+          endLine = nextLine;
+          endColumn = next - nextOffset;
+        } else if (code === t.slash) {
+          next = start;
+          tokenType = code;
+          endLine = line;
+          endColumn = start - offset;
+          end = next + 1;
+        } else {
+          next = consumeWord(css, start);
+          tokenType = t.word;
+          endLine = line;
+          endColumn = next - offset;
+        }
+
+        end = next + 1;
+        break;
+    } // Ensure that the token structure remains consistent
+
+
+    tokens.push([tokenType, // [0] Token type
+    line, // [1] Starting line
+    start - offset, // [2] Starting column
+    endLine, // [3] Ending line
+    endColumn, // [4] Ending column
+    start, // [5] Start position / Source index
+    end // [6] End position
+    ]); // Reset offset for the next token
+
+    if (nextOffset) {
+      offset = nextOffset;
+      nextOffset = null;
+    }
+
+    start = end;
+  }
+
+  return tokens;
+}
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/util/ensureObject.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/util/ensureObject.js ***!
+  \************************************************************************/
+/***/ ((module, exports) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = ensureObject;
+
+function ensureObject(obj) {
+  for (var _len = arguments.length, props = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    props[_key - 1] = arguments[_key];
+  }
+
+  while (props.length > 0) {
+    var prop = props.shift();
+
+    if (!obj[prop]) {
+      obj[prop] = {};
+    }
+
+    obj = obj[prop];
+  }
+}
+
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/util/getProp.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/util/getProp.js ***!
+  \*******************************************************************/
+/***/ ((module, exports) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = getProp;
+
+function getProp(obj) {
+  for (var _len = arguments.length, props = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    props[_key - 1] = arguments[_key];
+  }
+
+  while (props.length > 0) {
+    var prop = props.shift();
+
+    if (!obj[prop]) {
+      return undefined;
+    }
+
+    obj = obj[prop];
+  }
+
+  return obj;
+}
+
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/util/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/util/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.stripComments = exports.ensureObject = exports.getProp = exports.unesc = void 0;
+
+var _unesc = _interopRequireDefault(__webpack_require__(/*! ./unesc */ "./node_modules/postcss-selector-parser/dist/util/unesc.js"));
+
+exports.unesc = _unesc["default"];
+
+var _getProp = _interopRequireDefault(__webpack_require__(/*! ./getProp */ "./node_modules/postcss-selector-parser/dist/util/getProp.js"));
+
+exports.getProp = _getProp["default"];
+
+var _ensureObject = _interopRequireDefault(__webpack_require__(/*! ./ensureObject */ "./node_modules/postcss-selector-parser/dist/util/ensureObject.js"));
+
+exports.ensureObject = _ensureObject["default"];
+
+var _stripComments = _interopRequireDefault(__webpack_require__(/*! ./stripComments */ "./node_modules/postcss-selector-parser/dist/util/stripComments.js"));
+
+exports.stripComments = _stripComments["default"];
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/util/stripComments.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/util/stripComments.js ***!
+  \*************************************************************************/
+/***/ ((module, exports) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = stripComments;
+
+function stripComments(str) {
+  var s = "";
+  var commentStart = str.indexOf("/*");
+  var lastEnd = 0;
+
+  while (commentStart >= 0) {
+    s = s + str.slice(lastEnd, commentStart);
+    var commentEnd = str.indexOf("*/", commentStart + 2);
+
+    if (commentEnd < 0) {
+      return s;
+    }
+
+    lastEnd = commentEnd + 2;
+    commentStart = str.indexOf("/*", lastEnd);
+  }
+
+  s = s + str.slice(lastEnd);
+  return s;
+}
+
+module.exports = exports.default;
+
+/***/ }),
+
+/***/ "./node_modules/postcss-selector-parser/dist/util/unesc.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/postcss-selector-parser/dist/util/unesc.js ***!
+  \*****************************************************************/
+/***/ ((module, exports) => {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = unesc;
+
+// Many thanks for this post which made this migration much easier.
+// https://mathiasbynens.be/notes/css-escapes
+
+/**
+ * 
+ * @param {string} str 
+ * @returns {[string, number]|undefined}
+ */
+function gobbleHex(str) {
+  var lower = str.toLowerCase();
+  var hex = '';
+  var spaceTerminated = false;
+
+  for (var i = 0; i < 6 && lower[i] !== undefined; i++) {
+    var code = lower.charCodeAt(i); // check to see if we are dealing with a valid hex char [a-f|0-9]
+
+    var valid = code >= 97 && code <= 102 || code >= 48 && code <= 57; // https://drafts.csswg.org/css-syntax/#consume-escaped-code-point
+
+    spaceTerminated = code === 32;
+
+    if (!valid) {
+      break;
+    }
+
+    hex += lower[i];
+  }
+
+  if (hex.length === 0) {
+    return undefined;
+  }
+
+  var codePoint = parseInt(hex, 16);
+  var isSurrogate = codePoint >= 0xD800 && codePoint <= 0xDFFF; // Add special case for
+  // "If this number is zero, or is for a surrogate, or is greater than the maximum allowed code point"
+  // https://drafts.csswg.org/css-syntax/#maximum-allowed-code-point
+
+  if (isSurrogate || codePoint === 0x0000 || codePoint > 0x10FFFF) {
+    return ["\uFFFD", hex.length + (spaceTerminated ? 1 : 0)];
+  }
+
+  return [String.fromCodePoint(codePoint), hex.length + (spaceTerminated ? 1 : 0)];
+}
+
+var CONTAINS_ESCAPE = /\\/;
+
+function unesc(str) {
+  var needToProcess = CONTAINS_ESCAPE.test(str);
+
+  if (!needToProcess) {
+    return str;
+  }
+
+  var ret = "";
+
+  for (var i = 0; i < str.length; i++) {
+    if (str[i] === "\\") {
+      var gobbled = gobbleHex(str.slice(i + 1, i + 7));
+
+      if (gobbled !== undefined) {
+        ret += gobbled[0];
+        i += gobbled[1];
+        continue;
+      } // Retain a pair of \\ if double escaped `\\\\`
+      // https://github.com/postcss/postcss-selector-parser/commit/268c9a7656fb53f543dc620aa5b73a30ec3ff20e
+
+
+      if (str[i + 1] === "\\") {
+        ret += "\\";
+        i++;
+        continue;
+      } // if \\ is at the end of the string retain it
+      // https://github.com/postcss/postcss-selector-parser/commit/01a6b346e3612ce1ab20219acc26abdc259ccefb
+
+
+      if (str.length === i + 1) {
+        ret += str[i];
+      }
+
+      continue;
+    }
+
+    ret += str[i];
+  }
+
+  return ret;
+}
+
+module.exports = exports.default;
 
 /***/ }),
 
@@ -27754,6 +36342,18 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/tailwindcss/colors.js":
+/*!********************************************!*\
+  !*** ./node_modules/tailwindcss/colors.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+let colors = __webpack_require__(/*! ./lib/public/colors */ "./node_modules/tailwindcss/lib/public/colors.js")
+module.exports = (colors.__esModule ? colors : { default: colors }).default
+
+
+/***/ }),
+
 /***/ "./node_modules/tailwindcss/lib/corePluginList.js":
 /*!********************************************************!*\
   !*** ./node_modules/tailwindcss/lib/corePluginList.js ***!
@@ -28353,6 +36953,30 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ "./node_modules/tailwindcss/lib/public/create-plugin.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/tailwindcss/lib/public/create-plugin.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+exports["default"] = void 0;
+var _createPlugin = _interopRequireDefault(__webpack_require__(/*! ../util/createPlugin */ "./node_modules/tailwindcss/lib/util/createPlugin.js"));
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+var _default = _createPlugin.default;
+exports["default"] = _default;
+
+
+/***/ }),
+
 /***/ "./node_modules/tailwindcss/lib/public/resolve-config.js":
 /*!***************************************************************!*\
   !*** ./node_modules/tailwindcss/lib/public/resolve-config.js ***!
@@ -28438,6 +37062,46 @@ function _default(pluginConfig, plugins) {
     ];
     return pluginNames;
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/tailwindcss/lib/util/createPlugin.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/tailwindcss/lib/util/createPlugin.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+exports["default"] = void 0;
+function createPlugin(plugin, config) {
+    return {
+        handler: plugin,
+        config
+    };
+}
+createPlugin.withOptions = function(pluginFunction, configFunction = ()=>({})
+) {
+    const optionsFunction = function(options) {
+        return {
+            __options: options,
+            handler: pluginFunction(options),
+            config: configFunction(options)
+        };
+    };
+    optionsFunction.__isOptionsFunction = true;
+    // Expose plugin dependencies so that `object-hash` returns a different
+    // value if anything here changes, to ensure a rebuild is triggered.
+    optionsFunction.__pluginFunction = pluginFunction;
+    optionsFunction.__configFunction = configFunction;
+    return optionsFunction;
+};
+var _default = createPlugin;
+exports["default"] = _default;
 
 
 /***/ }),
@@ -29146,6 +37810,18 @@ function toPath(path) {
     }
     return path.split(/\.(?![^\[]*\])|[\[\]]/g).filter(Boolean);
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/tailwindcss/plugin.js":
+/*!********************************************!*\
+  !*** ./node_modules/tailwindcss/plugin.js ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+let createPlugin = __webpack_require__(/*! ./lib/public/create-plugin */ "./node_modules/tailwindcss/lib/public/create-plugin.js")
+module.exports = (createPlugin.__esModule ? createPlugin : { default: createPlugin }).default
 
 
 /***/ }),
@@ -30122,6 +38798,83 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/util-deprecate/browser.js":
+/*!************************************************!*\
+  !*** ./node_modules/util-deprecate/browser.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+
+/**
+ * Module exports.
+ */
+
+module.exports = deprecate;
+
+/**
+ * Mark that a method should not be used.
+ * Returns a modified function which warns once by default.
+ *
+ * If `localStorage.noDeprecation = true` is set, then it is a no-op.
+ *
+ * If `localStorage.throwDeprecation = true` is set, then deprecated functions
+ * will throw an Error when invoked.
+ *
+ * If `localStorage.traceDeprecation = true` is set, then deprecated functions
+ * will invoke `console.trace()` instead of `console.error()`.
+ *
+ * @param {Function} fn - the function to deprecate
+ * @param {String} msg - the string to print to the console when `fn` is invoked
+ * @returns {Function} a new "deprecated" version of `fn`
+ * @api public
+ */
+
+function deprecate (fn, msg) {
+  if (config('noDeprecation')) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (config('throwDeprecation')) {
+        throw new Error(msg);
+      } else if (config('traceDeprecation')) {
+        console.trace(msg);
+      } else {
+        console.warn(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+}
+
+/**
+ * Checks `localStorage` for boolean values for the given `name`.
+ *
+ * @param {String} name
+ * @returns {Boolean}
+ * @api private
+ */
+
+function config (name) {
+  // accessing global.localStorage can trigger a DOMException in sandboxed iframes
+  try {
+    if (!__webpack_require__.g.localStorage) return false;
+  } catch (_) {
+    return false;
+  }
+  var val = __webpack_require__.g.localStorage[name];
+  if (null == val) return false;
+  return String(val).toLowerCase() === 'true';
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/uuid/dist/esm-browser/regex.js":
 /*!*****************************************************!*\
   !*** ./node_modules/uuid/dist/esm-browser/regex.js ***!
@@ -30513,6 +39266,18 @@ module.exports = JSON.parse('{"v0.8":{"start":"2012-06-25","end":"2014-07-31"},"
 /******/ 				}
 /******/ 			}
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
