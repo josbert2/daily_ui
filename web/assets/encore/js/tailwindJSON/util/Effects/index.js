@@ -4,7 +4,7 @@ import { BoxShadowColor } from "./BoxShadowColor"
 import { MixBlendMode } from "./MixBlendMode"
 import { BackgroundBlendMode } from "./BackgroundBlendMode"
 
-export const Interactivity = (fullConfigTW) => {
+export const Effects = (fullConfigTW) => {
       var dataPush = []
       var fullConfigTWMain = fullConfigTW
    

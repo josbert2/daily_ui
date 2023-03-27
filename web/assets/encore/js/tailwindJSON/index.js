@@ -3,19 +3,30 @@
 
 
 import { Layouts } from "./util/Layouts"
-
+import { FlexboxGrid } from "./util/FlexboxGrid"
+import { Spacing } from "./util/Spacing"
+import { Sizing } from "./util/Sizing"
+import { Typography } from "./util/Typography"
+import { Backgrounds } from "./util/Background"
 import { Border } from "./util/Border"
+import { Effects } from "./util/Effects"
+import { Filters } from "./util/Filters"
+import { Tables } from "./util/Tables"
+import { Transition } from "./util/Transition"
+import { Transform } from "./util/Transform"
+import { Interactivity } from "./util/Interactivity"
+import { Svg } from "./util/Svg"
+
 import { Divide } from "./util/Divide"
 import { Outline } from "./util/Outline"
 
-import { Svg } from "./util/Svg"
-import { Interactivity } from "./util/Interactivity"
 
-import { Transform } from "./util/Transform"
-import { Transition } from "./util/Transition"
 
-import { Typography } from "./util/Typography"
-import { FlexboxGrid } from "./util/FlexboxGrid"
+
+
+
+
+
 
 
 
@@ -32,16 +43,22 @@ export const mainMasterData = (fullConfigTW, data) => {
     const ObjTW = {
         //'aspectRatio': AspectRatio(fullConfigTWMain),
 
+        "Layouts": Layouts(fullConfigTWMain),
+        "FlexboxGrid": FlexboxGrid(fullConfigTWMain),
+        "Spacing": Spacing(fullConfigTWMain),
+        "Sizing": Sizing(fullConfigTWMain),
+        "Typography": Typography(fullConfigTWMain),
+        "Backgrounds": Backgrounds(fullConfigTWMain),
         "Border": Border(fullConfigTWMain),
+        "Effects": Effects(fullConfigTWMain),
+        "Filters": Filters(fullConfigTWMain),
+        "Tables": Tables(fullConfigTWMain),
+        "Transition": Transition(fullConfigTWMain),
+        "Transform": Transform(fullConfigTWMain),
+        "Interactivity": Interactivity(fullConfigTWMain),
+        "Svg": Svg(fullConfigTWMain),
         "Divide": Divide(fullConfigTWMain),
         "Outline": Outline(fullConfigTWMain),
-        "Layouts": Layouts(fullConfigTWMain),
-        "Svg": Svg(fullConfigTWMain),
-        "Interactivity": Interactivity(fullConfigTWMain),
-        "Transform": Transform(fullConfigTWMain),
-        "Transition": Transition(fullConfigTWMain),
-        "Typography": Typography(fullConfigTWMain),
-        "FlexboxGrid": FlexboxGrid(fullConfigTWMain),
 
     }
 

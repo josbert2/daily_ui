@@ -2,7 +2,7 @@ import { BackgroundAttachment } from './BackgroundAttachment'
 import { BackgroundClip } from './BackgroundClip'
 import { BackgroundColor } from './BackgroundColor'
 import { BackgroundImage } from './BackgroundImage'
-import { BackgroundOpacity } from './BackgroundOpacity'
+
 import { BackgroundPosition } from './BackgroundPosition'
 import { BackgroundRepeat } from './BackgroundRepeat'
 import { BackgroundSize } from './BackgroundSize'
@@ -17,7 +17,6 @@ export const Backgrounds = (fullConfigTW) => {
              "backgroundClip": BackgroundClip(fullConfigTWMain),
              "backgroundColor": BackgroundColor(fullConfigTWMain),
              "backgroundImage": BackgroundImage(fullConfigTWMain),
-             "backgroundOpacity": BackgroundOpacity(fullConfigTWMain),
              "backgroundPosition": BackgroundPosition(fullConfigTWMain),
              "backgroundRepeat": BackgroundRepeat(fullConfigTWMain),
              "backgroundSize": BackgroundSize(fullConfigTWMain)

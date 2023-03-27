@@ -4,11 +4,12 @@ export const BorderSpacing = (fullConfigTW) => {
    var prefix = 'border'
    var prefixPosition = ['x', 'y', 'z']
    var prefixSpace = fullConfigTW.theme.borderSpacing
+   console.log( fullConfigTW.theme)
 
-
-   for (var i = 0; i <  prefixPosition.length; i++) {
-      for (const [key, value] of Object.entries(prefixSpace)) {
-         dataPush.push(prefix + '-' + prefixPosition[i] + '-' + key)
+   console.log(prefixPosition.length)
+  for (var i = 0; i < prefixPosition.length; i++) {
+      for (var j = 0; j < prefixSpace.length; j++) {
+         dataPush.push(prefix + '-' + prefixPosition[i] + '-' + prefixSpace[j])
       }
    }
            
