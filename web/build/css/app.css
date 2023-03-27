@@ -1680,15 +1680,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   outline: 2px solid #0620ff !important;
 }.btn-tw-class {
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-}.btn-tw-class :hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(31 41 55/var(--tw-bg-opacity));
-}.btn-tw-class.tab-tw-inspect-btn.active-tab-selector {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246/var(--tw-bg-opacity));
-}.btn-tw-class.tab-tw-inspect-btn2.active-tab-selector2 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246/var(--tw-bg-opacity));
 }.class-linear-tw {
   padding: 4px;
 }.live-editor-tw {
@@ -2013,7 +2004,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: block;
 }.generate-button span:before {
   content: "";
-  background-image: linear-gradient(to right, transparent, #1D1D1D);
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -2105,6 +2095,66 @@ Ensure the default browser behavior of the `hidden` attribute.
     stroke-dashoffset: 6;
     opacity: 0;
   }
+}.decorate-btn {
+  --generate-button-star-1-opacity: .25;
+  --generate-button-star-1-scale: 1;
+  --generate-button-star-2-opacity: 1;
+  --generate-button-star-2-scale: 1;
+  --generate-button-star-3-opacity: .5;
+  --generate-button-star-3-scale: 1;
+  --generate-button-dots-opacity: 0;
+  --cut: 0.1em;
+  --active: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, color 0.3s;
+  box-shadow: 0 0.05em 0 0 hsl(260, calc(var(--active) * 97%), calc(var(--active) * 50% + 30%)) inset, 0 -0.05em 0 0 hsl(260, calc(var(--active) * 97%), calc(var(--active) * 60%)) inset;
+}.decorate-btn::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 20%;
+  height: 20px;
+  left: 20%;
+  bottom: -10px;
+  background: #D3B3FF;
+  filter: blur(12.5px);
+  z-index: 2;
+  -webkit-clip-path: inset(-200% -30% 10px -30% round 29px);
+  clip-path: inset(-200% -30% 10px -30% round 29px);
+  opacity: 0;
+  transition: opacity 0.4s;
+  transform: translateZ(0);
+}.decorate-btn:hover {
+  --generate-button-scale: 1.1;
+  --generate-button-shadow-wide: rgba(208, 173, 255, 0.4);
+  --generate-button-shadow-inset: rgba(255, 255, 255, 0.35);
+  --generate-button-shadow-outline: 3px;
+  --active: 1;
+  color: #fff;
+  background-color: #6d44f423;
+}.decorate-btn.active-tab-selector {
+  --generate-button-scale: 1.1;
+  --generate-button-shadow-wide: rgba(208, 173, 255, 0.4);
+  --generate-button-shadow-inset: rgba(255, 255, 255, 0.35);
+  --generate-button-shadow-outline: 3px;
+  --active: 1;
+  color: #fff;
+  background-color: #6d44f44d;
+}.generate-text {
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 1;
+  font-family: "Poppins", Arial;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 26px;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  display: block;
+  color: #616161;
+}.generate-text.active-tab-selector {
+  color: #fff;
 }/*
 body{
     background-color: black;

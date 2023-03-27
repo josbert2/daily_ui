@@ -780,9 +780,9 @@ function get500Colores(value){
                  </nav>
                  <div class="flex-1 py-2 my-2 overflow-auto scroll scroll-main ">
                      <div class="px-4 init-config scroll data-content-tab" data-content-tab="p1">
-                         <div class="flex w-full px-1 py-1 bg-gray-100 rounded-full bg-opacity-5">
-                             <button data-id="live" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class">Live</button>
-                             <button data-id="preview" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class">Preview</button>
+                         <div class="flex w-full gap-2 px-1 py-1 bg-gray-100 rounded-full bg-opacity-5">
+                             <button data-id="live" class="w-full decorate-btn px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn active-tab-selector btn-tw-class generate-text">Live</button>
+                             <button data-id="preview" class="w-full px-2 py-2 rounded-full cursor-pointer tab-tw-inspect-btn btn-tw-class generate-text decorate-btn">Preview</button>
                              
                          </div>
                          <div class="overflow-auto live-editor-tw scroll">
