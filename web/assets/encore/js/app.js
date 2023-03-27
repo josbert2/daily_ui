@@ -13,8 +13,6 @@ import { data } from 'autoprefixer'
 import { mainMasterData } from './tailwindJSON/index'
 
 
-
-
 import { Colors } from './tailwindJSON/util/Colors'
 
 
@@ -1199,6 +1197,10 @@ function setSnackBar(message){
 
 
 //trigger-color-click but hover
+
+
+
+console.log(mainMasterData(resolveConfig(fullConfigTW), dataMaster))
 
 
 

@@ -11055,15 +11055,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "mainMasterData": () => (/* binding */ mainMasterData)
 /* harmony export */ });
 /* harmony import */ var _util_Layouts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util/Layouts */ "./web/assets/encore/js/tailwindJSON/util/Layouts/index.js");
-/* harmony import */ var _util_Border__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util/Border */ "./web/assets/encore/js/tailwindJSON/util/Border/index.js");
-/* harmony import */ var _util_Divide__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util/Divide */ "./web/assets/encore/js/tailwindJSON/util/Divide/index.js");
-/* harmony import */ var _util_Outline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/Outline */ "./web/assets/encore/js/tailwindJSON/util/Outline/index.js");
-/* harmony import */ var _util_Svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/Svg */ "./web/assets/encore/js/tailwindJSON/util/Svg/index.js");
-/* harmony import */ var _util_Interactivity__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/Interactivity */ "./web/assets/encore/js/tailwindJSON/util/Interactivity/index.js");
-/* harmony import */ var _util_Transform__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/Transform */ "./web/assets/encore/js/tailwindJSON/util/Transform/index.js");
-/* harmony import */ var _util_Transition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/Transition */ "./web/assets/encore/js/tailwindJSON/util/Transition/index.js");
-/* harmony import */ var _util_Typography__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/Typography */ "./web/assets/encore/js/tailwindJSON/util/Typography/index.js");
-/* harmony import */ var _util_FlexboxGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util/FlexboxGrid */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/index.js");
+/* harmony import */ var _util_FlexboxGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util/FlexboxGrid */ "./web/assets/encore/js/tailwindJSON/util/FlexboxGrid/index.js");
+/* harmony import */ var _util_Spacing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util/Spacing */ "./web/assets/encore/js/tailwindJSON/util/Spacing/index.js");
+/* harmony import */ var _util_Sizing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/Sizing */ "./web/assets/encore/js/tailwindJSON/util/Sizing/index.js");
+/* harmony import */ var _util_Typography__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/Typography */ "./web/assets/encore/js/tailwindJSON/util/Typography/index.js");
+/* harmony import */ var _util_Background__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/Background */ "./web/assets/encore/js/tailwindJSON/util/Background/index.js");
+/* harmony import */ var _util_Border__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/Border */ "./web/assets/encore/js/tailwindJSON/util/Border/index.js");
+/* harmony import */ var _util_Effects__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/Effects */ "./web/assets/encore/js/tailwindJSON/util/Effects/index.js");
+/* harmony import */ var _util_Filters__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./util/Filters */ "./web/assets/encore/js/tailwindJSON/util/Filters/index.js");
+/* harmony import */ var _util_Tables__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util/Tables */ "./web/assets/encore/js/tailwindJSON/util/Tables/index.js");
+/* harmony import */ var _util_Transition__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./util/Transition */ "./web/assets/encore/js/tailwindJSON/util/Transition/index.js");
+/* harmony import */ var _util_Transform__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./util/Transform */ "./web/assets/encore/js/tailwindJSON/util/Transform/index.js");
+/* harmony import */ var _util_Interactivity__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./util/Interactivity */ "./web/assets/encore/js/tailwindJSON/util/Interactivity/index.js");
+/* harmony import */ var _util_Svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./util/Svg */ "./web/assets/encore/js/tailwindJSON/util/Svg/index.js");
+/* harmony import */ var _util_Divide__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./util/Divide */ "./web/assets/encore/js/tailwindJSON/util/Divide/index.js");
+/* harmony import */ var _util_Outline__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./util/Outline */ "./web/assets/encore/js/tailwindJSON/util/Outline/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -11086,22 +11092,34 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
+
+
 var mainMasterData = function mainMasterData(fullConfigTW, data) {
   var dataPush = [];
   var fullConfigTWMain = fullConfigTW;
   var fullDataMaster = data;
   var ObjTW = {
     //'aspectRatio': AspectRatio(fullConfigTWMain),
-    "Border": (0,_util_Border__WEBPACK_IMPORTED_MODULE_1__.Border)(fullConfigTWMain),
-    "Divide": (0,_util_Divide__WEBPACK_IMPORTED_MODULE_2__.Divide)(fullConfigTWMain),
-    "Outline": (0,_util_Outline__WEBPACK_IMPORTED_MODULE_3__.Outline)(fullConfigTWMain),
     "Layouts": (0,_util_Layouts__WEBPACK_IMPORTED_MODULE_0__.Layouts)(fullConfigTWMain),
-    "Svg": (0,_util_Svg__WEBPACK_IMPORTED_MODULE_4__.Svg)(fullConfigTWMain),
-    "Interactivity": (0,_util_Interactivity__WEBPACK_IMPORTED_MODULE_5__.Interactivity)(fullConfigTWMain),
-    "Transform": (0,_util_Transform__WEBPACK_IMPORTED_MODULE_6__.Transform)(fullConfigTWMain),
-    "Transition": (0,_util_Transition__WEBPACK_IMPORTED_MODULE_7__.Transition)(fullConfigTWMain),
-    "Typography": (0,_util_Typography__WEBPACK_IMPORTED_MODULE_8__.Typography)(fullConfigTWMain),
-    "FlexboxGrid": (0,_util_FlexboxGrid__WEBPACK_IMPORTED_MODULE_9__.FlexboxGrid)(fullConfigTWMain)
+    "FlexboxGrid": (0,_util_FlexboxGrid__WEBPACK_IMPORTED_MODULE_1__.FlexboxGrid)(fullConfigTWMain),
+    "Spacing": (0,_util_Spacing__WEBPACK_IMPORTED_MODULE_2__.Spacing)(fullConfigTWMain),
+    "Sizing": (0,_util_Sizing__WEBPACK_IMPORTED_MODULE_3__.Sizing)(fullConfigTWMain),
+    "Typography": (0,_util_Typography__WEBPACK_IMPORTED_MODULE_4__.Typography)(fullConfigTWMain),
+    "Backgrounds": (0,_util_Background__WEBPACK_IMPORTED_MODULE_5__.Backgrounds)(fullConfigTWMain),
+    "Border": (0,_util_Border__WEBPACK_IMPORTED_MODULE_6__.Border)(fullConfigTWMain),
+    "Effects": (0,_util_Effects__WEBPACK_IMPORTED_MODULE_7__.Effects)(fullConfigTWMain),
+    "Filters": (0,_util_Filters__WEBPACK_IMPORTED_MODULE_8__.Filters)(fullConfigTWMain),
+    "Tables": (0,_util_Tables__WEBPACK_IMPORTED_MODULE_9__.Tables)(fullConfigTWMain),
+    "Transition": (0,_util_Transition__WEBPACK_IMPORTED_MODULE_10__.Transition)(fullConfigTWMain),
+    "Transform": (0,_util_Transform__WEBPACK_IMPORTED_MODULE_11__.Transform)(fullConfigTWMain),
+    "Interactivity": (0,_util_Interactivity__WEBPACK_IMPORTED_MODULE_12__.Interactivity)(fullConfigTWMain),
+    "Svg": (0,_util_Svg__WEBPACK_IMPORTED_MODULE_13__.Svg)(fullConfigTWMain),
+    "Divide": (0,_util_Divide__WEBPACK_IMPORTED_MODULE_14__.Divide)(fullConfigTWMain),
+    "Outline": (0,_util_Outline__WEBPACK_IMPORTED_MODULE_15__.Outline)(fullConfigTWMain)
   };
 
   for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
@@ -11181,6 +11199,248 @@ var textColor = function textColor(fullConfigTW, data) {
       });
     }
   });
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundAttachment.js":
+/*!***********************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Background/BackgroundAttachment.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackgroundAttachment": () => (/* binding */ BackgroundAttachment)
+/* harmony export */ });
+var BackgroundAttachment = function BackgroundAttachment(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'bg-attachment';
+  var prefixPosition = ['fixed', 'local', 'scroll'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundClip.js":
+/*!*****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Background/BackgroundClip.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackgroundClip": () => (/* binding */ BackgroundClip)
+/* harmony export */ });
+var BackgroundClip = function BackgroundClip(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'bg-clip';
+  var prefixPosition = ['border', 'content', 'padding', 'text'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundColor.js":
+/*!******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Background/BackgroundColor.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackgroundColor": () => (/* binding */ BackgroundColor)
+/* harmony export */ });
+/* harmony import */ var _Colors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Colors */ "./web/assets/encore/js/tailwindJSON/util/Colors/index.js");
+
+var BackgroundColor = function BackgroundColor(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'bg';
+  var prefixPosition = (0,_Colors__WEBPACK_IMPORTED_MODULE_0__.Colors)(fullConfigTW);
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundImage.js":
+/*!******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Background/BackgroundImage.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackgroundImage": () => (/* binding */ BackgroundImage)
+/* harmony export */ });
+var BackgroundImage = function BackgroundImage(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'bg-grandient';
+  var prefixPosition = ['to-t', 'to-tr', 'to-r', 'to-br', 'to-b', 'to-bl', 'to-l', 'to-tl'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundPosition.js":
+/*!*********************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Background/BackgroundPosition.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackgroundPosition": () => (/* binding */ BackgroundPosition)
+/* harmony export */ });
+var BackgroundPosition = function BackgroundPosition(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'bg-position';
+  var prefixPosition = ['center', 'top', 'right', 'bottom', 'left'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundRepeat.js":
+/*!*******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Background/BackgroundRepeat.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackgroundRepeat": () => (/* binding */ BackgroundRepeat)
+/* harmony export */ });
+var BackgroundRepeat = function BackgroundRepeat(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'bg-repeat';
+  var prefixPosition = ['repeat', 'no-repeat', 'repeat-x', 'repeat-y', 'repeat-round', 'repeat-space'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundSize.js":
+/*!*****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Background/BackgroundSize.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackgroundSize": () => (/* binding */ BackgroundSize)
+/* harmony export */ });
+var BackgroundSize = function BackgroundSize(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'bg';
+  var prefixPosition = ['repeat', 'no-repeat', 'repeat-x', 'repeat-y', 'repeat-round', 'repeat-space'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Background/index.js":
+/*!********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Background/index.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Backgrounds": () => (/* binding */ Backgrounds)
+/* harmony export */ });
+/* harmony import */ var _BackgroundAttachment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BackgroundAttachment */ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundAttachment.js");
+/* harmony import */ var _BackgroundClip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BackgroundClip */ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundClip.js");
+/* harmony import */ var _BackgroundColor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BackgroundColor */ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundColor.js");
+/* harmony import */ var _BackgroundImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BackgroundImage */ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundImage.js");
+/* harmony import */ var _BackgroundPosition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./BackgroundPosition */ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundPosition.js");
+/* harmony import */ var _BackgroundRepeat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./BackgroundRepeat */ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundRepeat.js");
+/* harmony import */ var _BackgroundSize__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./BackgroundSize */ "./web/assets/encore/js/tailwindJSON/util/Background/BackgroundSize.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var Backgrounds = function Backgrounds(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "backgroundAttachment": (0,_BackgroundAttachment__WEBPACK_IMPORTED_MODULE_0__.BackgroundAttachment)(fullConfigTWMain),
+    "backgroundClip": (0,_BackgroundClip__WEBPACK_IMPORTED_MODULE_1__.BackgroundClip)(fullConfigTWMain),
+    "backgroundColor": (0,_BackgroundColor__WEBPACK_IMPORTED_MODULE_2__.BackgroundColor)(fullConfigTWMain),
+    "backgroundImage": (0,_BackgroundImage__WEBPACK_IMPORTED_MODULE_3__.BackgroundImage)(fullConfigTWMain),
+    "backgroundPosition": (0,_BackgroundPosition__WEBPACK_IMPORTED_MODULE_4__.BackgroundPosition)(fullConfigTWMain),
+    "backgroundRepeat": (0,_BackgroundRepeat__WEBPACK_IMPORTED_MODULE_5__.BackgroundRepeat)(fullConfigTWMain),
+    "backgroundSize": (0,_BackgroundSize__WEBPACK_IMPORTED_MODULE_6__.BackgroundSize)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
   return dataPush;
 };
 
@@ -11511,6 +11771,740 @@ var Divide = function Divide(fullConfigTW) {
   var fullConfigTWMain = fullConfigTW;
   var ObjTW = {
     "divideWidth": (0,_DivideWidth__WEBPACK_IMPORTED_MODULE_0__.DivideWidth)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Effects/BackgroundBlendMode.js":
+/*!*******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Effects/BackgroundBlendMode.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackgroundBlendMode": () => (/* binding */ BackgroundBlendMode)
+/* harmony export */ });
+var BackgroundBlendMode = function BackgroundBlendMode(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'bg-blend';
+  var prefixPosition = ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Effects/BoxShadow.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Effects/BoxShadow.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BoxShadow": () => (/* binding */ BoxShadow)
+/* harmony export */ });
+var BoxShadow = function BoxShadow(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'shadow';
+  var prefixPosition = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', 'inner', 'outline', 'none'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Effects/BoxShadowColor.js":
+/*!**************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Effects/BoxShadowColor.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BoxShadowColor": () => (/* binding */ BoxShadowColor)
+/* harmony export */ });
+/* harmony import */ var _Colors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Colors */ "./web/assets/encore/js/tailwindJSON/util/Colors/index.js");
+
+var BoxShadowColor = function BoxShadowColor(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'shadow';
+  var prefixPosition = (0,_Colors__WEBPACK_IMPORTED_MODULE_0__.Colors)(fullConfigTW);
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Effects/MixBlendMode.js":
+/*!************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Effects/MixBlendMode.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MixBlendMode": () => (/* binding */ MixBlendMode)
+/* harmony export */ });
+var MixBlendMode = function MixBlendMode(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'mix-blend-mode';
+  var prefixPosition = ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Effects/Opacity.js":
+/*!*******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Effects/Opacity.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Opacity": () => (/* binding */ Opacity)
+/* harmony export */ });
+var Opacity = function Opacity(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'opacity';
+  var prefixPosition = ['0', '5', '10', '20', '25', '30', '40', '50', '60', '70', '75', '80', '90', '95', '100'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Effects/index.js":
+/*!*****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Effects/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Effects": () => (/* binding */ Effects)
+/* harmony export */ });
+/* harmony import */ var _BoxShadow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BoxShadow */ "./web/assets/encore/js/tailwindJSON/util/Effects/BoxShadow.js");
+/* harmony import */ var _Opacity__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Opacity */ "./web/assets/encore/js/tailwindJSON/util/Effects/Opacity.js");
+/* harmony import */ var _BoxShadowColor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BoxShadowColor */ "./web/assets/encore/js/tailwindJSON/util/Effects/BoxShadowColor.js");
+/* harmony import */ var _MixBlendMode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MixBlendMode */ "./web/assets/encore/js/tailwindJSON/util/Effects/MixBlendMode.js");
+/* harmony import */ var _BackgroundBlendMode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./BackgroundBlendMode */ "./web/assets/encore/js/tailwindJSON/util/Effects/BackgroundBlendMode.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var Effects = function Effects(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "BoxShadow": (0,_BoxShadow__WEBPACK_IMPORTED_MODULE_0__.BoxShadow)(fullConfigTWMain),
+    "Opacity": (0,_Opacity__WEBPACK_IMPORTED_MODULE_1__.Opacity)(fullConfigTWMain),
+    "BoxShadowColor": (0,_BoxShadowColor__WEBPACK_IMPORTED_MODULE_2__.BoxShadowColor)(fullConfigTWMain),
+    "MixBlendMode": (0,_MixBlendMode__WEBPACK_IMPORTED_MODULE_3__.MixBlendMode)(fullConfigTWMain),
+    "BackgroundBlendMode": (0,_BackgroundBlendMode__WEBPACK_IMPORTED_MODULE_4__.BackgroundBlendMode)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropBlur.js":
+/*!************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropBlur.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropBlur": () => (/* binding */ BackdropBlur)
+/* harmony export */ });
+var BackdropBlur = function BackdropBlur(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-blur';
+  var prefixPosition = ['0', ''];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropBrightness.js":
+/*!******************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropBrightness.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropBrightness": () => (/* binding */ BackdropBrightness)
+/* harmony export */ });
+var BackdropBrightness = function BackdropBrightness(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-brightness';
+  var prefixPosition = ['0', '50', '75', '90', '95', '100', '105', '110', '125', '150', '200'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropConstrast.js":
+/*!*****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropConstrast.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropConstrast": () => (/* binding */ BackdropConstrast)
+/* harmony export */ });
+var BackdropConstrast = function BackdropConstrast(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-contrast';
+  var prefixPosition = ['0', '50', '75', '100', '125', '150', '200'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropGrayScale.js":
+/*!*****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropGrayScale.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropGrayScale": () => (/* binding */ BackdropGrayScale)
+/* harmony export */ });
+var BackdropGrayScale = function BackdropGrayScale(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-grayscale';
+  var prefixPosition = ['0', ''];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropHueRotate.js":
+/*!*****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropHueRotate.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropHueRotate": () => (/* binding */ BackdropHueRotate)
+/* harmony export */ });
+var BackdropHueRotate = function BackdropHueRotate(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-hue-rotate';
+  var prefixPosition = ['0', '15', '30', '45', '60', '75', '90', '180'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropInvert.js":
+/*!**************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropInvert.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropInvert": () => (/* binding */ BackdropInvert)
+/* harmony export */ });
+var BackdropInvert = function BackdropInvert(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-invert';
+  var prefixPosition = ['0', ''];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropOpacity.js":
+/*!***************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropOpacity.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropOpacity": () => (/* binding */ BackdropOpacity)
+/* harmony export */ });
+var BackdropOpacity = function BackdropOpacity(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-opacity';
+  var prefixPosition = ['0', '5', '10', '20', '25', '30', '40', '50', '60', '70', '75', '80', '90', '95', '100'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropSaturate.js":
+/*!****************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropSaturate.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropSaturate": () => (/* binding */ BackdropSaturate)
+/* harmony export */ });
+var BackdropSaturate = function BackdropSaturate(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-saturate';
+  var prefixPosition = ['0', '50', '100', '150', '200'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropSepia.js":
+/*!*************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/BackdropSepia.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BackdropSepia": () => (/* binding */ BackdropSepia)
+/* harmony export */ });
+var BackdropSepia = function BackdropSepia(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'backdrop-sepia';
+  var prefixPosition = ['0', ''];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/Blur.js":
+/*!****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/Blur.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Blur": () => (/* binding */ Blur)
+/* harmony export */ });
+var Blur = function Blur(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'blur';
+  var prefixPosition = ['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/Brightness.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/Brightness.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Brightness": () => (/* binding */ Brightness)
+/* harmony export */ });
+var Brightness = function Brightness(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'brightness';
+  var prefixPosition = ['50', '75', '90', '95', '100', '105', '110', '125', '150', '200'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/Constrast.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/Constrast.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Constrast": () => (/* binding */ Constrast)
+/* harmony export */ });
+var Constrast = function Constrast(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'constrast';
+  var prefixPosition = ['50', '75', '90', '95', '100', '105', '110', '125', '150', '200'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/DropShadow.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/DropShadow.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "DropShadow": () => (/* binding */ DropShadow)
+/* harmony export */ });
+var DropShadow = function DropShadow(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'drop-shadow';
+  var prefixPosition = ['none', 'sm', 'md', 'lg', 'xl', '2xl'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/Grayscale.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/Grayscale.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Grayscale": () => (/* binding */ Grayscale)
+/* harmony export */ });
+var Grayscale = function Grayscale(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'grayscale';
+  var prefixPosition = ['0', ''];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/HueRotate.js":
+/*!*********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/HueRotate.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "HueRotate": () => (/* binding */ HueRotate)
+/* harmony export */ });
+var HueRotate = function HueRotate(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'hue-rotate';
+  var prefixPosition = ['0', '15', '30', '45', '60', '75', '90', '180'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/Invert.js":
+/*!******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/Invert.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Invert": () => (/* binding */ Invert)
+/* harmony export */ });
+var Invert = function Invert(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'invert';
+  var prefixPosition = ['0', ''];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/Saturate.js":
+/*!********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/Saturate.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Saturate": () => (/* binding */ Saturate)
+/* harmony export */ });
+var Saturate = function Saturate(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'saturate';
+  var prefixPosition = ['0', '50', '100', '150', '200'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/Sepia.js":
+/*!*****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/Sepia.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Sepia": () => (/* binding */ Sepia)
+/* harmony export */ });
+var Sepia = function Sepia(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'sepia';
+  var prefixPosition = ['0', ''];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Filters/index.js":
+/*!*****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Filters/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Filters": () => (/* binding */ Filters)
+/* harmony export */ });
+/* harmony import */ var _Blur__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Blur */ "./web/assets/encore/js/tailwindJSON/util/Filters/Blur.js");
+/* harmony import */ var _Brightness__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Brightness */ "./web/assets/encore/js/tailwindJSON/util/Filters/Brightness.js");
+/* harmony import */ var _Constrast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Constrast */ "./web/assets/encore/js/tailwindJSON/util/Filters/Constrast.js");
+/* harmony import */ var _DropShadow__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DropShadow */ "./web/assets/encore/js/tailwindJSON/util/Filters/DropShadow.js");
+/* harmony import */ var _Grayscale__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Grayscale */ "./web/assets/encore/js/tailwindJSON/util/Filters/Grayscale.js");
+/* harmony import */ var _HueRotate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./HueRotate */ "./web/assets/encore/js/tailwindJSON/util/Filters/HueRotate.js");
+/* harmony import */ var _Invert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Invert */ "./web/assets/encore/js/tailwindJSON/util/Filters/Invert.js");
+/* harmony import */ var _Saturate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Saturate */ "./web/assets/encore/js/tailwindJSON/util/Filters/Saturate.js");
+/* harmony import */ var _Sepia__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Sepia */ "./web/assets/encore/js/tailwindJSON/util/Filters/Sepia.js");
+/* harmony import */ var _BackdropBlur__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./BackdropBlur */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropBlur.js");
+/* harmony import */ var _BackdropBrightness__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./BackdropBrightness */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropBrightness.js");
+/* harmony import */ var _BackdropConstrast__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./BackdropConstrast */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropConstrast.js");
+/* harmony import */ var _BackdropGrayScale__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./BackdropGrayScale */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropGrayScale.js");
+/* harmony import */ var _BackdropHueRotate__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./BackdropHueRotate */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropHueRotate.js");
+/* harmony import */ var _BackdropInvert__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./BackdropInvert */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropInvert.js");
+/* harmony import */ var _BackdropOpacity__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./BackdropOpacity */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropOpacity.js");
+/* harmony import */ var _BackdropSaturate__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./BackdropSaturate */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropSaturate.js");
+/* harmony import */ var _BackdropSepia__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./BackdropSepia */ "./web/assets/encore/js/tailwindJSON/util/Filters/BackdropSepia.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Filters = function Filters(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "Blur": (0,_Blur__WEBPACK_IMPORTED_MODULE_0__.Blur)(fullConfigTWMain),
+    "Brightness": (0,_Brightness__WEBPACK_IMPORTED_MODULE_1__.Brightness)(fullConfigTWMain),
+    "Constrast": (0,_Constrast__WEBPACK_IMPORTED_MODULE_2__.Constrast)(fullConfigTWMain),
+    "DropShadow": (0,_DropShadow__WEBPACK_IMPORTED_MODULE_3__.DropShadow)(fullConfigTWMain),
+    "Grayscale": (0,_Grayscale__WEBPACK_IMPORTED_MODULE_4__.Grayscale)(fullConfigTWMain),
+    "HueRotate": (0,_HueRotate__WEBPACK_IMPORTED_MODULE_5__.HueRotate)(fullConfigTWMain),
+    "Invert": (0,_Invert__WEBPACK_IMPORTED_MODULE_6__.Invert)(fullConfigTWMain),
+    "Saturate": (0,_Saturate__WEBPACK_IMPORTED_MODULE_7__.Saturate)(fullConfigTWMain),
+    "Sepia": (0,_Sepia__WEBPACK_IMPORTED_MODULE_8__.Sepia)(fullConfigTWMain),
+    "BackdropBlur": (0,_BackdropBlur__WEBPACK_IMPORTED_MODULE_9__.BackdropBlur)(fullConfigTWMain),
+    "BackdropBrightness": (0,_BackdropBrightness__WEBPACK_IMPORTED_MODULE_10__.BackdropBrightness)(fullConfigTWMain),
+    "BackdropConstrast": (0,_BackdropConstrast__WEBPACK_IMPORTED_MODULE_11__.BackdropConstrast)(fullConfigTWMain),
+    "BackdropGrayScale": (0,_BackdropGrayScale__WEBPACK_IMPORTED_MODULE_12__.BackdropGrayScale)(fullConfigTWMain),
+    "BackdropHueRotate": (0,_BackdropHueRotate__WEBPACK_IMPORTED_MODULE_13__.BackdropHueRotate)(fullConfigTWMain),
+    "BackdropInvert": (0,_BackdropInvert__WEBPACK_IMPORTED_MODULE_14__.BackdropInvert)(fullConfigTWMain),
+    "BackdropOpacity": (0,_BackdropOpacity__WEBPACK_IMPORTED_MODULE_15__.BackdropOpacity)(fullConfigTWMain),
+    "BackdropSaturate": (0,_BackdropSaturate__WEBPACK_IMPORTED_MODULE_16__.BackdropSaturate)(fullConfigTWMain),
+    "BackdropSepia": (0,_BackdropSepia__WEBPACK_IMPORTED_MODULE_17__.BackdropSepia)(fullConfigTWMain)
   };
 
   for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
@@ -13273,6 +14267,477 @@ var Outline = function Outline(fullConfigTW) {
 
 /***/ }),
 
+/***/ "./web/assets/encore/js/tailwindJSON/util/Sizing/Height.js":
+/*!*****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Sizing/Height.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Height": () => (/* binding */ Height)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Height = function Height(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['h'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.height); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Sizing/MaxHeight.js":
+/*!********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Sizing/MaxHeight.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MaxHeight": () => (/* binding */ MaxHeight)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var MaxHeight = function MaxHeight(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['max-h'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.maxHeight); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Sizing/MaxWidth.js":
+/*!*******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Sizing/MaxWidth.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MaxWidth": () => (/* binding */ MaxWidth)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var MaxWidth = function MaxWidth(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['max-w'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.maxWidth); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Sizing/MinHeight.js":
+/*!********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Sizing/MinHeight.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MinHeight": () => (/* binding */ MinHeight)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var MinHeight = function MinHeight(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['min-h'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.minHeight); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Sizing/MinWidth.js":
+/*!*******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Sizing/MinWidth.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MinWidth": () => (/* binding */ MinWidth)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var MinWidth = function MinWidth(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['min-w'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.minWidth); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Sizing/Width.js":
+/*!****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Sizing/Width.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Width": () => (/* binding */ Width)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Width = function Width(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['w'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.width); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Sizing/index.js":
+/*!****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Sizing/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Sizing": () => (/* binding */ Sizing)
+/* harmony export */ });
+/* harmony import */ var _Width__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Width */ "./web/assets/encore/js/tailwindJSON/util/Sizing/Width.js");
+/* harmony import */ var _MinWidth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MinWidth */ "./web/assets/encore/js/tailwindJSON/util/Sizing/MinWidth.js");
+/* harmony import */ var _MaxWidth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MaxWidth */ "./web/assets/encore/js/tailwindJSON/util/Sizing/MaxWidth.js");
+/* harmony import */ var _Height__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Height */ "./web/assets/encore/js/tailwindJSON/util/Sizing/Height.js");
+/* harmony import */ var _MinHeight__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MinHeight */ "./web/assets/encore/js/tailwindJSON/util/Sizing/MinHeight.js");
+/* harmony import */ var _MaxHeight__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./MaxHeight */ "./web/assets/encore/js/tailwindJSON/util/Sizing/MaxHeight.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var Sizing = function Sizing(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "Width": (0,_Width__WEBPACK_IMPORTED_MODULE_0__.Width)(fullConfigTWMain),
+    "MinWidth": (0,_MinWidth__WEBPACK_IMPORTED_MODULE_1__.MinWidth)(fullConfigTWMain),
+    "MaxWidth": (0,_MaxWidth__WEBPACK_IMPORTED_MODULE_2__.MaxWidth)(fullConfigTWMain),
+    "Height": (0,_Height__WEBPACK_IMPORTED_MODULE_3__.Height)(fullConfigTWMain),
+    "MinHeight": (0,_MinHeight__WEBPACK_IMPORTED_MODULE_4__.MinHeight)(fullConfigTWMain),
+    "MaxHeight": (0,_MaxHeight__WEBPACK_IMPORTED_MODULE_5__.MaxHeight)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Spacing/Margin.js":
+/*!******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Spacing/Margin.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Margin": () => (/* binding */ Margin)
+/* harmony export */ });
+var Margin = function Margin(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['m', 'mt', 'mr', 'mb', 'ml', 'mx', 'my'];
+
+  for (var i = 0; i < prefix.length; i++) {
+    var prefixPosition = fullConfigTW.theme.spacing;
+    var prefixPosition = Object.keys(prefixPosition).length;
+
+    for (var j = 0; j < prefixPosition; j++) {
+      console.log(prefix[i] + "-" + fullConfigTW.theme.spacing[j]);
+      dataPush.push(prefix[i] + "-" + prefixPosition[j]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Spacing/Padding.js":
+/*!*******************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Spacing/Padding.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Padding": () => (/* binding */ Padding)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Padding = function Padding(fullConfigTW) {
+  var dataPush = [];
+  var prefix = ['p', 'px', 'py', 'pt', 'pb', 'pl', 'pr'];
+  var name = 'padding';
+
+  for (var i = 0; i < prefix.length; i++) {
+    for (var _i = 0, _Object$entries = Object.entries(fullConfigTW.theme.spacing); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          value = _Object$entries$_i[1];
+
+      dataPush.push(prefix[i] + '-' + key);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Spacing/SpaceBetween.js":
+/*!************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Spacing/SpaceBetween.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SpaceBetween": () => (/* binding */ SpaceBetween)
+/* harmony export */ });
+var SpaceBetween = function SpaceBetween(fullConfigTW) {
+  var dataPush = [];
+  var prefix = "space-x-";
+  var data = fullConfigTW.theme.spacing;
+
+  for (var key in data) {
+    dataPush.push(prefix + key);
+  }
+
+  prefix = "space-y-";
+
+  for (var key in data) {
+    dataPush.push(prefix + key);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Spacing/index.js":
+/*!*****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Spacing/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Spacing": () => (/* binding */ Spacing)
+/* harmony export */ });
+/* harmony import */ var _Margin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Margin */ "./web/assets/encore/js/tailwindJSON/util/Spacing/Margin.js");
+/* harmony import */ var _Padding__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Padding */ "./web/assets/encore/js/tailwindJSON/util/Spacing/Padding.js");
+/* harmony import */ var _SpaceBetween__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SpaceBetween */ "./web/assets/encore/js/tailwindJSON/util/Spacing/SpaceBetween.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var Spacing = function Spacing(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "Margin": (0,_Margin__WEBPACK_IMPORTED_MODULE_0__.Margin)(fullConfigTWMain),
+    "Padding": (0,_Padding__WEBPACK_IMPORTED_MODULE_1__.Padding)(fullConfigTWMain),
+    "SpaceBetween": (0,_SpaceBetween__WEBPACK_IMPORTED_MODULE_2__.SpaceBetween)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
 /***/ "./web/assets/encore/js/tailwindJSON/util/Svg/Fill.js":
 /*!************************************************************!*\
   !*** ./web/assets/encore/js/tailwindJSON/util/Svg/Fill.js ***!
@@ -13391,6 +14856,106 @@ var Svg = function Svg(fullConfigTW) {
     "Fill": (0,_Fill__WEBPACK_IMPORTED_MODULE_0__.Fill)(fullConfigTWMain),
     "Stroke": (0,_Stroke__WEBPACK_IMPORTED_MODULE_1__.Stroke)(fullConfigTWMain),
     "StrokeWidth": (0,_StrokeWidth__WEBPACK_IMPORTED_MODULE_2__.StrokeWidth)(fullConfigTWMain)
+  };
+
+  for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    for (var i = 0; i < value.length; i++) {
+      dataPush.push(value[i]);
+    }
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Tables/BorderCollapse.js":
+/*!*************************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Tables/BorderCollapse.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BorderCollapse": () => (/* binding */ BorderCollapse)
+/* harmony export */ });
+var BorderCollapse = function BorderCollapse(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'border-collapse';
+  var prefixPosition = ['collapse', 'separate'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Tables/TableLayout.js":
+/*!**********************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Tables/TableLayout.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "TableLayout": () => (/* binding */ TableLayout)
+/* harmony export */ });
+var TableLayout = function TableLayout(fullConfigTW) {
+  var dataPush = [];
+  var prefix = 'table-layout';
+  var prefixPosition = ['auto', 'fixed'];
+
+  for (var i = 0; i < prefixPosition.length; i++) {
+    dataPush.push(prefix + '-' + prefixPosition[i]);
+  }
+
+  return dataPush;
+};
+
+/***/ }),
+
+/***/ "./web/assets/encore/js/tailwindJSON/util/Tables/index.js":
+/*!****************************************************************!*\
+  !*** ./web/assets/encore/js/tailwindJSON/util/Tables/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Tables": () => (/* binding */ Tables)
+/* harmony export */ });
+/* harmony import */ var _TableLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TableLayout */ "./web/assets/encore/js/tailwindJSON/util/Tables/TableLayout.js");
+/* harmony import */ var _BorderCollapse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BorderCollapse */ "./web/assets/encore/js/tailwindJSON/util/Tables/BorderCollapse.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var Tables = function Tables(fullConfigTW) {
+  var dataPush = [];
+  var fullConfigTWMain = fullConfigTW;
+  var ObjTW = {
+    "TableLayout": (0,_TableLayout__WEBPACK_IMPORTED_MODULE_0__.TableLayout)(fullConfigTWMain),
+    "BorderCollapse": (0,_BorderCollapse__WEBPACK_IMPORTED_MODULE_1__.BorderCollapse)(fullConfigTWMain)
   };
 
   for (var _i = 0, _Object$entries = Object.entries(ObjTW); _i < _Object$entries.length; _i++) {
@@ -40176,6 +41741,9 @@ function setSnackBar(message) {
     div.remove();
   }, 3000);
 } //trigger-color-click but hover
+
+
+console.log((0,_tailwindJSON_index__WEBPACK_IMPORTED_MODULE_9__.mainMasterData)(tailwindcss_resolveConfig__WEBPACK_IMPORTED_MODULE_1___default()(fullConfigTW), dataMaster));
 })();
 
 /******/ })()

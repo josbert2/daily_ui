@@ -1,4 +1,4 @@
-export const BackdropContrast = (fullConfigTW) => {
+export const BackdropConstrast = (fullConfigTW) => {
    var dataPush = []
 
    var prefix = 'backdrop-contrast'

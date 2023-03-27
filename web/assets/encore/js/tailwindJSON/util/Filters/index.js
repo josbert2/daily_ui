@@ -1,17 +1,16 @@
 import { Blur } from './Blur'
 import { Brightness } from './Brightness'
-import { Contrast } from './Contrast'
+import { Constrast } from './Constrast'
 import { DropShadow } from './DropShadow'
 import { Grayscale } from './Grayscale'
 import { HueRotate } from './HueRotate'
 import { Invert } from './Invert'
-import { Opacity } from './Opacity'
 import { Saturate } from './Saturate'
 import { Sepia } from './Sepia'
 import { BackdropBlur } from './BackdropBlur'
 import { BackdropBrightness } from './BackdropBrightness'
-import { BackdropContrast } from './BackdropContrast'
-import { BackdropGrayscale } from './BackdropGrayscale'
+import { BackdropConstrast } from './BackdropConstrast'
+import { BackdropGrayScale } from './BackdropGrayScale'
 import { BackdropHueRotate } from './BackdropHueRotate'
 import { BackdropInvert } from './BackdropInvert'
 import { BackdropOpacity } from './BackdropOpacity'
@@ -20,25 +19,24 @@ import { BackdropSepia } from './BackdropSepia'
 
 
 
-export const Tables = (fullConfigTW) => {
+export const Filters = (fullConfigTW) => {
       var dataPush = []
       var fullConfigTWMain = fullConfigTW
    
       const ObjTW = {
          "Blur": Blur(fullConfigTWMain),
          "Brightness": Brightness(fullConfigTWMain),
-         "Contrast": Contrast(fullConfigTWMain),
+         "Constrast": Constrast(fullConfigTWMain),
          "DropShadow": DropShadow(fullConfigTWMain),
          "Grayscale": Grayscale(fullConfigTWMain),
          "HueRotate": HueRotate(fullConfigTWMain),
          "Invert": Invert(fullConfigTWMain),
-         "Opacity": Opacity(fullConfigTWMain),
          "Saturate": Saturate(fullConfigTWMain),
          "Sepia": Sepia(fullConfigTWMain),
          "BackdropBlur": BackdropBlur(fullConfigTWMain),
          "BackdropBrightness": BackdropBrightness(fullConfigTWMain),
-         "BackdropContrast": BackdropContrast(fullConfigTWMain),
-         "BackdropGrayscale": BackdropGrayscale(fullConfigTWMain),
+         "BackdropConstrast": BackdropConstrast(fullConfigTWMain),
+         "BackdropGrayScale": BackdropGrayScale(fullConfigTWMain),
          "BackdropHueRotate": BackdropHueRotate(fullConfigTWMain),
          "BackdropInvert": BackdropInvert(fullConfigTWMain),
          "BackdropOpacity": BackdropOpacity(fullConfigTWMain),
