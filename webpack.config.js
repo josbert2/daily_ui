@@ -100,7 +100,7 @@ Encore
         {
             host: "localhost",
             port: 3000,
-            proxy: process.env.PROXY,
+            proxy: "http://127.0.0.1:8000/",
             files: [
                 {
                    match: ["app/Resources/views/**/*.twig"],
@@ -122,7 +122,7 @@ Encore
     
             reload: true,
         }
-    ))
+   ))
 
 const wenly = Encore.getWebpackConfig();
 wenly.name = 'wenly';
