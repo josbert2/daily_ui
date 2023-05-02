@@ -262,6 +262,14 @@ class inspectTw{
                        
                        allList[i].classList.add("select-item");
                        allList[i].setAttribute("data-value", allList[i].innerHTML);
+
+                        if (e.keyCode == 40 || e.keyCode == 38) {
+                            allList[i].classList.add("no-hover");
+                        } else {
+                            allList[i].classList.remove("no-hover");
+                        }
+
+
                        if (allList[i].textContent.indexOf('bg-') > -1) {
                            var span = document.createElement('span')
                            var clases = allList[i].textContent
@@ -276,7 +284,7 @@ class inspectTw{
            }else{
                if (e.keyCode == 40) {
                    this.indexSelect++
-                   if (indexSelect >= document.querySelectorAll('.select-item').length) {
+                   if (this.indexSelect >= document.querySelectorAll('.select-item').length) {
                     this.indexSelect = 0
                    }
    
